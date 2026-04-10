@@ -1,0 +1,203 @@
+\chapter{System Architecture and Design}
+
+\section{Introduction}
+
+This chapter presents the overall architecture and design of the proposed intelligent carpooling platform. It focuses on the structural organization of the system, the interactions between its components, and the key design decisions that guided its development.
+
+The objective of this chapter is to provide a comprehensive understanding of how the system is structured prior to implementation. It includes a global architectural overview, a detailed description of system components, and modeling through use case and class diagrams. Additionally, the data flow within the system is analyzed to illustrate how information is processed and exchanged.
+
+\section{Global System Architecture}
+
+The proposed system follows a layered architecture composed of three main components: the frontend, the backend, and the data layer. This separation ensures modularity, scalability, and maintainability.
+
+\begin{itemize}
+    \item \textbf{Frontend Layer:} A mobile application developed using Flutter, responsible for user interaction and interface rendering.
+    \item \textbf{Backend Layer:} A server implemented using Flask, acting as the core processing layer of the system. It handles business logic, intelligent matching, and machine learning operations.
+    \item \textbf{Data Layer:} A PostgreSQL database used to store and manage system data efficiently.
+\end{itemize}
+
+The interaction between these components is illustrated in Figure~\ref{fig:global_architecture}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/architecture/global_architecture.png}
+    \caption{Global System Architecture}
+    \label{fig:global_architecture}
+\end{figure}
+
+The architecture illustrated in Figure~\ref{fig:global_architecture} highlights the layered organization of the system and the interactions between its components.
+
+The mobile application serves as the entry point for user interactions, sending HTTP requests to the backend through RESTful APIs and receiving structured JSON responses. Real-time communication is ensured through WebSocket connections, enabling instant updates such as notifications and ride status changes.
+
+The backend represents the core processing layer of the system. It integrates multiple responsibilities, including request handling, business logic execution, intelligent matching based on geospatial analysis, and machine learning-based prediction. This centralized design ensures consistency and efficient coordination between system components.
+
+The backend interacts with the PostgreSQL database through SQL queries to store and retrieve persistent data. Additionally, it communicates with external geospatial services, specifically OSRM, to obtain routing and distance information required for ride matching.
+
+This architecture ensures a clear separation of concerns while maintaining efficient communication between components, supporting scalability and modular system evolution.
+
+This architecture follows a centralized processing model where the backend acts as the core orchestrator of all system operations, ensuring consistency and coordination across components.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Component} & \textbf{Technology} & \textbf{Role} \\
+\hline
+Frontend & Flutter & User interface and interaction \\
+Backend & Flask & Business logic and API management \\
+Database & PostgreSQL & Data storage and management \\
+External Services & OSRM / OSM & Route computation and geospatial data \\
+\hline
+\end{tabular}
+\caption{System Components Overview}
+\end{table}
+
+\section{Architectural Design Decisions}
+
+Several design decisions were made to ensure that the system meets both functional and non-functional requirements.
+
+\subsection{Layered Architecture}
+
+A layered architecture was adopted to separate concerns between the user interface, business logic, and data management. This approach improves maintainability and allows independent evolution of system components.
+
+\subsection{Client-Server Model}
+
+The system follows a client-server architecture, where the frontend communicates with the backend through RESTful APIs. This design enables scalability and supports multiple clients.
+
+\subsection{Technology Selection Rationale}
+
+The choice of technologies was driven by system requirements. Flask provides flexibility for backend logic, Flutter enables cross-platform mobile development, and PostgreSQL ensures reliable and efficient data management.
+
+\subsection{Trade-offs}
+
+Design decisions involved several trade-offs:
+
+\begin{itemize}
+    \item Simplicity vs.\ scalability: A lightweight framework (Flask) was chosen to balance ease of development and extensibility.
+    \item Performance vs.\ flexibility: The system prioritizes flexible ride matching over rigid optimization strategies.
+    \item Modularity vs.\ complexity: The layered architecture increases modularity while introducing additional system abstraction.
+\end{itemize}
+
+\section{System Components Description}
+
+\subsection{Frontend Layer}
+
+The frontend is implemented as a mobile application using Flutter. It provides an intuitive user interface and manages all user interactions, including ride creation, ride search, booking, and notifications.
+
+The frontend communicates with the backend through HTTP requests and maintains real-time synchronization using WebSocket connections.
+
+\subsection{Backend Layer}
+
+The backend serves as the central processing unit of the system. It is responsible for handling incoming requests, executing business logic, and coordinating communication between system components.
+
+It integrates several functional modules, including:
+\begin{itemize}
+    \item REST API for client communication
+    \item Business logic layer
+    \item Geospatial matching engine
+    \item Machine learning prediction module
+\end{itemize}
+
+\subsection{Data Layer}
+
+The data layer is implemented using PostgreSQL. It manages persistent data storage, including users, rides, reservations, and system interactions.
+
+The database ensures data integrity, consistency, and efficient querying.
+
+\section{Global Use Case Diagram}
+
+The global use case diagram represents the interactions between users and the system.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/diagrams/use_case_global.png}
+    \caption{Global Use Case Diagram}
+    \label{fig:use_case}
+\end{figure}
+
+Figure~\ref{fig:use_case} presents the global use case diagram of the system, illustrating the interactions between users and the platform.
+
+Two primary actors are identified: the collaborator and the administrator. The collaborator represents the standard user, who can perform operations such as offering a ride, searching for rides, booking rides, managing their profile, and accessing notifications.
+
+The administrator is responsible for system supervision tasks, including monitoring activity, viewing analytics, managing user accounts, and ensuring system health.
+
+The use cases can be grouped into three main categories: user management, ride management, and system interaction. This classification highlights the modular organization of functionalities within the system and reflects the separation of concerns in the application design.
+
+Most functionalities require prior authentication, modeled through inclusion relationships with the authentication use case. This reflects the system’s reliance on secure enterprise authentication mechanisms.
+
+\section{Global Class Diagram}
+
+The global class diagram presents the main entities of the system and their relationships.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/diagrams/class_global.png}
+    \caption{Global Class Diagram}
+    \label{fig:class_diagram}
+\end{figure}
+
+Figure~\ref{fig:class_diagram} illustrates the global class diagram of the system.
+
+The central entity is the User class, which is specialized into Collaborator and Admin roles. This inheritance structure reflects different permissions and responsibilities.
+
+The Collaborator interacts with core entities such as Ride, Reservation, Notification, and Support Ticket.
+
+The Ride entity represents a carpooling offer, while the Reservation entity models booking operations. Notifications provide real-time feedback to users, and support tickets allow communication with system administrators.
+
+The Authentication component ensures secure access control.
+
+This class structure reflects a domain-driven design approach, where entities are organized around core business concepts such as users, rides, and reservations. This organization improves maintainability and aligns the system structure with real-world interactions.
+
+This structure promotes modularity and extensibility, allowing the system to evolve without disrupting existing components.
+
+\section{Data Flow Description}
+
+A typical system interaction scenario is described as follows:
+
+\begin{enumerate}
+    \item A collaborator initiates an action via the mobile application.
+    \item The frontend sends an HTTP request to the backend.
+    \item The backend processes the request using business logic and the matching engine.
+    \item The backend queries the PostgreSQL database if necessary.
+    \item The backend interacts with OSRM for geospatial computations.
+    \item The processed result is returned as a JSON response.
+    \item The frontend updates the interface accordingly.
+    \item Real-time updates are transmitted through WebSocket connections.
+\end{enumerate}
+
+\section{Integration of Intelligent Components}
+
+The system integrates intelligent components to enhance ride matching and user experience.
+
+The matching engine uses geospatial analysis to identify optimal ride overlaps, while the machine learning module analyzes historical data to predict commuting patterns.
+
+These components are tightly integrated into the backend while maintaining modular separation. Their detailed implementation is discussed in Chapter 4.
+
+\section{Communication and Security}
+
+Communication between system components is achieved through RESTful APIs and WebSocket protocols.
+
+Security is ensured through authentication mechanisms, access control, and secure data exchange, guaranteeing that only authorized users can access system functionalities.
+
+\section{Scalability and Maintainability Considerations}
+
+The architecture was designed with scalability and maintainability in mind.
+
+The separation of layers allows independent evolution of system components. The use of APIs enables integration with additional clients, and the modular backend design facilitates future enhancements.
+
+\section{System Constraints}
+
+The system operates under several constraints that influenced its design and implementation.
+
+\begin{itemize}
+    \item Dependency on external geospatial services (OSRM)
+    \item Network latency affecting real-time communication
+    \item Mobile device limitations such as battery consumption and connectivity variability
+    \item Limited availability of historical data for machine learning model training
+\end{itemize}
+
+\section{Conclusion}
+
+This chapter presented the architecture and design of the system, including its components, interactions, and modeling. It provides a solid foundation for understanding the implementation phase.
+
+The next chapter focuses on the detailed implementation of the system.

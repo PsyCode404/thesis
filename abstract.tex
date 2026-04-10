@@ -1,0 +1,20 @@
+\begingroup
+\setlength{\parskip}{6pt} % was 8pt globally
+\linespread{1.2} % slightly tighter than 1.25
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Urban commuting within corporate environments presents significant challenges, including high transportation costs, traffic congestion, and environmental impact due to single-occupancy vehicle usage. Traditional carpooling solutions often fail to address these issues effectively due to rigid pickup constraints and lack of intelligent coordination mechanisms.
+
+This project presents the design and implementation of an intelligent carpooling platform, developed as a full-stack system integrating mobile and backend technologies. The system enables employees within an organization to efficiently share rides through a structured and user-friendly mobile application. It incorporates real-time communication, dynamic ride management, and geospatial services to enhance coordination between drivers and passengers.
+
+A key contribution of this work is the development of a smart matching system based on geospatial route analysis. Unlike conventional approaches that rely on fixed pickup points, this system dynamically identifies optimal pickup locations along a driver's route using distance calculations and multi-factor scoring. This approach improves flexibility and increases the likelihood of successful matches.
+
+In addition, a machine learning-based subsystem is introduced to analyze historical commuting data and detect recurring travel patterns. By leveraging classification models, the system predicts the probability of user commutes and provides proactive ride suggestions, thereby enhancing user experience and engagement.
+
+The platform is implemented using a Flask-based backend, a Flutter mobile frontend, and PostgreSQL for data storage, with integration of external geospatial services such as OSRM and OpenStreetMap. Real-time features are enabled through WebSocket communication, ensuring continuous synchronization between users.
+
+The results demonstrate that combining rule-based intelligent matching with machine learning prediction significantly improves the efficiency and usability of carpooling systems. This work contributes to the field of intelligent transportation systems by proposing a hybrid approach that balances deterministic algorithms with data-driven insights.
+
+\textbf{Keywords:} Carpooling, Intelligent Transportation Systems, Geospatial Analysis, Machine Learning, Route Optimization, Real-Time Systems
+\endgroup

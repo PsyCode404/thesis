@@ -1,0 +1,147 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+% =============================
+% FIGURES (FIXED CLEAN VERSION)
+% =============================
+\usepackage{caption}
+\captionsetup{style=default}
+
+% =============================
+% PAGE SETTINGS
+% =============================
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% =============================
+% CORE PACKAGES
+% =============================
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{float}
+
+% =============================
+% HYPERREF
+% =============================
+\usepackage[hidelinks]{hyperref}
+
+% =============================
+% FONT & LANGUAGE
+% =============================
+\usepackage{fontspec}
+
+\setmainfont{Libertinus Serif}
+\setsansfont{Libertinus Sans}
+\setmonofont{Libertinus Mono}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{arabic}
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+
+% =============================
+% MATH & TABLES
+% =============================
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+
+% =============================
+% FIGURES (FIXED)
+% =============================
+\usepackage{caption}
+\captionsetup{compatibility=false}
+\usepackage{subcaption}
+
+% =============================
+% CODE
+% =============================
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single
+}
+
+% =============================
+% LINE SPACING
+% =============================
+\onehalfspacing
+
+% =============================
+% SAFE PAGE STYLE (NO fancyhdr)
+% =============================
+\pagestyle{plain}
+
+% =============================
+% CHAPTER STYLE
+% =============================
+\titleformat{\chapter}[display]
+  {\bfseries\Large}
+  {\filright\MakeUppercase{\chaptertitlename}\Huge\thechapter}
+  {2ex}
+  {\titlerule\vspace{1ex}\filcenter}
+  [\vspace{1ex}\titlerule]
+
+\titlespacing*{\chapter}{0pt}{-10pt}{30pt}
+
+% =============================
+% BIBLIOGRAPHY (FIXED)
+% =============================
+\usepackage[backend=biber,style=numeric]{biblatex}
+\DeclareLanguageMapping{arabic}{english}
+\addbibresource{references.bib}
+
+% =============================
+% DOCUMENT
+% =============================
+\begin{document}
+
+\pagenumbering{gobble}
+\input{cover}
+\clearpage
+
+\input{dedication}
+\clearpage
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{abstract}
+\clearpage
+
+\input{acknowledgment}
+\clearpage
+
+\input{acronyms}
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{introduction}
+\clearpage
+
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+
+\input{conclusion}
+\clearpage
+
+\printbibliography[title=References]
+
+\end{document}

@@ -1,0 +1,301 @@
+\chapter{Project Initiation}
+
+\section{Introduction}
+
+This chapter introduces the general context of the project and defines the framework in which it was carried out. It presents the host company, formulates the problem addressed, and analyzes existing solutions along with their limitations. Based on this analysis, the proposed solution is introduced and justified.
+
+In addition, the chapter details the system requirements, the technologies used, and the development methodology adopted throughout the project. It also presents the planning of development through Agile sprints and provides a high-level overview of the system architecture.
+
+This chapter establishes a solid foundation for the rest of the report by clearly defining the objectives, constraints, and design direction of the proposed system.
+
+\section{Host Company Presentation}
+
+This project was carried out within the framework of an end-of-studies internship at GExpertise, a company specialized in the development of digital solutions for enterprise environments.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/entreprise/LogoGexpertise.png}
+    \caption{GExpertise Company Logo}
+    \label{fig:gexpertise}
+\end{figure}
+
+GExpertise focuses on designing and implementing scalable, high-performance applications tailored to real-world business needs. Its expertise spans multiple domains, including web and mobile development, geospatial systems, and real-time data processing.
+
+The company operates in a highly dynamic environment where digital transformation plays a crucial role in improving operational efficiency and decision-making processes. Its development practices emphasize modular architecture, maintainability, and user-centered design.
+
+This professional setting provided an opportunity to work on a real-world problem, combining theoretical knowledge with practical implementation while adhering to industry standards and constraints.
+\section{Problem Statement}
+
+Corporate commuting represents a significant challenge, particularly in organizations where employees travel daily to a shared workplace. The widespread use of private vehicles leads to increased traffic congestion, higher transportation costs, and a considerable environmental impact.
+
+Although carpooling offers a promising solution, existing approaches remain limited in their effectiveness. The main issue lies in the lack of flexibility and intelligence in matching users, especially when their locations and schedules vary.
+
+Thus, the problem addressed in this project can be formulated as follows:
+
+\textit{How to design an intelligent, flexible, and scalable carpooling system capable of efficiently matching users within a real-world enterprise environment?}
+
+\section{Project Objectives}
+
+The main objective of this project is to design and implement an intelligent carpooling platform tailored for enterprise environments.
+
+To achieve this goal, several specific objectives were defined:
+
+\begin{itemize}
+    \item Develop a flexible ride-sharing system adapted to employee commuting patterns
+    \item Design an intelligent matching mechanism based on route overlap
+    \item Integrate machine learning techniques for commute prediction
+    \item Ensure real-time interaction between users
+    \item Provide a scalable and maintainable system architecture
+\end{itemize}
+
+These objectives guided the design and implementation decisions throughout the project.
+
+\section{Analysis of Existing Solutions}
+
+Several carpooling platforms have been developed to address transportation challenges, including widely known solutions such as BlaBlaCar and Uber Pool. These platforms aim to connect drivers and passengers through shared rides and are primarily designed for public use.
+
+However, in the context of this project, there are no direct competitors. The proposed system is intended for internal use within a single enterprise, where all users belong to the same organization. This creates a fundamentally different operational environment compared to public platforms.
+
+Therefore, existing solutions such as BlaBlaCar and Uber Pool are considered indirect competitors. While they provide valuable insights into ride-sharing mechanisms, they are not adapted to enterprise-specific constraints.
+
+These platforms typically rely on predefined routes and fixed pickup locations, limiting flexibility. Moreover, they operate in open environments where trust between users is not guaranteed and must be managed through rating systems and external verification mechanisms.
+
+In contrast, an enterprise environment inherently ensures a higher level of trust, as all users are verified employees within the same organization.
+
+\section{Limitations of Existing Solutions}
+
+The analysis of existing systems highlights several limitations when applied to enterprise contexts:
+
+\begin{itemize}
+    \item Rigid matching mechanisms based on fixed pickup locations
+    \item Limited flexibility in accommodating diverse user routes
+    \item Lack of adaptation to recurring commuting patterns
+    \item Dependence on external trust mechanisms
+    \item Absence of enterprise-oriented design and coordination features
+\end{itemize}
+
+These limitations significantly reduce the effectiveness of traditional carpooling solutions in structured organizational environments.
+
+\section{Proposed Solution}
+
+To address these challenges, this project proposes an intelligent carpooling platform specifically designed for internal enterprise use.
+
+Unlike public carpooling platforms, the proposed system operates within a closed organizational environment. This provides several key advantages, including enhanced privacy, simplified user verification, and a higher level of trust between users.
+
+The system introduces a dynamic matching mechanism based on route overlap analysis. Instead of relying on fixed pickup points, passengers can be matched along a driver's route, significantly increasing matching opportunities.
+
+In addition, a machine learning component is integrated to analyze historical commuting data and identify recurring patterns. This enables predictive capabilities and improves user engagement through proactive suggestions.
+
+By combining deterministic geospatial algorithms with data-driven prediction, the system achieves a balance between precision, flexibility, and adaptability.
+
+
+\subsection{Advantages of the Proposed Solution}
+
+Compared to existing platforms, the proposed solution offers several advantages:
+
+\begin{itemize}
+    \item Enhanced privacy through internal enterprise deployment
+    \item Higher trust level due to verified users within the same organization
+    \item Improved matching flexibility using route-based logic
+    \item Adaptation to recurring commuting behaviors
+    \item Better user experience through intelligent features
+\end{itemize}
+
+\section{Project Contributions}
+
+This project introduces several key contributions in the domain of intelligent transportation systems:
+
+\begin{itemize}
+    \item A route-based matching approach that improves flexibility compared to fixed-point systems
+    \item A hybrid system combining deterministic algorithms and machine learning
+    \item An enterprise-oriented design that leverages internal trust and privacy
+    \item Integration of real-time communication to enhance user experience
+\end{itemize}
+
+These contributions differentiate the proposed system from traditional carpooling solutions.
+
+\section{Requirements Specification}
+
+\subsection{Functional Requirements}
+
+The system must provide the following functionalities:
+
+\begin{itemize}
+    \item User registration and secure authentication
+    \item Profile management and user preferences
+    \item Ride creation, modification, and cancellation
+    \item Ride search and booking
+    \item Intelligent matching between drivers and passengers
+    \item Real-time notifications and communication
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+The system must also satisfy the following quality attributes:
+
+\begin{itemize}
+    \item \textbf{Scalability:} Ability to support a growing number of users
+    \item \textbf{Performance:} Fast response time and efficient processing
+    \item \textbf{Security:} Protection of user data and secure authentication
+    \item \textbf{Usability:} Intuitive and user-friendly interface
+    \item \textbf{Reliability:} Stable and consistent system behavior
+\end{itemize}
+
+\section{Technologies Used}
+
+The development of the proposed system relied on a carefully selected technology stack. Each technology was chosen based on specific criteria, including performance, scalability, ease of integration, and suitability for the system requirements.
+
+\subsection{Backend Technology}
+
+The backend was implemented using \textbf{Flask}, a lightweight Python web framework.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3cm]{images/logos/flask.pdf}
+    \caption{Flask Framework Logo}
+\end{figure}
+
+Flask was chosen due to its simplicity, flexibility, and ability to support modular development. Unlike more complex frameworks, Flask allows precise control over system architecture and facilitates the integration of custom logic, which is essential for implementing the intelligent matching system.
+
+Additionally, Python provides strong support for data processing and machine learning, making it particularly suitable for integrating predictive components into the system.
+
+\subsection{Frontend Technology}
+
+The frontend was developed using \textbf{Flutter}, a cross-platform framework for building mobile applications.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3cm]{images/logos/flutter.pdf}
+    \caption{Flutter Framework Logo}
+\end{figure}
+
+Flutter was selected because it enables the development of a single codebase that can run on multiple platforms, ensuring consistency and reducing development time. Its reactive UI model allows the creation of responsive and dynamic user interfaces, which is essential for real-time interaction within the application.
+
+\subsection{Database Management System}
+
+The system uses \textbf{PostgreSQL} as its database management system.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm]{images/logos/postgresql.pdf}
+    \caption{PostgreSQL Logo}
+\end{figure}
+
+PostgreSQL was chosen for its reliability, scalability, and advanced querying capabilities. It also provides strong support for handling structured data and ensures data integrity, which is critical for managing user information and ride data.
+
+\subsection{Geospatial Services}
+
+Geospatial processing is handled using \textbf{OpenStreetMap (OSM)} and \textbf{OSRM (Open Source Routing Machine)}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2cm]{images/logos/Openstreetmap_logo.pdf}
+    \caption{OpenStreetMap Logo}
+\end{figure}
+
+These tools were selected because they provide accurate route computation and allow efficient processing of geographic data. OSRM, in particular, enables fast route calculations, which are essential for implementing the route-based matching system.
+
+\subsection{Real-Time Communication}
+
+Real-time interaction between users is enabled through \textbf{WebSocket} technology.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.15\textwidth]{images/logos/websocket.pdf}
+    \caption{WebSocket Communication Technology Logo}
+    \label{fig:websocket}
+\end{figure}
+
+WebSockets allow continuous bidirectional communication between the client and the server, making them particularly suitable for real-time applications. Unlike traditional HTTP requests, which follow a request-response model, WebSockets maintain an open connection that enables instant data exchange.
+
+In the context of this system, WebSocket communication is used to provide real-time notifications, ride status updates, and synchronization between users. This ensures that passengers and drivers receive immediate feedback when events occur, such as ride confirmations, cancellations, or changes in availability.
+
+The use of WebSockets significantly enhances user experience by reducing latency and enabling a dynamic and responsive interaction model within the platform.
+\subsection{Technology Selection Justification}
+
+The chosen technology stack ensures a balance between performance, scalability, and flexibility. It supports the integration of intelligent components, real-time features, and geospatial processing, which are core aspects of the proposed system.
+
+This combination of technologies provides a solid foundation for building a robust, maintainable, and extensible enterprise carpooling platform.
+\section{Development Methodology}
+
+The project followed an Agile development methodology based on the Scrum framework. 
+This methodology was selected due to its flexibility, iterative nature, and ability to support continuous feedback throughout the development lifecycle. 
+Scrum, as an Agile framework, structures the project into well-defined phases and promotes collaboration between stakeholders.
+
+The main concepts of the Scrum methodology are illustrated in Figure~\ref{fig:scrum}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/methodology/scrum.jpg}
+    \caption{Scrum Development Process}
+    \label{fig:scrum}
+\end{figure}
+
+This approach enables iterative development, continuous feedback, and progressive system improvement. It structures the project into short development cycles called sprints, allowing incremental delivery of features.
+
+The use of Agile practices allowed flexibility in adapting to evolving requirements and ensured better alignment between implementation and project objectives. Regular feedback and continuous validation helped maintain development quality and coherence throughout the project lifecycle.
+\section{Sprint Planning}
+
+The development process was structured into multiple sprints, each focusing on specific objectives over a total duration of approximately four months (around 17 weeks). This iterative approach allowed progressive system development, continuous validation, and effective management of project complexity.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|p{4cm}|p{5cm}|c|}
+\hline
+\textbf{Sprint} & \textbf{Duration} & \textbf{Focus} & \textbf{Key Features} & \textbf{Chapter} \\
+\hline
+Sprint 1 & 2 weeks & Project Setup & Environment configuration, technology selection, initial architecture & Chapter 2 \\
+\hline
+Sprint 2 & 2 weeks & User Management & Authentication, user profiles & Chapter 3 \\
+\hline
+Sprint 3 & 3 weeks & Ride Management & Ride creation, search, booking & Chapter 3 \\
+\hline
+Sprint 4 & 3 weeks & Matching System & Route-based matching algorithm & Chapter 4 \\
+\hline
+Sprint 5 & 3 weeks & Machine Learning & Commute prediction model integration & Chapter 4 \\
+\hline
+Sprint 6 & 2 weeks & Real-Time Features & WebSocket communication, notifications & Chapter 3 \\
+\hline
+Sprint 7 & 2 weeks & Testing \& Optimization & Debugging, validation, performance tuning & Chapter 5 \\
+\hline
+\end{tabular}
+\caption{Sprint Planning and Mapping to Chapters}
+\label{tab:sprints}
+\end{table}
+
+This organization ensures a clear traceability between the development process and the structure of the thesis, highlighting how each phase of implementation is reflected in the corresponding chapters.
+\section{Definition of Done}
+
+In order to ensure the quality and consistency of the development process, a Definition of Done (DoD) was established. This definition specifies the criteria that must be satisfied for a feature to be considered complete.
+
+A feature is considered done when the following conditions are met:
+
+\begin{itemize}
+    \item The functionality is fully implemented according to the specified requirements
+    \item The code is clean, structured, and follows best development practices
+    \item The feature has been tested and validated without errors
+    \item All related components (backend, frontend, and database) are properly integrated
+    \item The feature is responsive and functions correctly in real usage scenarios
+    \item Necessary documentation or comments are provided when required
+\end{itemize}
+
+The Definition of Done ensures that each increment of the system meets a consistent quality standard before being considered complete. It also facilitates better collaboration and alignment during the Agile development process.
+\section{Global Architecture Overview}
+
+The system follows a layered architecture composed of three main components:
+
+\begin{itemize}
+    \item \textbf{Frontend Layer:} Handles user interaction through a mobile application
+    \item \textbf{Backend Layer:} Manages business logic, APIs, and processing
+    \item \textbf{Data Layer:} Stores and manages system data using a relational database
+\end{itemize}
+
+This architecture ensures separation of concerns, scalability, and maintainability.
+
+\section{Conclusion}
+
+This chapter presented the project context, including the host company, the problem addressed, and the analysis of existing solutions. It highlighted the limitations of traditional systems and introduced the proposed solution along with its advantages.
+
+The chapter also detailed system requirements, technologies used, and the development methodology, including sprint planning.
+
+The next chapter focuses on the detailed system architecture and design, providing an in-depth understanding of the system’s internal structure.
