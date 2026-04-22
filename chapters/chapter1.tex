@@ -10,7 +10,7 @@ This chapter establishes a solid foundation for the rest of the report by clearl
 
 \section{Host Company Presentation}
 
-This project was carried out within the framework of an end-of-studies internship at GExpertise, a company specialized in the development of digital solutions for enterprise environments.
+This project was carried out within the framework of an end-of-studies internship at \textbf{GExpertise}, a French engineering group specialized in topography, geospatial measurement, and digital modeling applied to construction and land development.
 
 \begin{figure}[htbp]
     \centering
@@ -19,11 +19,38 @@ This project was carried out within the framework of an end-of-studies internshi
     \label{fig:gexpertise}
 \end{figure}
 
-GExpertise focuses on designing and implementing scalable, high-performance applications tailored to real-world business needs. Its expertise spans multiple domains, including web and mobile development, geospatial systems, and real-time data processing.
+Founded in 2008, GExpertise inherits a long-standing professional tradition dating back to 1785, originating from a lineage of surveyors and geometers. This historical legacy constitutes a strong foundation of technical expertise and professional values, which has continuously evolved through the integration of modern technologies and methodologies.
 
-The company operates in a highly dynamic environment where digital transformation plays a crucial role in improving operational efficiency and decision-making processes. Its development practices emphasize modular architecture, maintainability, and user-centered design.
+GExpertise operates as a multidisciplinary group structured around several engineering domains, including topography, construction engineering, real estate diagnostics, and geospatial data processing. The company positions itself as a key actor in the acquisition, qualification, and exploitation of spatial data, supporting projects throughout the entire lifecycle of buildings and infrastructure.
 
-This professional setting provided an opportunity to work on a real-world problem, combining theoretical knowledge with practical implementation while adhering to industry standards and constraints.
+\subsection{Main Activity Domains}
+
+GExpertise’s activities are organized into several complementary domains, reflecting its multidisciplinary expertise:
+
+\begin{itemize}
+    \item \textbf{Topography and Land Surveying:} \\
+    The historical core of the company, focusing on precise measurement, mapping, and land analysis. This activity provides the foundational data required for engineering and construction projects.
+
+    \item \textbf{Building and Infrastructure Engineering (Bâtiment \& VRD):} \\
+    This domain covers technical studies related to construction, infrastructure planning, and urban development, supporting both design and execution phases.
+
+    \item \textbf{Diagnostics and Real Estate Expertise:} \\
+    The company provides diagnostic services ensuring regulatory compliance, risk assessment, and support for real estate management.
+
+    \item \textbf{BIM and GIS (SIG):} \\
+    Advanced digital tools such as Building Information Modeling (BIM) and Geographic Information Systems (GIS) are used to structure, analyze, and visualize spatial data for decision-making.
+
+    \item \textbf{Geospatial Data Acquisition and Processing:} \\
+    Using technologies such as drones, 3D scanning, and digital surveying tools, GExpertise captures and transforms spatial data into structured and exploitable information.
+\end{itemize}
+
+The core mission of GExpertise is to measure, model, and organize the physical world by providing reliable and precise data that supports decision-making processes. This involves the use of advanced technologies such as geographic information systems (GIS), building information modeling (BIM), 3D reconstruction, and data processing tools.
+
+The company emphasizes three fundamental pillars in its approach: \textbf{accompanying clients}, \textbf{modeling complex environments}, and \textbf{guaranteeing the reliability of results}. These principles are supported by strong values including responsibility, engagement, and trust, which guide both internal practices and client relationships.
+
+GExpertise evolves in a context of continuous technological transformation, where digital tools play a crucial role in enhancing traditional engineering practices. Its ability to integrate innovation with historical expertise allows the company to address complex challenges in modern infrastructure and urban development.
+
+Within this professional environment, the internship provided an opportunity to contribute to a real-world project involving geospatial logic, system design, and real-time data processing. The development of the intelligent carpooling platform aligns with the company’s broader vision of leveraging data and digital technologies to optimize systems and improve operational efficiency.
 \section{Problem Statement}
 
 Corporate commuting represents a significant challenge, particularly in organizations where employees travel daily to a shared workplace. The widespread use of private vehicles leads to increased traffic congestion, higher transportation costs, and a considerable environmental impact.
@@ -218,9 +245,16 @@ The chosen technology stack ensures a balance between performance, scalability, 
 This combination of technologies provides a solid foundation for building a robust, maintainable, and extensible enterprise carpooling platform.
 \section{Development Methodology}
 
-The project followed an Agile development methodology based on the Scrum framework. 
-This methodology was selected due to its flexibility, iterative nature, and ability to support continuous feedback throughout the development lifecycle. 
-Scrum, as an Agile framework, structures the project into well-defined phases and promotes collaboration between stakeholders.
+The project followed an Agile development methodology based on the Scrum framework. Scrum structures work into time-boxed iterations called sprints, typically lasting two to four weeks, delivering potentially shippable product increments.
+
+This methodology was selected due to its suitability for the project context:
+\begin{itemize}
+    \item \textbf{Iterative development:} Progressive system construction with regular validation
+    \item \textbf{Continuous feedback:} Stakeholder input throughout the development lifecycle
+    \item \textbf{Incremental delivery:} Functional features at regular intervals
+    \item \textbf{Flexibility:} Accommodation of evolving requirements
+    \item \textbf{Risk mitigation:} Early issue detection through frequent reviews
+\end{itemize}
 
 The main concepts of the Scrum methodology are illustrated in Figure~\ref{fig:scrum}.
 
@@ -231,55 +265,155 @@ The main concepts of the Scrum methodology are illustrated in Figure~\ref{fig:sc
     \label{fig:scrum}
 \end{figure}
 
-This approach enables iterative development, continuous feedback, and progressive system improvement. It structures the project into short development cycles called sprints, allowing incremental delivery of features.
+The methodology was applied through sprint planning, daily progress tracking, sprint reviews, and retrospectives. Validation activities were performed continuously at the end of each sprint, ensuring consistent quality and alignment with project objectives.
 
-The use of Agile practices allowed flexibility in adapting to evolving requirements and ensured better alignment between implementation and project objectives. Regular feedback and continuous validation helped maintain development quality and coherence throughout the project lifecycle.
-\section{Sprint Planning}
+\section{Scrum Roles}
 
-The development process was structured into multiple sprints, each focusing on specific objectives over a total duration of approximately four months (around 17 weeks). This iterative approach allowed progressive system development, continuous validation, and effective management of project complexity.
+The Scrum framework defines three core roles, adapted to this professional internship context as follows:
+
+\begin{itemize}
+    \item \textbf{Product Owner:} The industrial supervisor from the host company, responsible for representing business stakeholders, defining project requirements, validating system increments, and ensuring the delivered solution creates measurable value for the enterprise.
+    \item \textbf{Scrum Master:} The process facilitator responsible for organizing sprint planning and review sessions, monitoring progress, removing technical and organizational impediments, and ensuring strict adherence to Agile practices throughout the development lifecycle.
+    \item \textbf{Development Team:} A collaborative development team composed of the intern working in coordination with technical supervisors and company mentors. This structure ensures continuous validation, code review, and knowledge transfer within a real engineering environment, while maintaining cross-functional responsibility for design, implementation, and quality assurance of each system increment.
+\end{itemize}
+
+\section{Product Backlog}
+
+The Product Backlog represents the comprehensive set of features and user stories defining the complete system vision. It captures requirements from both end-users (collaborators) and administrative actors. Table~\ref{tab:backlog} presents the prioritized user stories for this project.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|p{4cm}|p{5cm}|c|}
+\begin{tabular}{|c|p{9cm}|c|}
 \hline
-\textbf{Sprint} & \textbf{Duration} & \textbf{Focus} & \textbf{Key Features} & \textbf{Chapter} \\
+\textbf{ID} & \textbf{User Story} & \textbf{Priority} \\
 \hline
-Sprint 1 & 2 weeks & Project Setup & Environment configuration, technology selection, initial architecture & Chapter 2 \\
+\multicolumn{3}{|c|}{\textbf{Core Features -- Collaborator}} \\
 \hline
-Sprint 2 & 2 weeks & User Management & Authentication, user profiles & Chapter 3 \\
+US01 & As a collaborator, I want to register and authenticate securely to access the system & High \\
 \hline
-Sprint 3 & 3 weeks & Ride Management & Ride creation, search, booking & Chapter 3 \\
+US02 & As a collaborator, I want to manage my profile and preferences & High \\
 \hline
-Sprint 4 & 3 weeks & Matching System & Route-based matching algorithm & Chapter 4 \\
+US03 & As a collaborator, I want to create and publish a ride offer with route details & High \\
 \hline
-Sprint 5 & 3 weeks & Machine Learning & Commute prediction model integration & Chapter 4 \\
+US04 & As a collaborator, I want to search for available rides matching my needs & High \\
 \hline
-Sprint 6 & 2 weeks & Real-Time Features & WebSocket communication, notifications & Chapter 3 \\
+US05 & As a collaborator, I want to book a ride and receive confirmation & High \\
 \hline
-Sprint 7 & 2 weeks & Testing \& Optimization & Debugging, validation, performance tuning & Chapter 5 \\
+US06 & As a collaborator, I want to manage my bookings and ride history & High \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Real-Time Features -- Collaborator}} \\
+\hline
+US07 & As a collaborator, I want to receive real-time notifications about ride status & High \\
+\hline
+US08 & As a collaborator, I want to see live updates when bookings are confirmed or cancelled & Medium \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Intelligent Features -- Collaborator}} \\
+\hline
+US09 & As a collaborator, I want to be matched with optimal ride partners based on route overlap & High \\
+\hline
+US10 & As a collaborator, I want to receive ML-based commute suggestions based on my patterns & Medium \\
+\hline
+\multicolumn{3}{|c|}{\textbf{Administrative Features -- Admin}} \\
+\hline
+US11 & As an admin, I want to monitor system activity and user engagement & Medium \\
+\hline
+US12 & As an admin, I want to view analytics on ride statistics and matching efficiency & Medium \\
+\hline
+US13 & As an admin, I want to manage users and freeze accounts when necessary & Medium \\
+\hline
+US14 & As an admin, I want to view system health and performance metrics & Low \\
 \hline
 \end{tabular}
-\caption{Sprint Planning and Mapping to Chapters}
+\caption{Product Backlog -- User Stories by Actor and Feature Category}
+\label{tab:backlog}
+\end{table}
+
+This Product Backlog represents the global system vision encompassing all required functionality. The detailed technical breakdown and sprint allocation will be presented in Chapter~3, where each user story is mapped to specific development iterations with corresponding use case diagrams, sequence diagrams, and implementation details.
+
+\section{Backlog Structuring and Prioritization}
+
+The Product Backlog was structured into six phases ensuring systematic progression from infrastructure to intelligent capabilities:
+
+\begin{itemize}
+    \item \textbf{Phase 1 -- Foundation (US01--US02):} Authentication and user management
+    \item \textbf{Phase 2 -- Core Features (US03--US06):} Ride creation, search, and booking
+    \item \textbf{Phase 3 -- Real-Time (US07--US08):} WebSocket communication and notifications
+    \item \textbf{Phase 4 -- Intelligent Matching (US09):} Route-based geospatial matching
+    \item \textbf{Phase 5 -- Machine Learning (US10):} Commute prediction based on patterns
+    \item \textbf{Phase 6 -- Admin (US11--US14):} Monitoring and analytics
+\end{itemize}
+
+This sequencing respects architectural dependencies: real-time features require ride infrastructure; intelligent matching depends on operational data; machine learning requires accumulated patterns. Each sprint delivers a validated increment upon which subsequent work builds.
+
+\section{Sprint Planning}
+
+The development process was structured into seven sprints, each focusing on specific objectives over a total duration of approximately four months (around 17 weeks). This iterative approach allowed progressive system development, continuous validation, and effective management of project complexity. Table~\ref{tab:sprints} presents the detailed sprint planning.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|p{4cm}|p{5cm}|}
+\hline
+\textbf{Sprint} & \textbf{Duration} & \textbf{Focus} & \textbf{Key Deliverables} \\
+\hline
+Sprint 1 & 2 weeks & Setup \& Architecture & Development environment, technology stack, database schema, initial system architecture \\
+\hline
+Sprint 2 & 2 weeks & Authentication \& User Management & Secure authentication system, user registration, profile management \\
+\hline
+Sprint 3 & 3 weeks & Ride Management & Ride creation and publishing, search functionality, booking workflow \\
+\hline
+Sprint 4 & 2 weeks & Real-Time Features & WebSocket infrastructure, notification system, live status updates \\
+\hline
+Sprint 5 & 3 weeks & Matching System & Route-based matching algorithm, geospatial integration, route optimization \\
+\hline
+Sprint 6 & 3 weeks & Machine Learning & Commute prediction model, behavior analysis, recommendation engine \\
+\hline
+Sprint 7 & 2 weeks & Final Validation \& Optimization & Performance tuning, security validation, integration testing, production readiness \\
+\hline
+\end{tabular}
+\caption{Sprint Planning and Deliverables}
 \label{tab:sprints}
 \end{table}
 
-This organization ensures a clear traceability between the development process and the structure of the thesis, highlighting how each phase of implementation is reflected in the corresponding chapters.
-\section{Definition of Done}
+Testing and validation were integrated into each sprint rather than deferred to a separate phase. This approach ensured continuous quality assurance, with unit tests implemented alongside features, integration tests performed at sprint boundaries, and system validation conducted during sprint reviews. Early detection of issues through this embedded testing strategy prevented technical debt accumulation and maintained consistent development velocity throughout the project lifecycle.
 
-In order to ensure the quality and consistency of the development process, a Definition of Done (DoD) was established. This definition specifies the criteria that must be satisfied for a feature to be considered complete.
+\section{Sprint Execution and System Evolution}
 
-A feature is considered done when the following conditions are met:
+The system complexity increased progressively across sprints:
 
 \begin{itemize}
-    \item The functionality is fully implemented according to the specified requirements
-    \item The code is clean, structured, and follows best development practices
-    \item The feature has been tested and validated without errors
-    \item All related components (backend, frontend, and database) are properly integrated
-    \item The feature is responsive and functions correctly in real usage scenarios
-    \item Necessary documentation or comments are provided when required
+    \item \textbf{Sprint 1 -- Foundation:} Environment, stack, database schema
+    \item \textbf{Sprint 2 -- User Management:} Authentication and profiles
+    \item \textbf{Sprint 3 -- Ride Management:} Creation, search, booking workflows
+    \item \textbf{Sprint 4 -- Real-Time:} WebSocket and notifications
+    \item \textbf{Sprint 5 -- Matching:} Route-based geospatial engine
+    \item \textbf{Sprint 6 -- ML:} Commute prediction model
+    \item \textbf{Sprint 7 -- Optimization:} Performance tuning and validation
 \end{itemize}
 
-The Definition of Done ensures that each increment of the system meets a consistent quality standard before being considered complete. It also facilitates better collaboration and alignment during the Agile development process.
+\section{Traceability Between Agile Process and Thesis Structure}
+
+\begin{itemize}
+    \item \textbf{Chapter 3 -- User Management and Authentication (Sprint 2):} Enterprise authentication, user profile management, and administrative control features.
+
+    \item \textbf{Chapter 4 -- Ride Management and Real-Time System (Sprints 3--4):} Ride creation, search, booking workflows, lifecycle management, and real-time communication using WebSocket technology.
+
+    \item \textbf{Chapter 5 -- Intelligent System (Matching and Machine Learning) (Sprints 5--6):} Route-based matching algorithm and machine learning-based commute prediction.
+
+    \item \textbf{Chapter 6 -- Testing, Validation and Results (Sprint 7):} System validation, performance evaluation, and final integration testing.
+\end{itemize}
+\section{Definition of Done}
+
+A Definition of Done (DoD) was established to ensure consistent quality standards. A feature is considered complete when:
+
+\begin{itemize}
+    \item \textbf{Implemented:} Functionality meets acceptance criteria
+    \item \textbf{Tested:} Unit and integration tests pass with adequate coverage
+    \item \textbf{Validated:} Demonstrated and reviewed with the Product Owner
+    \item \textbf{Integrated:} Backend, frontend, and database layers work together
+    \item \textbf{Documented:} Technical documentation and code comments provided
+\end{itemize}
+
+This DoD ensures each increment is potentially shippable and quality-assured, maintaining engineering standards while enabling continuous delivery.
 \section{Global Architecture Overview}
 
 The system follows a layered architecture composed of three main components:

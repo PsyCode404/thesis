@@ -2,17 +2,19 @@
 
 \section{Introduction}
 
-This chapter presents the overall architecture and design of the proposed intelligent carpooling platform. It focuses on the structural organization of the system, the interactions between its components, and the key design decisions that guided its development.
+This chapter presents the overall architecture and design of the proposed intelligent carpooling platform. It focuses on the structural organization of the system, the interactions between its components, and the key design decisions that guided its conception.
 
 The objective of this chapter is to provide a comprehensive understanding of how the system is structured prior to implementation. It includes a global architectural overview, a detailed description of system components, and modeling through use case and class diagrams. Additionally, the data flow within the system is analyzed to illustrate how information is processed and exchanged.
 
 \section{Global System Architecture}
+The architectural foundation of the system was established during \textbf{Sprint 1}, which focused on project initialization, environment setup, and the definition of the global system structure. This initial phase enabled the identification of core components and their interactions, forming the basis for subsequent development.
 
+The proposed system follows a layered architecture composed of three main components: the frontend, the backend, and the data layer.
 The proposed system follows a layered architecture composed of three main components: the frontend, the backend, and the data layer. This separation ensures modularity, scalability, and maintainability.
 
 \begin{itemize}
     \item \textbf{Frontend Layer:} A mobile application developed using Flutter, responsible for user interaction and interface rendering.
-    \item \textbf{Backend Layer:} A server implemented using Flask, acting as the core processing layer of the system. It handles business logic, intelligent matching, and machine learning operations.
+    \item \textbf{Backend Layer:} A server implemented using Flask, acting as the core processing layer of the system. It handles business logic, intelligent matching, and data processing.
     \item \textbf{Data Layer:} A PostgreSQL database used to store and manage system data efficiently.
 \end{itemize}
 
@@ -25,17 +27,13 @@ The interaction between these components is illustrated in Figure~\ref{fig:globa
     \label{fig:global_architecture}
 \end{figure}
 
-The architecture illustrated in Figure~\ref{fig:global_architecture} highlights the layered organization of the system and the interactions between its components.
-
 The mobile application serves as the entry point for user interactions, sending HTTP requests to the backend through RESTful APIs and receiving structured JSON responses. Real-time communication is ensured through WebSocket connections, enabling instant updates such as notifications and ride status changes.
 
-The backend represents the core processing layer of the system. It integrates multiple responsibilities, including request handling, business logic execution, intelligent matching based on geospatial analysis, and machine learning-based prediction. This centralized design ensures consistency and efficient coordination between system components.
+The backend represents the core processing layer of the system. It integrates multiple responsibilities, including request handling, business logic execution, geospatial processing, and intelligent decision-making. This centralized design ensures consistency and efficient coordination between system components.
 
 The backend interacts with the PostgreSQL database through SQL queries to store and retrieve persistent data. Additionally, it communicates with external geospatial services, specifically OSRM, to obtain routing and distance information required for ride matching.
 
 This architecture ensures a clear separation of concerns while maintaining efficient communication between components, supporting scalability and modular system evolution.
-
-This architecture follows a centralized processing model where the backend acts as the core orchestrator of all system operations, ensuring consistency and coordination across components.
 
 \begin{table}[H]
 \centering
@@ -102,7 +100,9 @@ It integrates several functional modules, including:
 
 The data layer is implemented using PostgreSQL. It manages persistent data storage, including users, rides, reservations, and system interactions.
 
-The database ensures data integrity, consistency, and efficient querying.
+The database ensures data integrity, consistency, and efficient querying. It supports structured data organization and enforces relational constraints between entities, ensuring reliable management of system data.
+
+Additionally, PostgreSQL provides advanced features such as indexing and optimized query execution, which improve performance when handling large volumes of data.
 
 \section{Global Use Case Diagram}
 
@@ -110,20 +110,18 @@ The global use case diagram represents the interactions between users and the sy
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{images/diagrams/use_case_global.png}
+    \includegraphics[width=0.7\textwidth]{images/diagrams/use_case_global.png}
     \caption{Global Use Case Diagram}
     \label{fig:use_case}
 \end{figure}
 
-Figure~\ref{fig:use_case} presents the global use case diagram of the system, illustrating the interactions between users and the platform.
+Two primary actors are identified: the collaborator and the administrator.
 
-Two primary actors are identified: the collaborator and the administrator. The collaborator represents the standard user, who can perform operations such as offering a ride, searching for rides, booking rides, managing their profile, and accessing notifications.
+The collaborator can perform operations such as offering a ride, searching for rides, booking rides, managing their profile, and accessing notifications.
 
-The administrator is responsible for system supervision tasks, including monitoring activity, viewing analytics, managing user accounts, and ensuring system health.
+The administrator is responsible for system supervision tasks, including monitoring activity, managing user accounts, and ensuring system integrity.
 
-The use cases can be grouped into three main categories: user management, ride management, and system interaction. This classification highlights the modular organization of functionalities within the system and reflects the separation of concerns in the application design.
-
-Most functionalities require prior authentication, modeled through inclusion relationships with the authentication use case. This reflects the system’s reliance on secure enterprise authentication mechanisms.
+Most functionalities require prior authentication, modeled through inclusion relationships with the authentication use case.
 
 \section{Global Class Diagram}
 
@@ -131,22 +129,16 @@ The global class diagram presents the main entities of the system and their rela
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{images/diagrams/class_global.png}
+    \includegraphics[width=0.7\textwidth]{images/diagrams/class_global.png}
     \caption{Global Class Diagram}
     \label{fig:class_diagram}
 \end{figure}
 
-Figure~\ref{fig:class_diagram} illustrates the global class diagram of the system.
-
-The central entity is the User class, which is specialized into Collaborator and Admin roles. This inheritance structure reflects different permissions and responsibilities.
+The central entity is the User class, which is specialized into Collaborator and Admin roles.
 
 The Collaborator interacts with core entities such as Ride, Reservation, Notification, and Support Ticket.
 
-The Ride entity represents a carpooling offer, while the Reservation entity models booking operations. Notifications provide real-time feedback to users, and support tickets allow communication with system administrators.
-
-The Authentication component ensures secure access control.
-
-This class structure reflects a domain-driven design approach, where entities are organized around core business concepts such as users, rides, and reservations. This organization improves maintainability and aligns the system structure with real-world interactions.
+The Ride entity represents a carpooling offer, while the Reservation entity models booking operations.
 
 This structure promotes modularity and extensibility, allowing the system to evolve without disrupting existing components.
 
@@ -157,7 +149,7 @@ A typical system interaction scenario is described as follows:
 \begin{enumerate}
     \item A collaborator initiates an action via the mobile application.
     \item The frontend sends an HTTP request to the backend.
-    \item The backend processes the request using business logic and the matching engine.
+    \item The backend processes the request using business logic and matching logic.
     \item The backend queries the PostgreSQL database if necessary.
     \item The backend interacts with OSRM for geospatial computations.
     \item The processed result is returned as a JSON response.
@@ -167,11 +159,13 @@ A typical system interaction scenario is described as follows:
 
 \section{Integration of Intelligent Components}
 
-The system integrates intelligent components to enhance ride matching and user experience.
+The system integrates two complementary intelligent approaches.
 
-The matching engine uses geospatial analysis to identify optimal ride overlaps, while the machine learning module analyzes historical data to predict commuting patterns.
+The first is a deterministic matching system based on geospatial analysis, which identifies optimal ride matches using real-time data.
 
-These components are tightly integrated into the backend while maintaining modular separation. Their detailed implementation is discussed in Chapter 4.
+The second is a machine learning module designed to analyze historical (or synthetic) data to predict commuting patterns and suggest future ride opportunities.
+
+These components are integrated into the backend while maintaining modular separation. Their detailed implementation is presented in Chapter~5.
 
 \section{Communication and Security}
 
@@ -187,17 +181,19 @@ The separation of layers allows independent evolution of system components. The 
 
 \section{System Constraints}
 
-The system operates under several constraints that influenced its design and implementation.
+The system operates under several constraints that influenced its design:
 
 \begin{itemize}
     \item Dependency on external geospatial services (OSRM)
     \item Network latency affecting real-time communication
     \item Mobile device limitations such as battery consumption and connectivity variability
-    \item Limited availability of historical data for machine learning model training
+    \item Limited availability of real-world historical data for machine learning training
 \end{itemize}
 
 \section{Conclusion}
 
-This chapter presented the architecture and design of the system, including its components, interactions, and modeling. It provides a solid foundation for understanding the implementation phase.
+This chapter presented the architecture and design of the intelligent carpooling system, including its layered structure, component interactions, and system modeling.
 
-The next chapter focuses on the detailed implementation of the system.
+The proposed architecture provides a robust and scalable foundation for implementing the platform’s functionalities.
+
+The next chapter focuses on the implementation of user management and authentication features.
