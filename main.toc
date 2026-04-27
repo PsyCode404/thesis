@@ -72,23 +72,61 @@
 \contentsline {section}{\numberline {3.7}Conclusion}{35}{section.3.7}%
 \contentsline {chapter}{\numberline {4}Ride Management and Real-Time Interaction}{36}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Introduction}{36}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Sprint 3: Ride Management System}{36}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Sprint Objective}{36}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Product Backlog}{37}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Use Case Diagram}{37}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Sequence Diagram — Ride Booking}{38}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Class Diagram}{38}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Ride Lifecycle Management}{39}{subsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.2.7}Business Rules}{40}{subsection.4.2.7}%
-\contentsline {subsection}{\numberline {4.2.8}User Interface Integration}{41}{subsection.4.2.8}%
-\contentsline {subsection}{\numberline {4.2.9}Sprint Validation}{41}{subsection.4.2.9}%
-\contentsline {section}{\numberline {4.3}Sprint 4: Real-Time Interaction}{41}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Sprint Objective}{41}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Product Backlog}{42}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Real-Time Architecture}{42}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Sequence Diagram — Real-Time Update}{42}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Integration with Ride Lifecycle}{43}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}TripCard Component}{43}{subsection.4.3.6}%
-\contentsline {subsection}{\numberline {4.3.7}User Interface Integration}{44}{subsection.4.3.7}%
-\contentsline {subsection}{\numberline {4.3.8}Sprint Validation}{44}{subsection.4.3.8}%
-\contentsline {section}{\numberline {4.4}Conclusion}{44}{section.4.4}%
+\contentsline {section}{\numberline {4.2}User Interface Overview}{36}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Sprint 3: Ride Management System}{38}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Sprint Objective}{38}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Use Case Diagram}{38}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Sequence Diagram — Ride Booking}{39}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Class Diagram}{41}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Ride Lifecycle Management}{42}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}User Interface Integration}{43}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.7}Sprint Validation}{44}{subsection.4.3.7}%
+\contentsline {section}{\numberline {4.4}Sprint 4: Real-Time Interaction}{44}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Real-Time Architecture}{44}{subsection.4.4.1}%
+\contentsline {subsubsection}{Connection Lifecycle}{45}{subsubsection*.30}%
+\contentsline {subsubsection}{Event-Driven Communication Model}{45}{subsubsection*.31}%
+\contentsline {subsubsection}{Multi-Client Synchronization}{45}{subsubsection*.32}%
+\contentsline {subsection}{\numberline {4.4.2}Sequence Diagram — Real-Time Update}{46}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Integration with Ride Lifecycle}{47}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Notification System}{47}{subsection.4.4.4}%
+\contentsline {subsubsection}{Role of Notifications}{47}{subsubsection*.34}%
+\contentsline {subsubsection}{System Flow}{48}{subsubsection*.35}%
+\contentsline {subsubsection}{Types of Notifications}{48}{subsubsection*.36}%
+\contentsline {subsubsection}{User Interaction and Navigation}{48}{subsubsection*.37}%
+\contentsline {subsubsection}{Frontend Integration}{49}{subsubsection*.39}%
+\contentsline {subsubsection}{Relation to Intelligent Notifications}{50}{subsubsection*.40}%
+\contentsline {subsection}{\numberline {4.4.5}TripCard Component}{50}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Navigation Assistance Feature}{51}{subsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.4.7}System Observability and Administrative Interface}{51}{subsection.4.4.7}%
+\contentsline {subsubsection}{System Event Logging}{51}{subsubsection*.42}%
+\contentsline {subsubsection}{Real-Time Monitoring and System Health}{52}{subsubsection*.44}%
+\contentsline {subsubsection}{Relation to Real-Time Architecture}{53}{subsubsection*.46}%
+\contentsline {subsubsection}{Analytics Overview}{54}{subsubsection*.47}%
+\contentsline {section}{\numberline {4.5}Conclusion}{55}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Intelligent Ride Matching and Predictive System}{56}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introduction}{56}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Problem Definition}{56}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Sprint 5: Smart Matching System}{57}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Overview}{57}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Sprint Backlog}{57}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Problem Reframing}{59}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Route-Based Matching Concept}{59}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Matching Pipeline}{60}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Dynamic Pickup Optimization}{61}{subsection.5.3.6}%
+\contentsline {subsection}{\numberline {5.3.7}Ride Lifecycle Adaptation}{61}{subsection.5.3.7}%
+\contentsline {subsection}{\numberline {5.3.8}Intelligent Notification System}{61}{subsection.5.3.8}%
+\contentsline {subsection}{\numberline {5.3.9}Sprint Validation and Testing}{62}{subsection.5.3.9}%
+\contentsline {subsection}{\numberline {5.3.10}System Impact}{63}{subsection.5.3.10}%
+\contentsline {section}{\numberline {5.4}Sprint 6: Machine Learning System}{64}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Overview}{64}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Problem Framing and Design Rationale}{64}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Sprint Backlog}{65}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Data Strategy and Justification}{66}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Machine Learning Pipeline Architecture}{66}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {5.4.6}Feature Engineering and Representation}{67}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {5.4.7}Model Selection and Trade-offs}{68}{subsection.5.4.7}%
+\contentsline {subsection}{\numberline {5.4.8}Prediction Strategy and Decision Threshold}{68}{subsection.5.4.8}%
+\contentsline {subsection}{\numberline {5.4.9}Integration with System Architecture}{69}{subsection.5.4.9}%
+\contentsline {subsection}{\numberline {5.4.10}User Interface Integration}{69}{subsection.5.4.10}%
+\contentsline {subsection}{\numberline {5.4.11}Sprint Validation and Evaluation}{70}{subsection.5.4.11}%
+\contentsline {subsection}{\numberline {5.4.12}System Impact}{70}{subsection.5.4.12}%
