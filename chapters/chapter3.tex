@@ -4,9 +4,9 @@
 
 This chapter presents the implementation of user management and authentication functionalities, which constitute the foundation of the platform. These components ensure secure access control, enforce enterprise-level restrictions, and enable structured interactions between users and the system.
 
-The implementation corresponds to \textbf{Sprint 2} within the Agile development process. This sprint focuses on establishing a reliable authentication mechanism based on enterprise credentials, managing user profiles, and providing administrative control features. All functionalities were developed incrementally and validated at the end of the sprint to ensure correctness and system stability.
+The implementation corresponds to \textbf{Sprint 1} within the Agile development process. This sprint focuses on establishing a reliable authentication mechanism based on enterprise credentials, managing user profiles, and providing administrative control features. All functionalities were developed incrementally and validated at the end of the sprint to ensure correctness and system stability.
 
-\section{Sprint 2: User Management and Authentication}
+\section{Sprint 1: User Management and Authentication}
 
 \subsection{Sprint Goal}
 
@@ -30,7 +30,7 @@ US5 & Monitor user activity & Admin & High \\
 US6 & Freeze or restrict user account & Admin & High \\
 \hline
 \end{tabular}
-\caption{Sprint 2 Product Backlog}
+\caption{Sprint 1 Product Backlog}
 \end{table}
 
 The prioritization reflects the critical importance of security and access control. Authentication and domain restriction are classified as high priority as they prevent unauthorized access. Administrative functionalities are also prioritized to ensure system integrity and control, while profile-related features are considered secondary but necessary for user interaction.
@@ -110,6 +110,14 @@ This dual-layer approach enhances security by combining trusted external identit
 
 The user interface reflects this design by providing a single entry point through the Office 365 authentication system, ensuring a seamless and secure login experience.
 
+\subsection{Enterprise Access Control Model}
+
+The access control model implemented in this system is specifically designed for enterprise environments where user membership is strictly bounded by organizational affiliation. Unlike public platforms that accept arbitrary registrations, the proposed system enforces a closed population model in which access is contingent upon possession of a valid corporate identity.
+
+This design choice carries three fundamental implications. First, the user base is inherently restricted to employees of the host organization, eliminating the need for external trust mechanisms such as ratings or third-party verification. Second, registration is not an open user action but a controlled system-side process triggered by successful enterprise authentication. The system either retrieves an existing record or creates a new one upon first login, ensuring that no user can exist in the database without prior organizational validation. Third, the platform operates under a role-based access control scheme where users are classified as either standard collaborators or administrators, with administrative privileges granting supervisory authority over accounts, activity monitoring, and system-wide policy enforcement.
+
+This enterprise-oriented access model ensures system integrity by maintaining a controlled and verifiable user population. It reinforces administrative authority, simplifies security governance, and aligns the platform with the operational boundaries of the organization it serves.
+
 \section{Profile Management}
 
 Authenticated users can access and manage their personal profiles, which serve as the basis for personalization and interaction within the platform.
@@ -151,7 +159,7 @@ These features ensure that the system remains secure, controlled, and compliant 
 
 \section{Sprint Validation}
 
-At the end of Sprint 2, a structured validation process was conducted to ensure that all implemented functionalities meet both functional and security requirements. This validation follows an Agile approach, where testing is performed incrementally at the end of each sprint to guarantee system reliability before progressing to subsequent development phases.
+At the end of Sprint 1, a structured validation process was conducted to ensure that all implemented functionalities meet both functional and security requirements. This validation follows an Agile approach, where testing is performed incrementally at the end of each sprint to guarantee system reliability before progressing to subsequent development phases.
 
 \subsection{Validation Objectives}
 

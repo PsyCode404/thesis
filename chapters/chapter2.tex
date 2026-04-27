@@ -7,7 +7,7 @@ This chapter presents the overall architecture and design of the proposed intell
 The objective of this chapter is to provide a comprehensive understanding of how the system is structured prior to implementation. It includes a global architectural overview, a detailed description of system components, and modeling through use case and class diagrams. Additionally, the data flow within the system is analyzed to illustrate how information is processed and exchanged.
 
 \section{Global System Architecture}
-The architectural foundation of the system was established during \textbf{Sprint 1}, which focused on project initialization, environment setup, and the definition of the global system structure. This initial phase enabled the identification of core components and their interactions, forming the basis for subsequent development.
+The architectural foundation of the system was established during \textbf{Sprint 0}, which focused on project initialization, environment setup, and the definition of the global system structure. This initial phase enabled the identification of core components and their interactions, forming the basis for subsequent development.
 
 The proposed system follows a layered architecture composed of three main components: the frontend, the backend, and the data layer.
 The proposed system follows a layered architecture composed of three main components: the frontend, the backend, and the data layer. This separation ensures modularity, scalability, and maintainability.
@@ -66,15 +66,37 @@ The system follows a client-server architecture, where the frontend communicates
 
 The choice of technologies was driven by system requirements. Flask provides flexibility for backend logic, Flutter enables cross-platform mobile development, and PostgreSQL ensures reliable and efficient data management.
 
-\subsection{Trade-offs}
+\subsection{Architectural Trade-offs and Design Justification}
 
-Design decisions involved several trade-offs:
+The architectural choices presented in this chapter were not merely technological selections but deliberate engineering decisions grounded in the project scope, operational constraints, and long-term maintainability requirements. This subsection provides a rigorous justification of the four foundational design decisions that shaped the system.
 
-\begin{itemize}
-    \item Simplicity vs.\ scalability: A lightweight framework (Flask) was chosen to balance ease of development and extensibility.
-    \item Performance vs.\ flexibility: The system prioritizes flexible ride matching over rigid optimization strategies.
-    \item Modularity vs.\ complexity: The layered architecture increases modularity while introducing additional system abstraction.
-\end{itemize}
+\subsubsection{Monolithic Architecture over Microservices}
+
+A modular monolithic architecture was chosen over a distributed microservices approach. While microservices offer independent scalability and deployment autonomy, they introduce significant operational overhead in terms of service orchestration, inter-service communication, and consistency management. Given the project's scope---a single enterprise application with a controlled user base---the operational complexity of microservices would outweigh their benefits.
+
+The monolithic approach, structured around clearly separated internal modules (authentication, ride management, matching, real-time communication, and prediction), preserves development simplicity while maintaining logical modularity. This design reduces deployment overhead, simplifies debugging, and ensures transactional consistency across domain boundaries without requiring distributed coordination protocols.
+
+\subsubsection{Backend-Centric Business Logic Enforcement}
+
+All business logic is centralized in the backend layer, with the frontend functioning exclusively as a presentation and interaction layer. This decision was driven by three primary considerations.
+
+First, consistency: by enforcing all rules server-side, the system guarantees uniform behavior regardless of the client platform or version. Second, security: business rules cannot be circumvented through client-side manipulation, which is particularly critical for ride booking constraints, authentication, and administrative operations. Third, evolvability: modifying a business rule requires a single backend change rather than coordinating updates across multiple client implementations.
+
+This backend-centric model ensures that the frontend remains stateless and thin, reducing client complexity while strengthening the system's integrity.
+
+\subsubsection{REST and WebSocket Hybrid Communication}
+
+The system employs a hybrid communication model combining RESTful APIs with WebSocket connections. REST is used for all stateless request-response operations such as authentication, profile updates, ride creation, and search queries. WebSocket is reserved exclusively for real-time, event-driven updates.
+
+This separation is intentional. Polling-based approaches, while simpler to implement, introduce unnecessary network overhead and latency, particularly for high-frequency updates such as ride status transitions and location tracking. WebSocket provides persistent bidirectional channels that allow the backend to push updates asynchronously, eliminating redundant client requests while ensuring immediate state synchronization across all connected participants.
+
+The hybrid model thus optimizes resource usage: REST handles transactional operations efficiently, while WebSocket guarantees low-latency propagation of state changes.
+
+\subsubsection{Centralized Geospatial Processing}
+
+All geospatial computations, including route analysis, corridor construction, and detour estimation, are executed server-side through the OSRM integration. This centralization ensures that matching logic remains consistent and cannot be influenced by client-side approximations or device-specific positioning inaccuracies.
+
+Furthermore, by keeping geospatial intelligence in the backend, the system maintains control over algorithmic evolution. Improvements to matching strategies, scoring criteria, or corridor parameters can be deployed without requiring client updates. This design also protects proprietary matching logic from inspection and reduces the computational burden on mobile devices.
 
 \section{System Components Description}
 

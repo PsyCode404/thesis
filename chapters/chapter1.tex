@@ -115,6 +115,7 @@ In addition, a machine learning component is integrated to analyze historical co
 
 By combining deterministic geospatial algorithms with data-driven prediction, the system achieves a balance between precision, flexibility, and adaptability.
 
+This approach fundamentally departs from conventional carpooling systems, which rely on fixed-point matching and passive user interaction. By integrating route-based trajectory analysis with predictive intelligence and real-time event coordination, the platform transforms carpooling from a static search problem into a dynamic, context-aware mobility system. This architectural integration of deterministic matching, machine learning, and event-driven synchronization constitutes the core originality of the proposed solution.
 
 \subsection{Advantages of the Proposed Solution}
 
@@ -355,19 +356,19 @@ The development process was structured into seven sprints, each focusing on spec
 \hline
 \textbf{Sprint} & \textbf{Duration} & \textbf{Focus} & \textbf{Key Deliverables} \\
 \hline
-Sprint 1 & 2 weeks & Setup \& Architecture & Development environment, technology stack, database schema, initial system architecture \\
+Sprint 0& 2 weeks & Setup \& Architecture & Development environment, technology stack, database schema, initial system architecture \\
 \hline
-Sprint 2 & 2 weeks & Authentication \& User Management & Secure authentication system, user registration, profile management \\
+Sprint 1& 2 weeks & Authentication \& User Management & Secure authentication system, user registration, profile management \\
 \hline
-Sprint 3 & 3 weeks & Ride Management & Ride creation and publishing, search functionality, booking workflow \\
+Sprint 2 & 3 weeks & Ride Management & Ride creation and publishing, search functionality, booking workflow \\
 \hline
-Sprint 4 & 2 weeks & Real-Time Features & WebSocket infrastructure, notification system, live status updates \\
+Sprint 3 & 2 weeks & Real-Time Features & WebSocket infrastructure, notification system, live status updates \\
 \hline
-Sprint 5 & 3 weeks & Matching System & Route-based matching algorithm, geospatial integration, route optimization \\
+Sprint 4 & 3 weeks & Matching System & Route-based matching algorithm, geospatial integration, route optimization \\
 \hline
-Sprint 6 & 3 weeks & Machine Learning & Commute prediction model, behavior analysis, recommendation engine \\
+Sprint 5 & 3 weeks & Machine Learning & Commute prediction model, behavior analysis, recommendation engine \\
 \hline
-Sprint 7 & 2 weeks & Final Validation \& Optimization & Performance tuning, security validation, integration testing, production readiness \\
+Sprint 6 & 2 weeks & Final Validation \& Optimization & Performance tuning, security validation, integration testing, production readiness \\
 \hline
 \end{tabular}
 \caption{Sprint Planning and Deliverables}
@@ -381,25 +382,25 @@ Testing and validation were integrated into each sprint rather than deferred to 
 The system complexity increased progressively across sprints:
 
 \begin{itemize}
-    \item \textbf{Sprint 1 -- Foundation:} Environment, stack, database schema
-    \item \textbf{Sprint 2 -- User Management:} Authentication and profiles
-    \item \textbf{Sprint 3 -- Ride Management:} Creation, search, booking workflows
-    \item \textbf{Sprint 4 -- Real-Time:} WebSocket and notifications
-    \item \textbf{Sprint 5 -- Matching:} Route-based geospatial engine
-    \item \textbf{Sprint 6 -- ML:} Commute prediction model
-    \item \textbf{Sprint 7 -- Optimization:} Performance tuning and validation
+    \item \textbf{Sprint 0 -- Foundation:} Environment, stack, database schema
+    \item \textbf{Sprint 1 -- User Management:} Authentication and profiles
+    \item \textbf{Sprint 2 -- Ride Management:} Creation, search, booking workflows
+    \item \textbf{Sprint 3 -- Real-Time:} WebSocket and notifications
+    \item \textbf{Sprint 4 -- Matching:} Route-based geospatial engine
+    \item \textbf{Sprint 5 -- ML:} Commute prediction model
+    \item \textbf{Sprint 6 -- Optimization:} Performance tuning and validation
 \end{itemize}
 
 \section{Traceability Between Agile Process and Thesis Structure}
 
 \begin{itemize}
-    \item \textbf{Chapter 3 -- User Management and Authentication (Sprint 2):} Enterprise authentication, user profile management, and administrative control features.
+    \item \textbf{Chapter 3 -- User Management and Authentication (Sprint 1):} Enterprise authentication, user profile management, and administrative control features.
 
-    \item \textbf{Chapter 4 -- Ride Management and Real-Time System (Sprints 3--4):} Ride creation, search, booking workflows, lifecycle management, and real-time communication using WebSocket technology.
+    \item \textbf{Chapter 4 -- Ride Management and Real-Time System (Sprints 2--3):} Ride creation, search, booking workflows, lifecycle management, and real-time communication using WebSocket technology.
 
-    \item \textbf{Chapter 5 -- Intelligent System (Matching and Machine Learning) (Sprints 5--6):} Route-based matching algorithm and machine learning-based commute prediction.
+    \item \textbf{Chapter 5 -- Intelligent System (Matching and Machine Learning) (Sprints 4--5):} Route-based matching algorithm and machine learning-based commute prediction.
 
-    \item \textbf{Chapter 6 -- Testing, Validation and Results (Sprint 7):} System validation, performance evaluation, and final integration testing.
+    \item \textbf{Chapter 6 -- Testing, Validation and Results (Sprint 6):} System validation, performance evaluation, and final integration testing.
 \end{itemize}
 \section{Definition of Done}
 

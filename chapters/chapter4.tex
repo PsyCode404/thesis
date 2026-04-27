@@ -16,8 +16,8 @@ Two complementary concerns are addressed:
 To address these concerns, the implementation is structured into two complementary development phases:
 
 \begin{itemize}
-    \item \textbf{Sprint 3 — Ride Management}: focuses on modeling entities, enforcing constraints, and managing ride lifecycle.
-    \item \textbf{Sprint 4 — Real-Time Interaction}: introduces an event-driven communication layer for live synchronization.
+    \item \textbf{Sprint 2 — Ride Management and Authentication}: focuses on modeling entities, enforcing constraints, and managing ride lifecycle.
+    \item \textbf{Sprint 3 — Real-Time Interaction}: introduces an event-driven communication layer for live synchronization.
 \end{itemize}
 
 This separation ensures a clear distinction between decision logic and data propagation, improving modularity and maintainability.
@@ -45,13 +45,54 @@ This design aligns the user experience with the system’s primary use cases whi
 From a system perspective, this interface acts as a dispatcher, routing user intent toward backend workflows through API calls. All business logic remains exclusively handled by the backend, ensuring consistency and security.
 
 % =========================================================
-\section{Sprint 3: Ride Management System}
+\section{Sprint 2: Ride Management System}
 
 \subsection{Sprint Objective}
 
 The objective of this sprint is to implement a reliable and consistent ride management workflow. All operations are validated at the backend level before being persisted, preventing invalid states and ensuring data integrity.
 
-% ------------------------
+\vspace{-0.3cm}
+
+\subsection{Sprint Backlog}
+
+\vspace{-0.2cm}
+
+\begin{table}[H]
+\centering
+\caption{Sprint 2 Backlog — Ride Management System}
+\vspace{-0.3cm}
+
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{4pt}
+
+\begin{tabular}{|p{0.72\textwidth}|c|}
+\hline
+\textbf{User Story} & \textbf{Priority} \\
+\hline
+As a driver, I want to create rides with origin, destination, time, and available seats so that passengers can discover and join them & High \\
+\hline
+As a passenger, I want to search for rides and request a seat so that I can participate in trips & High \\
+\hline
+As a driver, I want to accept or reject booking requests to control participation in my ride & High \\
+\hline
+As a system, I want to validate ride existence, availability, and user constraints before processing bookings to prevent invalid operations & High \\
+\hline
+As a system, I want to enforce seat availability and handle concurrent booking requests to prevent overbooking & High \\
+\hline
+As a system, I want to enforce temporal and logical constraints (e.g., ride validity, user roles) to maintain consistency & High \\
+\hline
+As a system, I want to manage reservations as separate entities to support multiple passengers and independent booking control & High \\
+\hline
+As a system, I want to implement a controlled ride lifecycle using a state machine to ensure valid transitions & High \\
+\hline
+As a driver, I want to update ride status (start, arrive, complete) to progress the lifecycle correctly & High \\
+\hline
+As a system, I want to handle edge cases (cancellation, missed rides) and enforce backend authority to ensure robustness and data integrity & Medium \\
+\hline
+As a user, I want to view ride details and booking status through the interface to track my participation & High \\
+\hline
+\end{tabular}
+\end{table}
 \subsection{Use Case Diagram}
 
 \begin{figure}[H]
@@ -186,12 +227,49 @@ These tests confirm that:
     \item invalid operations are rejected before persistence,
     \item data integrity is preserved under concurrent interactions.
 \end{itemize}
-
+\clearpage
 % =========================================================
-\section{Sprint 4: Real-Time Interaction}
+\section{Sprint 3: Real-Time Interaction}
+
+\subsection{Sprint Backlog}
+
+\begin{table}[H]
+\centering
+\caption{Sprint 3 Backlog — Real-Time Interaction}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{5pt}
+\setlength{\extrarowheight}{2pt}
+
+\begin{tabular}{|p{0.75\textwidth}|c|}
+\hline
+\textbf{User Story} & \textbf{Priority} \\
+\hline
+As a system, I want to establish a persistent WebSocket connection associated with authenticated users to enable secure real-time communication & High \\
+\hline
+As a system, I want to implement an event-driven communication model where backend state changes trigger real-time updates & High \\
+\hline
+As a system, I want to broadcast ride-related events (status changes, location updates) to all participants to ensure synchronized multi-client state & High \\
+\hline
+As a system, I want to organize communication channels per ride or user to ensure events are delivered only to relevant clients & High \\
+\hline
+As a system, I want to eliminate polling by using push-based updates to reduce latency and improve efficiency & High \\
+\hline
+As a user, I want to receive real-time updates about ride status, reservations, and driver location without manual refresh & High \\
+\hline
+As a system, I want to implement a notification pipeline combining real-time delivery and database persistence to ensure both immediacy and traceability & High \\
+\hline
+As a system, I want to maintain backend authority as the single source of truth to prevent inconsistencies across clients & High \\
+\hline
+As a system, I want to handle connection interruptions and support reconnection with state synchronization to ensure continuity & Medium \\
+\hline
+As a system, I want to log real-time system events and expose them through an administrative interface for monitoring and debugging & Medium \\
+\hline
+As a system, I want to provide system health indicators and basic analytics to support operational visibility & Low \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Real-Time Architecture}
-
 To ensure immediate synchronization between system components, the platform adopts a WebSocket-based communication architecture.
 
 Unlike traditional HTTP communication, which follows a request-response model, WebSocket establishes a persistent bidirectional connection between the client and the server. Once the connection is initiated, it remains open, allowing the backend to push updates asynchronously without requiring repeated client requests.
@@ -409,6 +487,8 @@ It is important to note that this feature operates independently of the core sys
 % ------------------------
 \subsection{System Observability and Administrative Interface}
 
+In event-driven architectures, where system behavior emerges from asynchronous interactions between distributed components, observability is not an optional enhancement but a structural necessity. Without explicit traceability mechanisms, debugging race conditions, identifying state inconsistencies, and understanding propagation paths become intractable. The challenges of asynchronous behavior---non-deterministic event ordering, delayed state reflection, and multi-client divergence---demand dedicated monitoring, logging, and administrative oversight to ensure system coherence.
+
 In addition to user-facing functionalities, the system incorporates an administrative observability layer that provides real-time visibility into system behavior and operational state.
 
 This layer is not designed as a separate control module, but rather as a direct extension of the event-driven architecture described previously. It leverages the same real-time infrastructure to expose system activity, enabling administrators to monitor, analyze, and understand system dynamics as they occur.
@@ -485,6 +565,14 @@ This interface presents indicators such as:
 Unlike the monitoring and event views, which focus on immediate system state, the analytics component provides a summarized and temporal perspective, enabling administrators to identify patterns and evaluate system usage over time.
 
 While not part of the real-time execution layer, this component complements the observability framework by providing contextual insights into system behavior.
+
+\subsubsection{System Transition to Real-Time Coordination}
+
+The integration of the real-time communication layer marks a fundamental architectural transition for the platform. Prior to this sprint, the system operated as a conventional request-response application: the client initiated an action, the backend processed it, and a response was returned. While this model is sufficient for transactional operations such as authentication or profile updates, it fails to support the coordination demands of a dynamic ride execution environment.
+
+With the introduction of the WebSocket-based event infrastructure, the system transitions from a passive request-response architecture to an active event-driven coordination model. In this model, the backend assumes the role of an event dispatcher, continuously monitoring state changes and propagating updates to all relevant clients. The frontend, in turn, becomes a reactive consumer: it no longer polls for updates but receives them asynchronously and reflects them in the interface immediately.
+
+This transition has three major consequences. First, consistency: all participants in a ride observe the same state transitions simultaneously, eliminating the possibility of stale or divergent views. Second, interaction efficiency: users are no longer required to refresh or manually check for updates; the system pushes relevant information at the exact moment it becomes available. Third, coordination: the backend becomes the single source of truth for ride execution, orchestrating the shared experience across multiple clients through a unified event stream.
 
 The real-time system was validated through multi-client scenario testing conducted on the integrated platform.
 

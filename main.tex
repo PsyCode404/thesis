@@ -90,13 +90,6 @@
 \titlespacing*{\chapter}{0pt}{-10pt}{30pt}
 
 % =============================
-% BIBLIOGRAPHY (FIXED)
-% =============================
-\usepackage[backend=biber,style=numeric]{biblatex}
-\DeclareLanguageMapping{arabic}{english}
-\addbibresource{references.bib}
-
-% =============================
 % DOCUMENT
 % =============================
 \begin{document}
@@ -145,6 +138,6 @@
 \input{conclusion}
 \clearpage
 
-\printbibliography[title=References]
+\input{references.bib}
 
 \end{document}

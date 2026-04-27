@@ -9,8 +9,8 @@ This chapter introduces an intelligent decision layer that extends the system be
 Two complementary approaches are implemented:
 
 \begin{itemize}
-    \item \textbf{Sprint 5 — Smart Matching System}: an algorithmic layer that enables dynamic ride matching based on route overlap and optimized pickup points.
-    \item \textbf{Sprint 6 — Machine Learning System}: a predictive layer that models user behavior to anticipate ride needs and provide proactive suggestions.
+    \item \textbf{Sprint 4 — Smart Matching System}: an algorithmic layer that enables dynamic ride matching based on route overlap and optimized pickup points.
+    \item \textbf{Sprint 5 — Machine Learning System}: a predictive layer that models user behavior to anticipate ride needs and provide proactive suggestions.
 \end{itemize}
 
 Together, these components transform the system into an intelligent platform capable of improving ride utilization, reducing missed opportunities, and enhancing overall interaction efficiency.
@@ -34,7 +34,7 @@ This chapter addresses these limitations through two complementary solutions:
 \end{itemize}
 
 % =========================================================
-\section{Sprint 5: Smart Matching System}
+\section{Sprint 4: Smart Matching System}
 
 \subsection{Overview}
 
@@ -78,7 +78,7 @@ As a user, I want to receive notifications about relevant ride matches so that I
 As a system, I want to validate matching accuracy and ensure consistency across different scenarios & Medium \\
 \hline
 \end{tabular}
-\caption{Sprint 5 Backlog — Smart Matching System}
+\caption{Sprint 4 Backlog — Smart Matching System}
 \end{table}
 
 The backlog can be categorized into three main groups:
@@ -104,6 +104,8 @@ This reframing introduces two key challenges:
     \item efficient detection of spatial proximity between trajectories,
     \item selection of an optimal pickup point that minimizes system disruption.
 \end{itemize}
+
+It is important to emphasize that the proposed approach is not a simple distance-based proximity search. Direct distance computation between two points ignores route structure, road network constraints, and actual travel feasibility. Instead, the system evaluates candidates through a multi-factor scoring pipeline that projects the passenger's location onto the driver's actual trajectory, computes real detour costs, and ranks matches according to combined spatial and temporal criteria. This transforms the matching problem from a simple geometric comparison into a constrained route-insertion optimization problem, where the objective is to identify the highest-quality insertion point that minimizes disruption while maintaining route coherence.
 
 Alternative approaches such as strict nearest-point matching or grid-based spatial partitioning were considered. However, these methods either fail to preserve route continuity or introduce excessive discretization. The corridor-based approach provides a balance between flexibility, accuracy, and computational efficiency.
 
@@ -242,7 +244,7 @@ The Smart Matching System introduces a fundamental improvement in ride discovery
 More importantly, it establishes a spatially-aware foundation upon which higher-level intelligent features can be built.
 % =========================================================
 \clearpage
-\section{Sprint 6: Machine Learning System}
+\section{Sprint 5: Machine Learning System}
 
 \subsection{Overview}
 
@@ -253,6 +255,8 @@ The Machine Learning System addresses this limitation by introducing a predictiv
 This transforms the platform from a purely reactive system into a context-aware system that adapts to user behavior over time.
 
 From a system perspective, this component operates as an independent intelligence layer that consumes historical trip data and produces probabilistic predictions, which are then integrated into the user interface without altering the core ride lifecycle.
+
+It is essential to distinguish the role of the Machine Learning System from that of the rule-based matching components described in the previous sprint. The Smart Matching System addresses the question of \textit{who} can share a ride by evaluating spatial overlap and route compatibility. The Machine Learning System, in contrast, addresses the question of \textit{when} a user is likely to need a ride, irrespective of whether a matching driver currently exists. These two systems operate on orthogonal dimensions: matching is reactive and deterministic, while prediction is proactive and probabilistic. The ML layer does not replace or interfere with matching logic; it operates upstream, surfacing anticipated needs that the user may then express through the standard ride creation or search workflow.
 
 \subsection{Problem Framing and Design Rationale}
 
@@ -309,7 +313,7 @@ As a user, I want to see proactive ride suggestions directly in the interface & 
 As a system, I want to validate the accuracy and stability of predictions & Medium \\
 \hline
 \end{tabular}
-\caption{Sprint 6 Backlog — Machine Learning System}
+\caption{Sprint 5 Backlog — Machine Learning System}
 \end{table}
 
 % ------------------------
@@ -471,9 +475,24 @@ The results confirm that the system successfully captures structured behavior an
 The introduction of the Machine Learning System significantly enhances the platform:
 
 \begin{itemize}
-    \item reduces user interaction effort,
-    \item increases ride discovery efficiency,
-    \item aligns system behavior with real-world usage patterns.
+    \item reduces user interaction effort by eliminating the need for repeated manual searches,
+    \item increases ride discovery efficiency through proactive suggestions surfaced at contextually relevant moments,
+    \item aligns system behavior with real-world usage patterns by modeling individual commuting behavior rather than treating all users uniformly.
 \end{itemize}
 
+From a system-level perspective, the ML layer transforms the platform from a passive request handler into an anticipatory coordination system. By predicting user intent before it is explicitly expressed, the system can pre-position relevant ride options, increasing the probability of successful matches and improving overall platform utilization. This anticipatory capability represents a qualitative shift in system behavior: rather than merely responding to user actions, the platform now participates in shaping them.
+
 More importantly, it establishes a foundation for future extensions, such as adaptive routing, demand forecasting, and personalized recommendations.
+\section{Conclusion}
+
+This chapter introduced an intelligent decision layer that extends the platform beyond reactive operation, transforming it into an adaptive and anticipatory system.
+
+The Smart Matching System addressed the limitations of traditional ride-sharing approaches by reformulating the matching problem as a trajectory-based optimization task. By modeling rides as continuous routes and enabling dynamic pickup insertion, the system significantly increases matching coverage while preserving route coherence and execution consistency. This deterministic layer enhances the system’s ability to react to complex spatial scenarios in real time.
+
+Complementing this approach, the Machine Learning System introduces a predictive dimension that anticipates user needs based on recurring behavioral patterns. By modeling structured commuting habits and generating context-aware suggestions, the platform reduces user effort and improves interaction efficiency. Importantly, this predictive layer operates independently from the core ride management and matching logic, ensuring that system robustness is preserved while intelligence is incrementally introduced.
+
+The combination of these two components establishes a hybrid intelligent architecture, where rule-based mechanisms ensure correctness and control, while probabilistic models enable anticipation and personalization. This separation of concerns reflects a deliberate design choice that balances reliability, interpretability, and system flexibility.
+
+From a global perspective, the platform evolves across three distinct stages: from a validated transactional system, to a synchronized real-time environment, and finally to an intelligent system capable of both adapting to and anticipating user behavior.
+
+Having established the full system architecture and its intelligent extensions, the next chapter focuses on system evaluation and validation. This includes the analysis of system performance, assessment of matching effectiveness, evaluation of prediction relevance, and discussion of limitations and future improvements.

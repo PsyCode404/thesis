@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.9)  27 APR 2026 10:35
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.9)  27 APR 2026 15:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -679,259 +679,31 @@ File: listings-xetex-bidi.def 2025/01/03 v1.6 bidi adaptations for listings pack
     but found:
         2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
-(c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.sty
-Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
- (c:/texlive/2026/texmf-dist/tex/latex/logreq/logreq.sty
-Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count368
- (c:/texlive/2026/texmf-dist/tex/latex/logreq/logreq.def
-File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-)) (c:/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-)
-\c@tabx@nest=\count369
-\c@listtotal=\count370
-\c@listcount=\count371
-\c@liststart=\count372
-\c@liststop=\count373
-\c@citecount=\count374
-\c@citetotal=\count375
-\c@multicitecount=\count376
-\c@multicitetotal=\count377
-\c@instcount=\count378
-\c@maxnames=\count379
-\c@minnames=\count380
-\c@maxitems=\count381
-\c@minitems=\count382
-\c@citecounter=\count383
-\c@maxcitecounter=\count384
-\c@savedcitecounter=\count385
-\c@uniquelist=\count386
-\c@uniquename=\count387
-\c@refsection=\count388
-\c@refsegment=\count389
-\c@maxextratitle=\count390
-\c@maxextratitleyear=\count391
-\c@maxextraname=\count392
-\c@maxextradate=\count393
-\c@maxextraalpha=\count394
-\c@abbrvpenalty=\count395
-\c@highnamepenalty=\count396
-\c@lownamepenalty=\count397
-\c@maxparens=\count398
-\c@parenlevel=\count399
-\blx@tempcnta=\count400
-\blx@tempcntb=\count401
-\blx@tempcntc=\count402
-\c@blx@maxsection=\count403
-\blx@maxsegment@0=\count404
-\blx@notetype=\count405
-\blx@parenlevel@text=\count406
-\blx@parenlevel@foot=\count407
-\blx@sectionciteorder@0=\count408
-\blx@sectionciteorderinternal@0=\count409
-\blx@entrysetcounter=\count410
-\blx@biblioinstance=\count411
-\labelnumberwidth=\skip97
-\labelalphawidth=\skip98
-\biblabelsep=\skip99
-\bibitemsep=\skip100
-\bibnamesep=\skip101
-\bibinitsep=\skip102
-\bibparsep=\skip103
-\bibhang=\skip104
-\blx@bcfin=\read2
-\blx@bcfout=\write3
-\blx@langwohyphens=\language91
-\c@mincomprange=\count412
-\c@maxcomprange=\count413
-\c@mincompwidth=\count414
-Package biblatex Info: Trying to load biblatex default data model...
-Package biblatex Info: ... file 'blx-dm.def' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-dm.def
-File: blx-dm.def 2025/07/10 v3.21 biblatex datamodel (PK/MW)
-)
-Package biblatex Info: Trying to load biblatex style data model...
-Package biblatex Info: ... file 'numeric.dbx' not found.
-Package biblatex Info: Trying to load biblatex custom data model...
-Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count415
-\c@savedafterword=\count416
-\c@annotator=\count417
-\c@savedannotator=\count418
-\c@author=\count419
-\c@savedauthor=\count420
-\c@bookauthor=\count421
-\c@savedbookauthor=\count422
-\c@commentator=\count423
-\c@savedcommentator=\count424
-\c@editor=\count425
-\c@savededitor=\count426
-\c@editora=\count427
-\c@savededitora=\count428
-\c@editorb=\count429
-\c@savededitorb=\count430
-\c@editorc=\count431
-\c@savededitorc=\count432
-\c@foreword=\count433
-\c@savedforeword=\count434
-\c@holder=\count435
-\c@savedholder=\count436
-\c@introduction=\count437
-\c@savedintroduction=\count438
-\c@namea=\count439
-\c@savednamea=\count440
-\c@nameb=\count441
-\c@savednameb=\count442
-\c@namec=\count443
-\c@savednamec=\count444
-\c@translator=\count445
-\c@savedtranslator=\count446
-\c@shortauthor=\count447
-\c@savedshortauthor=\count448
-\c@shorteditor=\count449
-\c@savedshorteditor=\count450
-\c@labelname=\count451
-\c@savedlabelname=\count452
-\c@institution=\count453
-\c@savedinstitution=\count454
-\c@lista=\count455
-\c@savedlista=\count456
-\c@listb=\count457
-\c@savedlistb=\count458
-\c@listc=\count459
-\c@savedlistc=\count460
-\c@listd=\count461
-\c@savedlistd=\count462
-\c@liste=\count463
-\c@savedliste=\count464
-\c@listf=\count465
-\c@savedlistf=\count466
-\c@location=\count467
-\c@savedlocation=\count468
-\c@organization=\count469
-\c@savedorganization=\count470
-\c@origlocation=\count471
-\c@savedoriglocation=\count472
-\c@origpublisher=\count473
-\c@savedorigpublisher=\count474
-\c@publisher=\count475
-\c@savedpublisher=\count476
-\c@language=\count477
-\c@savedlanguage=\count478
-\c@origlanguage=\count479
-\c@savedoriglanguage=\count480
-\c@pageref=\count481
-\c@savedpageref=\count482
-\shorthandwidth=\skip105
-\shortjournalwidth=\skip106
-\shortserieswidth=\skip107
-\shorttitlewidth=\skip108
-\shortauthorwidth=\skip109
-\shorteditorwidth=\skip110
-\locallabelnumberwidth=\skip111
-\locallabelalphawidth=\skip112
-\localshorthandwidth=\skip113
-\localshortjournalwidth=\skip114
-\localshortserieswidth=\skip115
-\localshorttitlewidth=\skip116
-\localshortauthorwidth=\skip117
-\localshorteditorwidth=\skip118
-Package biblatex Info: Trying to load enhanced support for Unicode engines...
-Package biblatex Info: ... file 'blx-unicode.def' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-unicode.def)
-Package biblatex Info: Trying to load compatibility code...
-Package biblatex Info: ... file 'blx-compat.def' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-compat.def
-File: blx-compat.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-)
-Package biblatex Info: Trying to load generic definitions...
-Package biblatex Info: ... file 'biblatex.def' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.def
-File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-\c@textcitecount=\count483
-\c@textcitetotal=\count484
-\c@textcitemaxnames=\count485
-\c@biburlbigbreakpenalty=\count486
-\c@biburlbreakpenalty=\count487
-\c@biburlnumpenalty=\count488
-\c@biburlucpenalty=\count489
-\c@biburllcpenalty=\count490
-\biburlbigskip=\muskip19
-\biburlnumskip=\muskip20
-\biburlucskip=\muskip21
-\biburllcskip=\muskip22
-\c@smartand=\count491
-)
-Package biblatex Info: Trying to load bibliography style 'numeric'...
-Package biblatex Info: ... file 'numeric.bbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
-File: numeric.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-Package biblatex Info: Trying to load bibliography style 'standard'...
-Package biblatex Info: ... file 'standard.bbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
-File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count492
-\c@bbx:relatedtotal=\count493
-))
-Package biblatex Info: Trying to load citation style 'numeric'...
-Package biblatex Info: ... file 'numeric.cbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
-File: numeric.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
-Package biblatex Info: Redefining '\cite'.
-Package biblatex Info: Redefining '\parencite'.
-Package biblatex Info: Redefining '\footcite'.
-Package biblatex Info: Redefining '\footcitetext'.
-Package biblatex Info: Redefining '\smartcite'.
-Package biblatex Info: Redefining '\supercite'.
-Package biblatex Info: Redefining '\textcite'.
-Package biblatex Info: Redefining '\textcites'.
-Package biblatex Info: Redefining '\cites'.
-Package biblatex Info: Redefining '\parencites'.
-Package biblatex Info: Redefining '\smartcites'.
-)
-Package biblatex Info: Trying to load configuration file...
-Package biblatex Info: ... file 'biblatex.cfg' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/biblatex.cfg
-File: biblatex.cfg 
-)
-Package biblatex Info: XeTeX detected.
-(biblatex)             Assuming input encoding 'utf8'.
-Package biblatex Info: Document encoding is UTF8 ....
-Package biblatex Info: ... and expl3
-(biblatex)             2026-03-20 L3 programming layer (loader) 
-(biblatex)             is new enough (at least 2020/04/06),
-(biblatex)             setting 'casechanger=expl3'.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
-Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
-)) (c:/texlive/2026/texmf-dist/tex/latex/bidi/float-xetex-bidi.def
+(c:/texlive/2026/texmf-dist/tex/latex/bidi/float-xetex-bidi.def
 File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package for XeTeX engine
-)
-\@quotelevel=\count494
-\@quotereset=\count495
- (./main.aux)
+) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -972,10 +744,10 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 102.
+Package hyperref Info: Link coloring OFF on input line 95.
 (./main.out) (./main.out)
-\@outlinefile=\write4
-\openout4 = `main.out'.
+\@outlinefile=\write3
+\openout3 = `main.out'.
 
 
 Package fontspec Info: 
@@ -984,89 +756,58 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 102.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 102.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 102.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 102.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 102.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 102.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 102.
-LaTeX Font Info:    Redeclaring math accent \check on input line 102.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 102.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 102.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 102.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 102.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 102.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 95.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 95.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 95.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 95.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 95.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 95.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 95.
+LaTeX Font Info:    Redeclaring math accent \check on input line 95.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 95.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 95.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 95.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 95.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 95.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 102.
+(Font)              `operators' in the math version `normal' on input line 95.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/LibertinusSerif(0)/m/n on input line 102.
+(Font)                  OT1/cmr/m/n --> TU/LibertinusSerif(0)/m/n on input line 95.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 102.
+(Font)              `operators' in the math version `bold' on input line 95.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/LibertinusSerif(0)/m/n on input line 102.
+(Font)                  OT1/cmr/bx/n --> TU/LibertinusSerif(0)/m/n on input line 95.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/LibertinusSerif(0)/m/n --> TU/LibertinusSerif(0)/m/n on input line 102.
+(Font)                  TU/LibertinusSerif(0)/m/n --> TU/LibertinusSerif(0)/m/n on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/LibertinusSerif(0)/m/it on input line 102.
+(Font)                  OT1/cmr/m/it --> TU/LibertinusSerif(0)/m/it on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/LibertinusSerif(0)/b/n on input line 102.
+(Font)                  OT1/cmr/bx/n --> TU/LibertinusSerif(0)/b/n on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/LibertinusSans(0)/m/n on input line 102.
+(Font)                  OT1/cmss/m/n --> TU/LibertinusSans(0)/m/n on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/LibertinusMono(0)/m/n on input line 102.
+(Font)                  OT1/cmtt/m/n --> TU/LibertinusMono(0)/m/n on input line 95.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/LibertinusSerif(0)/m/n --> TU/LibertinusSerif(0)/b/n on input line 102.
+(Font)                  TU/LibertinusSerif(0)/m/n --> TU/LibertinusSerif(0)/b/n on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/LibertinusSerif(0)/b/it on input line 102.
+(Font)                  OT1/cmr/bx/it --> TU/LibertinusSerif(0)/b/it on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/LibertinusSans(0)/b/n on input line 102.
+(Font)                  OT1/cmss/bx/n --> TU/LibertinusSans(0)/b/n on input line 95.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/LibertinusMono(0)/b/n on input line 102.
-\c@lstlisting=\count496
-Package biblatex Info: Trying to load language 'arabic' -> 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
-)
-Package biblatex Info: Trying to load language 'american'...
-Package biblatex Info: ... file 'american.lbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/american.lbx
-File: american.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
-)
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
- (c:/texlive/2026/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
-))
-Package biblatex Info: XeTeX detected.
-(biblatex)             Assuming input encoding 'utf8'.
-Package biblatex Info: Automatic encoding selection.
-(biblatex)             Assuming data encoding 'utf8'.
-\openout3 = `main.bcf'.
-
-Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'main.bbl' not found.
-
-No file main.bbl.
-Package biblatex Info: Reference section=0 on input line 102.
-Package biblatex Info: Reference segment=0 on input line 102.
-(./cover.tex
+(Font)                  OT1/cmtt/m/n --> TU/LibertinusMono(0)/b/n on input line 95.
+\c@lstlisting=\count368
+ (./cover.tex
 File: images/isitcom_logo/logo.jpg Graphic file (type bmp)
 <images/isitcom_logo/logo.jpg>
 LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
@@ -1084,297 +825,4 @@ File: images/entreprise/LogoGexpertise.png Graphic file (type bmp)
 ]) (./dedication.tex) [2
 
 ] (./abstract.tex
-Overfull \hbox (5.91594pt too wide) in paragraph at lines 7--8
-[]\TU/LibertinusSerif(0)/m/n/12 high transportation costs, traffic congestion, and environmental impact due to single-occupancy[]
- []
-
-) [1
-
-
-] (./acknowledgment.tex) (./acronyms.tex) [2
-
-
-
-] (./main.toc [3
-
-] [4] [5])
-\tf@toc=\write5
-\openout5 = `main.toc'.
-
- [6] (./main.lof)
-\tf@lof=\write6
-\openout6 = `main.lof'.
-
- [7
-
-] [8] (./main.lot)
-\tf@lot=\write7
-\openout7 = `main.lot'.
-
- [9
-
-] (./introduction.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1
-
-
-] [2]) [3] (./chapters/chapter1.tex
-Chapter 1.
-File: images/entreprise/LogoGexpertise.png Graphic file (type bmp)
-<images/entreprise/LogoGexpertise.png>
-[4
-
-
-] [5] [6] [7] [8]
-File: images/logos/flask.pdf Graphic file (type pdf)
-<use images/logos/flask.pdf>
- [9]
-File: images/logos/flutter.pdf Graphic file (type pdf)
-<use images/logos/flutter.pdf>
-File: images/logos/postgresql.pdf Graphic file (type pdf)
-<use images/logos/postgresql.pdf>
- [10]
-File: images/logos/Openstreetmap_logo.pdf Graphic file (type pdf)
-<use images/logos/Openstreetmap_logo.pdf>
-File: images/logos/websocket.pdf Graphic file (type pdf)
-<use images/logos/websocket.pdf>
- [11]
-File: images/methodology/scrum.jpg Graphic file (type bmp)
-<images/methodology/scrum.jpg>
- [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
-[][]|\TU/LibertinusSerif(0)/m/n/12 Development environment,[]
- []
-
-
-Underfull \hbox (badness 3780) in paragraph at lines 358--359
-[]\TU/LibertinusSerif(0)/m/n/12 technology stack, database[]
- []
-
-
-Underfull \hbox (badness 7981) in paragraph at lines 360--361
-[][]|\TU/LibertinusSerif(0)/m/n/12 Secure authentication sys-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
-[][]|\TU/LibertinusSerif(0)/m/n/12 WebSocket infrastructure,[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
-[]\TU/LibertinusSerif(0)/m/n/12 notification system, live[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
-[]\TU/LibertinusSerif(0)/m/n/12 behavior analysis, recom-[]
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 370--371
-[]\TU/LibertinusSerif(0)/m/n/12 validation, integration test-[]
- []
-
-
-Underfull \vbox (badness 4531) has occurred while \output is active []
-
- [15] [16]
-Overfull \hbox (0.50792pt too wide) in paragraph at lines 400--401
-[][]\TU/LibertinusSerif(0)/b/n/12 Chapter 5 – Intelligent System (Matching and Machine Learning) (Sprints 5–6): \TU/LibertinusSerif(0)/m/n/12 Route-[]
- []
-
-[17]
-Overfull \hbox (8.23991pt too wide) in paragraph at lines 433--434
-[][]\TU/LibertinusSerif(0)/m/n/12 The chapter also detailed system requirements, technologies used, and the development method-[]
- []
-
-) (./chapters/chapter2.tex [18]
-Chapter 2.
-File: images/architecture/global_architecture.png Graphic file (type bmp)
-<images/architecture/global_architecture.png>
-[19
-
-]
-Underfull \vbox (badness 2922) has occurred while \output is active []
-
- [20] [21]
-File: images/diagrams/use_case_global.png Graphic file (type bmp)
-<images/diagrams/use_case_global.png>
- [22]
-File: images/diagrams/class_global.png Graphic file (type bmp)
-<images/diagrams/class_global.png>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [23] [24] [25]) (./chapters/chapter3.tex [26]
-Chapter 3.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27
-
-]
-File: images/diagrams/use_case_sprint2.png Graphic file (type bmp)
-<images/diagrams/use_case_sprint2.png>
- [28]
-File: images/diagrams/sequence_auth.png Graphic file (type bmp)
-<images/diagrams/sequence_auth.png>
-
-Overfull \hbox (2.96791pt too wide) in paragraph at lines 68--69
-[][]\TU/LibertinusSerif(0)/m/n/12 If the email domain is valid, the system retrieves or creates the user record in the database. []
- []
-
-[29]
-File: images/diagrams/class_user.png Graphic file (type bmp)
-<images/diagrams/class_user.png>
- [30]
-File: images/ui/login_screen.png Graphic file (type bmp)
-<images/ui/login_screen.png>
- [31]
-File: images/ui/profile_screen.png Graphic file (type bmp)
-<images/ui/profile_screen.png>
- [32]
-File: images/ui/UserManagementInterface.png Graphic file (type bmp)
-<images/ui/UserManagementInterface.png>
- [33] [34]) (./chapters/chapter4.tex [35]
-Chapter 4.
-[36
-
-]
-File: images/ui/main_screen.png Graphic file (type bmp)
-<images/ui/main_screen.png>
-
-Underfull \vbox (badness 1406) has occurred while \output is active []
-
- [37]
-File: images/diagrams/usecase_sprint3.png Graphic file (type bmp)
-<images/diagrams/usecase_sprint3.png>
-File: images/diagrams/sequence_booking.png Graphic file (type bmp)
-<images/diagrams/sequence_booking.png>
-
-Underfull \vbox (badness 2903) has occurred while \output is active []
-
- [38] [39]
-Overfull \hbox (3.07193pt too wide) in paragraph at lines 95--96
-[][]\TU/LibertinusSerif(0)/m/n/12 This sequence demonstrates a key architectural principle: \TU/LibertinusSerif(0)/b/n/12 all business logic is enforced server-[]
- []
-
-File: images/diagrams/class_sprint3.png Graphic file (type bmp)
-<images/diagrams/class_sprint3.png>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [40] [41]
-File: images/architecture/ride_lifecycle.png Graphic file (type bmp)
-<images/architecture/ride_lifecycle.png>
- [42]
-File: images/ui/search_ride.png Graphic file (type bmp)
-<images/ui/search_ride.png>
- [43] [44] [45]
-File: images/diagrams/sequence_realtime.png Graphic file (type bmp)
-<images/diagrams/sequence_realtime.png>
- [46]
-Overfull \hbox (5.33592pt too wide) in paragraph at lines 272--273
-[][]\TU/LibertinusSerif(0)/m/n/12 Each transition within the lifecycle triggers a corresponding event, which is propagated through[]
- []
-
-
-Overfull \hbox (7.19588pt too wide) in paragraph at lines 287--288
-[]\TU/LibertinusSerif(0)/m/n/12 The notification system complements the real-time architecture by transforming backend events[]
- []
-
-[47] [48]
-File: images/ui/notifications_screen.png Graphic file (type bmp)
-<images/ui/notifications_screen.png>
- [49]
-File: images/ui/tripcard.png Graphic file (type bmp)
-<images/ui/tripcard.png>
- [50] [51]
-File: images/ui/system_events.png Graphic file (type bmp)
-<images/ui/system_events.png>
- [52]
-File: images/ui/admin_dashboard.png Graphic file (type bmp)
-<images/ui/admin_dashboard.png>
- [53]
-File: images/ui/analytics.png Graphic file (type bmp)
-<images/ui/analytics.png>
- [54]
-Overfull \hbox (14.33192pt too wide) in paragraph at lines 506--507
-[][]\TU/LibertinusSerif(0)/m/n/12 The integration of backend-controlled business logic, a structured ride lifecycle, and a WebSocket-[]
- []
-
-) (./chapters/chapter5.tex [55]
-Chapter 5.
-[56
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [57] [58]
-Overfull \hbox (4.66393pt too wide) in paragraph at lines 99--100
-[][]\TU/LibertinusSerif(0)/m/n/12 Instead of evaluating whether two rides share identical endpoints, the system evaluates whether[]
- []
-
-File: images/architecture/route_matching.png Graphic file (type bmp)
-<images/architecture/route_matching.png>
-[59]
-File: images/architecture/matching_pipeline.png Graphic file (type bmp)
-<images/architecture/matching_pipeline.png>
- [60] [61]
-File: images/ui/smart_notification_preview.png Graphic file (type bmp)
-<images/ui/smart_notification_preview.png>
-File: images/ui/smart_match_screen.png Graphic file (type bmp)
-<images/ui/smart_match_screen.png>
-
-Overfull \hbox (2.76393pt too wide) in paragraph at lines 206--208
-[]\TU/LibertinusSerif(0)/m/n/12 also operationally impactful, by transforming detected opportunities into immediate and mean-[]
- []
-
-[62] [63] [64
-
-]
-Underfull \vbox (badness 1742) has occurred while \output is active []
-
- [65]
-File: images/architecture/ml_pipeline.png Graphic file (type bmp)
-<images/architecture/ml_pipeline.png>
- [66] [67] [68]
-File: images/ui/commute_prediction.png Graphic file (type bmp)
-<images/ui/commute_prediction.png>
- [69]) (./chapters/chapter6.tex) (./conclusion.tex) [70]
-
-LaTeX Warning: Empty bibliography on input line 148.
-
-(./main.aux)
- ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2026-03-20>
- ***********
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: E9E027A1176FC212B88908BEB43D148F;20991
-(rerunfilecheck)             After:  ACAFB327670CE48DE2A07AA0BA51A94F;21160.
-Package logreq Info: Writing requests to 'main.run.xml'.
-\openout1 = `main.run.xml'.
-
- ) 
-Here is how much of TeX's memory you used:
- 27155 strings out of 467992
- 549345 string characters out of 5433178
- 1474766 words of memory out of 5000000
- 55567 multiletter control sequences out of 15000+600000
- 633126 words of font info for 109 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 82i,10n,93p,1227b,4175s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-Output written on main.pdf (81 pages).
+Overfull \hbox (5

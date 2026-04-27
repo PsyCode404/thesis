@@ -1,0 +1,149 @@
+\chapter{System Evaluation and Validation}
+
+\section{Introduction}
+
+This chapter presents the final phase of the project, focusing on the global validation and evaluation of the system. Unlike previous sprints, where validation was performed at the feature level, this phase adopts a system-wide perspective to assess the coherence, reliability, and effectiveness of the platform as an integrated solution.
+
+The objective is to verify that all components — ride management, real-time communication, smart matching, and machine learning — operate correctly both individually and collectively under realistic usage conditions. This evaluation emphasizes system behavior, interaction consistency, and the practical value of intelligent features.
+
+---
+
+\section{Sprint 6: Final Validation and System Evaluation}
+
+\subsection{Sprint Objective}
+
+The objective of this sprint is to validate the system as a cohesive and fully integrated platform. This includes verifying end-to-end workflows, assessing real-time synchronization across multiple users, evaluating the effectiveness of intelligent components, and analyzing system robustness under edge conditions.
+
+---
+
+\subsection{Sprint Backlog}
+
+\begin{table}[H]
+\centering
+
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{5pt}
+
+\begin{tabular}{|p{0.75\textwidth}|c|}
+\hline
+\textbf{User Story} & \textbf{Priority} \\
+\hline
+As a system, I want to validate complete end-to-end workflows across all modules to ensure global system coherence & High \\
+\hline
+As a system, I want to verify integration between ride management, real-time communication, and intelligent components to ensure seamless interaction & High \\
+\hline
+As a system, I want to evaluate real-time synchronization across multiple clients to ensure consistent shared state & High \\
+\hline
+As a system, I want to assess the effectiveness of the smart matching mechanism in realistic ride scenarios & High \\
+\hline
+As a system, I want to evaluate the relevance and usefulness of machine learning predictions in practical contexts & High \\
+\hline
+As a system, I want to analyze system responsiveness and perceived latency during typical user interactions & Medium \\
+\hline
+As a system, I want to test robustness against edge cases and invalid operations to ensure stability & High \\
+\hline
+As a system, I want to leverage observability tools (logs, events, dashboard) to verify system behavior and trace execution & Medium \\
+\hline
+As a system, I want to identify limitations and areas for improvement to guide future enhancements & Medium \\
+\hline
+\end{tabular}
+\caption{Sprint 6 Backlog — System Evaluation}
+\end{table}
+
+---
+
+\section{Evaluation Methodology}
+
+The evaluation is conducted using a scenario-based approach that reflects realistic system usage rather than isolated functional testing. Each scenario involves multiple components interacting simultaneously, allowing the observation of system behavior under practical conditions.
+
+This methodology focuses on:
+
+\begin{itemize}
+    \item End-to-end execution of ride workflows
+    \item Multi-user interaction and synchronization
+    \item Real-time event propagation
+    \item Intelligent decision-making behavior
+\end{itemize}
+
+The goal is not only to verify correctness, but also to assess the quality of interaction, system consistency, and the practical usefulness of the implemented features.
+
+---
+
+\section{End-to-End System Validation}
+
+A complete ride scenario is executed, starting from ride creation to ride completion. The sequence includes:
+
+\begin{itemize}
+    \item Driver creates a ride with defined parameters
+    \item Passenger discovers and requests the ride
+    \item Driver accepts the request
+    \item Ride lifecycle progresses through its defined states
+\end{itemize}
+
+The system successfully enforces all validation rules during this process. Booking constraints are respected, invalid operations are rejected, and the ride lifecycle transitions occur in a controlled and consistent manner.
+
+This confirms that the backend-driven design effectively maintains system integrity across complex workflows.
+
+---
+
+\section{Real-Time System Evaluation}
+
+The real-time communication system is evaluated through simultaneous interaction between multiple clients.
+
+When ride states change or driver location updates occur, these changes are propagated instantly to all connected users. The system maintains a consistent shared state without requiring manual refresh or polling.
+
+Additionally, connection interruptions are handled gracefully. Upon reconnection, clients are resynchronized with the current system state, ensuring continuity of interaction.
+
+This demonstrates that the event-driven architecture provides reliable and efficient real-time coordination.
+
+---
+
+\section{Intelligent System Evaluation}
+
+\subsection{Smart Matching Evaluation}
+
+The smart matching system is evaluated through scenarios where passengers are not located exactly at the driver’s origin or destination.
+
+The system successfully identifies feasible matches by projecting passenger locations onto the driver’s route and calculating acceptable detours. Compared to strict matching approaches, this significantly increases matching opportunities while maintaining route coherence.
+
+This confirms the effectiveness of the trajectory-based matching strategy in handling real-world spatial constraints.
+
+---
+
+\subsection{Machine Learning Evaluation}
+
+The machine learning component is evaluated based on the relevance of its predictions rather than purely numerical accuracy.
+
+The system is able to identify recurring commuting patterns and generate contextual ride suggestions aligned with user habits. Suggestions are triggered at appropriate times and reflect realistic travel behavior.
+
+While the model is trained on synthetic data, the generated patterns remain consistent and meaningful, demonstrating the feasibility of predictive assistance within the platform.
+
+---
+
+\section{System Robustness and Observability}
+
+The system is tested against various edge cases, including invalid booking attempts, concurrent requests, and inconsistent inputs.
+
+All invalid operations are correctly rejected at the backend level, confirming the effectiveness of validation mechanisms. Concurrent interactions do not lead to inconsistencies, particularly in seat allocation and ride state management.
+
+Furthermore, the observability layer plays a key role in validation. System events, logs, and dashboard indicators provide visibility into system behavior, enabling verification of internal processes and facilitating debugging when necessary.
+
+---
+
+\section{Discussion and Limitations}
+
+While the system demonstrates strong performance and consistency, several limitations are identified.
+
+The machine learning component relies on synthetic data, which may not fully capture the variability of real-world user behavior. Future work could incorporate real usage data to improve model accuracy and adaptability.
+
+Additionally, the evaluation focuses on functional and behavioral aspects rather than large-scale performance under heavy load. Scalability considerations, such as distributed deployment and load balancing, remain areas for further exploration.
+
+Finally, while real-time synchronization is effective, network variability may impact performance in less stable environments.
+
+---
+
+\section{Conclusion}
+
+This chapter validated the system as a coherent and fully integrated platform. The evaluation confirms that the backend-driven architecture, combined with real-time communication and intelligent components, provides a robust and effective solution for ride-sharing.
+
+The system successfully ensures consistency, supports real-time coordination, and enhances user interaction through intelligent features. Despite certain limitations, the platform establishes a solid foundation for future improvements and potential real-world deployment.
