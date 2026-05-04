@@ -2,30 +2,30 @@
 
 \section{Introduction}
 
-Following the implementation of authentication and user management, this chapter introduces the operational core of the system: ride management and real-time interaction.
+Following the implementation of authentication and user management, this chapter introduces the operational core of the platform: ride management and real-time interaction.
 
-This layer is responsible for orchestrating all ride-related operations while ensuring consistency, constraint enforcement, and synchronization across all system components.
+This layer coordinates all ride-related operations while maintaining consistency, enforcing constraints, and synchronizing system state across all components.
 
 Two complementary concerns are addressed:
 
 \begin{itemize}
-    \item \textbf{State Management}: controlling ride creation, booking, and lifecycle transitions under strict business rules.
+    \item \textbf{State Management}: handling ride creation, booking processes, and lifecycle transitions under strict business rules.
     \item \textbf{State Propagation}: ensuring that all participants observe a consistent and up-to-date system state in real time.
 \end{itemize}
 
-To address these concerns, the implementation is structured into two complementary development phases:
+To address these concerns, the implementation is divided into two development phases:
 
 \begin{itemize}
-    \item \textbf{Sprint 2 — Ride Management and Authentication}: focuses on modeling entities, enforcing constraints, and managing ride lifecycle.
+    \item \textbf{Sprint 2 — Ride Management}: focuses on entity modeling, constraint enforcement, and lifecycle management.
     \item \textbf{Sprint 3 — Real-Time Interaction}: introduces an event-driven communication layer for live synchronization.
 \end{itemize}
 
-This separation ensures a clear distinction between decision logic and data propagation, improving modularity and maintainability.
+This separation distinguishes decision logic from data propagation, improving modularity and simplifying system evolution.
 
 % =========================================================
 \section{User Interface Overview}
 
-The user interface is designed as a minimal and task-oriented entry point that exposes the system’s core functionalities without introducing unnecessary complexity.
+The user interface is designed as a minimal and task-oriented entry point that exposes the core functionalities without unnecessary complexity.
 
 Instead of distributing features across multiple navigation layers, the interface centralizes the two primary user actions:
 
@@ -34,34 +34,29 @@ Instead of distributing features across multiple navigation layers, the interfac
     \item Offering a new ride
 \end{itemize}
 
-This design aligns the user experience with the system’s primary use cases while reducing interaction overhead.
+This design aligns user interaction with the main use cases of the platform while reducing navigation overhead.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.4\textwidth]{images/ui/main_screen.png}
 \caption{Main Interface — Primary User Actions}
 \end{figure}
 
-From a system perspective, this interface acts as a dispatcher, routing user intent toward backend workflows through API calls. All business logic remains exclusively handled by the backend, ensuring consistency and security.
+From a system perspective, this interface acts as an entry point that forwards user actions to backend services through API calls. All business logic is handled exclusively by the backend, maintaining consistency and preventing client-side inconsistencies.
 
 % =========================================================
 \section{Sprint 2: Ride Management System}
 
 \subsection{Sprint Objective}
 
-The objective of this sprint is to implement a reliable and consistent ride management workflow. All operations are validated at the backend level before being persisted, preventing invalid states and ensuring data integrity.
+The objective of this sprint is to implement a reliable and consistent ride management workflow.
 
-\vspace{-0.3cm}
+Each operation is validated at the backend before being stored, preventing invalid states and maintaining data integrity. This foundation ensures that all ride-related interactions operate within a controlled and predictable environment.
 
 \subsection{Sprint Backlog}
 
-\vspace{-0.2cm}
-
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
-\caption{Sprint 2 Backlog — Ride Management System}
-\vspace{-0.3cm}
-
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{4pt}
 
@@ -92,140 +87,130 @@ As a system, I want to handle edge cases (cancellation, missed rides) and enforc
 As a user, I want to view ride details and booking status through the interface to track my participation & High \\
 \hline
 \end{tabular}
+\caption{Sprint 2 Backlog --- Ride Management}
+\label{tab:sprint2_backlog}
 \end{table}
+
 \subsection{Use Case Diagram}
 
-\begin{figure}[H]
+The use case diagram illustrates how users interact with the ride management functionalities and defines the system’s functional boundaries.
+
+The \textbf{Collaborator} represents both passenger and driver roles, allowing a unified interaction model while preserving role flexibility.
+
+Each use case is linked to a backend-controlled workflow, ensuring that all actions are executed within a validated environment.
+
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{images/diagrams/usecase_sprint3.png}
+\includegraphics[width=0.75\textwidth]{images/diagrams/usecase_sprint3.png}
 \caption{Use Case Diagram — Ride Management}
 \end{figure}
-
-The use case diagram defines the interaction boundary between the user and the system.
-
-The \textbf{Collaborator} actor represents both passenger and driver roles. This abstraction allows a unified interaction model while preserving role flexibility.
-
-Each use case corresponds to a controlled backend workflow, ensuring that all user actions are executed within a validated context.
 
 % ------------------------
 \subsection{Sequence Diagram — Ride Booking}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{images/diagrams/sequence_booking.png}
-\caption{Sequence Diagram — Ride Booking Process}
-\end{figure}
+The booking process is implemented as a controlled validation sequence executed entirely on the backend.
 
-The booking process is implemented as a strictly controlled validation pipeline executed entirely at the backend level.
+Although the request originates from the client, all decision-making logic remains centralized on the server, preventing any bypass of constraints.
 
-The client initiates the request, but all decision-making logic is centralized in the backend. This ensures that constraints cannot be bypassed by client-side manipulation.
-
-The validation sequence follows a deterministic order:
+The validation process follows a defined sequence:
 
 \begin{itemize}
-    \item Retrieval of the ride from the database to ensure existence.
-    \item Verification of seat availability to prevent overbooking.
-    \item Enforcement of role constraints to prevent users from booking their own rides.
-    \item Validation of temporal constraints to ensure the ride is still valid.
+    \item Retrieval of the ride from the database to confirm its existence.
+    \item Verification of seat availability to avoid overbooking.
+    \item Enforcement of role constraints, preventing users from booking their own rides.
+    \item Validation of temporal conditions to ensure the ride is still active.
 \end{itemize}
 
-Each validation step acts as a gate. If any condition fails, the process is immediately terminated and an error response is returned.
+Each step acts as a validation checkpoint. If any condition fails, the process stops immediately.
 
-Only when all constraints are satisfied does the system create the reservation and update seat availability. This guarantees that the system never enters an inconsistent state.
+Only when all validations succeed does the system create the reservation and update seat availability, ensuring consistency.
 
-This sequence demonstrates a key architectural principle: \textbf{all business logic is enforced server-side}, while the client remains a thin interaction layer.
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{images/diagrams/sequence_booking.png}
+\caption{Sequence Diagram — Ride Booking Process}
+\end{figure}
 
 % ------------------------
 \subsection{Class Diagram}
 
-\begin{figure}[H]
+The class diagram describes the structural organization of ride-related entities and their relationships.
+
+A clear separation is established between the \textbf{Ride} and \textbf{Reservation} entities. The ride represents a shared resource, while reservations correspond to individual commitments.
+
+This design supports multiple passengers per ride and allows independent management of booking constraints.
+
+The \textbf{Collaborator} extends the \textbf{User} entity, enabling role flexibility without duplication.
+
+The lifecycle state is integrated into the \textbf{Ride} entity, ensuring that transitions are directly tied to ride execution.
+
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{images/diagrams/class_sprint3.png}
+\includegraphics[width=0.75\textwidth]{images/diagrams/class_sprint3.png}
 \caption{Class Diagram — Ride Management}
 \end{figure}
-
-The class diagram defines the structural model of the system.
-
-The separation between \textbf{Ride} and \textbf{Reservation} is a deliberate design decision. While a ride represents a shared entity, reservations represent individual user commitments.
-
-This separation enables:
-
-\begin{itemize}
-    \item support for multiple passengers per ride,
-    \item independent management of booking constraints,
-    \item scalability of the reservation system.
-\end{itemize}
-
-The \textbf{Collaborator} extends the \textbf{User} entity, allowing role flexibility without duplication.
-
-The lifecycle state is embedded within the \textbf{Ride} entity, ensuring that state transitions are directly associated with ride execution.
 
 % ------------------------
 \subsection{Ride Lifecycle Management}
 
-\begin{figure}[H]
+The ride lifecycle is modeled as a finite state machine, providing a structured representation of ride progression.
+
+Each state corresponds to a phase of execution, and transitions are triggered by user actions or system conditions.
+
+\begin{itemize}
+    \item Scheduled → Driver En Route
+    \item Driver En Route → Arrived
+    \item Arrived → In Progress
+    \item In Progress → Completed
+\end{itemize}
+
+Additional states handle exceptional scenarios such as cancellation and missed rides.
+
+This model guarantees valid transitions and prevents inconsistent states during execution.
+
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{images/architecture/ride_lifecycle.png}
+\includegraphics[width=0.75\textwidth]{images/architecture/ride_lifecycle.png}
 \caption{Ride Lifecycle State Machine}
 \end{figure}
-
-The ride lifecycle is modeled as a finite state machine to ensure controlled and predictable state transitions.
-
-Each state corresponds to a distinct phase of ride execution, and transitions are triggered either by user actions or system rules.
-
-\begin{itemize}
-    \item Scheduled → Driver En Route: initiated by the driver.
-    \item Driver En Route → Arrived: triggered when the driver reaches the pickup location.
-    \item Arrived → In Progress: triggered when the ride starts.
-    \item In Progress → Completed: triggered when the ride ends.
-\end{itemize}
-
-Two additional states handle edge conditions:
-
-\begin{itemize}
-    \item Cancelled: can be triggered at any stage by user action.
-    \item Missed: automatically triggered when the ride is not started within the allowed timeframe.
-\end{itemize}
-
-This model ensures that invalid transitions are impossible and that the system always reflects a coherent state.
 
 % ------------------------
 \subsection{User Interface Integration}
 
+The user interface converts user actions into structured API requests directed to the backend.
+
+Search parameters are transmitted to the server, where filtering and validation are applied. The results are then returned and displayed to support user interaction.
+
+This design keeps the interface stateless and ensures that all decision-making logic remains centralized in the backend.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{images/ui/search_ride.png}
+\includegraphics[width=0.3\textwidth]{images/ui/search_ride.png}
 \caption{Ride Search Interface}
 \end{figure}
-
-The user interface translates user input into structured API requests.
-
-Search parameters are transmitted to the backend, where filtering and validation are executed. Results are returned and rendered in a format that supports direct interaction with the booking workflow.
-
-This separation ensures that the UI remains stateless and fully dependent on backend logic.
 
 % ------------------------
 \subsection{Sprint Validation}
 
-The system was validated through structured scenario-based testing performed on the integrated application.
+The ride management system was validated through scenario-based testing conducted on the integrated application.
 
-Testing focused on verifying correctness under both nominal and edge conditions:
+Testing targeted both standard operation and edge cases, including:
 
 \begin{itemize}
     \item booking attempts when no seats are available,
-    \item attempts to book one's own ride,
-    \item booking after ride expiration,
+    \item attempts to book a ride created by the same user,
+    \item booking requests after ride expiration,
     \item concurrent booking requests affecting seat availability.
 \end{itemize}
 
-Validation was conducted through the mobile application and backend endpoints, with behavior verified using system responses and execution logs.
+Validation was performed using the mobile application and backend endpoints, with behavior analyzed through system responses and execution logs.
 
-These tests confirm that:
+The results confirm that:
 
 \begin{itemize}
-    \item business rules are consistently enforced,
-    \item invalid operations are rejected before persistence,
-    \item data integrity is preserved under concurrent interactions.
+    \item business rules are applied consistently,
+    \item invalid operations are rejected before data persistence,
+    \item data integrity is maintained under concurrent interactions.
 \end{itemize}
 \clearpage
 % =========================================================
@@ -233,12 +218,10 @@ These tests confirm that:
 
 \subsection{Sprint Backlog}
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
-\caption{Sprint 3 Backlog — Real-Time Interaction}
-\renewcommand{\arraystretch}{1.3}
+\renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{5pt}
-\setlength{\extrarowheight}{2pt}
 
 \begin{tabular}{|p{0.75\textwidth}|c|}
 \hline
@@ -267,20 +250,27 @@ As a system, I want to log real-time system events and expose them through an ad
 As a system, I want to provide system health indicators and basic analytics to support operational visibility & Low \\
 \hline
 \end{tabular}
+
+\caption{Sprint 3 Backlog — Real-Time Interaction}
 \end{table}
 
+% -----------------------------------------------------
+
 \subsection{Real-Time Architecture}
-To ensure immediate synchronization between system components, the platform adopts a WebSocket-based communication architecture.
 
-Unlike traditional HTTP communication, which follows a request-response model, WebSocket establishes a persistent bidirectional connection between the client and the server. Once the connection is initiated, it remains open, allowing the backend to push updates asynchronously without requiring repeated client requests.
+To achieve immediate synchronization between system components, the platform relies on a communication architecture based on WebSocket technology~\cite{websocket}.
 
-This architectural choice is motivated by the need for:
+In contrast to traditional HTTP communication, which follows a request-response pattern, WebSocket establishes a persistent bidirectional connection between the client and the server. Once initiated, this connection remains open, allowing the backend to push updates asynchronously without requiring repeated client requests.
+
+This architectural choice is driven by several requirements:
 
 \begin{itemize}
-    \item Low-latency communication
-    \item Continuous synchronization of ride state
-    \item Efficient propagation of frequent updates (e.g., location tracking)
+    \item low-latency communication,
+    \item continuous synchronization of ride state,
+    \item efficient propagation of frequent updates such as location tracking.
 \end{itemize}
+
+% -----------------------------------------------------
 
 \subsubsection{Connection Lifecycle}
 
@@ -288,13 +278,15 @@ The real-time communication process begins when the mobile application initiates
 
 This connection is associated with the authenticated user session, ensuring that events are routed only to relevant participants.
 
-Once established, the connection remains active throughout the ride lifecycle, enabling continuous communication without additional overhead.
+Once established, the connection remains active throughout the ride lifecycle, enabling continuous interaction without additional request overhead. In case of interruption, the system supports reconnection mechanisms to restore synchronization with the current system state.
+
+% -----------------------------------------------------
 
 \subsubsection{Event-Driven Communication Model}
 
-The system operates on an event-driven model.
+The system follows an event-driven communication model.
 
-Whenever a significant change occurs within the system, such as:
+Whenever a significant change occurs within the platform, such as:
 
 \begin{itemize}
     \item ride status updates,
@@ -303,83 +295,85 @@ Whenever a significant change occurs within the system, such as:
     \item notification triggers,
 \end{itemize}
 
-the backend generates an event that is immediately transmitted through the WebSocket server.
+the backend generates an event that is transmitted through the WebSocket layer.
 
 Clients subscribed to the corresponding ride or user channel receive these events in real time and update their interface accordingly.
 
-This approach eliminates the need for polling and ensures that all users observe the same system state with minimal delay.
+This approach removes the need for polling mechanisms and allows all participants to observe consistent system state with minimal delay.
 
 \subsubsection{Multi-Client Synchronization}
 
-A key advantage of this architecture is its ability to synchronize multiple clients simultaneously.
+A key property of the adopted architecture is the ability to keep multiple clients synchronized in real time.
 
-For a given ride, several participants may be connected at the same time (driver and multiple passengers). When an event occurs, it is broadcast to all relevant clients, ensuring that:
+For a given ride, several participants may be connected simultaneously (driver and multiple passengers). When a relevant event occurs, it is propagated to all concerned clients so that:
 
 \begin{itemize}
-    \item ride status remains consistent across all devices,
-    \item location updates are reflected simultaneously,
-    \item user interfaces remain aligned with backend state.
+    \item ride status remains consistent across devices,
+    \item location updates are reflected at the same time,
+    \item user interfaces stay aligned with the backend state.
 \end{itemize}
 
-This guarantees a coherent shared experience across the platform.
+This behavior ensures a coherent shared view of the ride for all participants.
 
+% ------------------------
 % ------------------------
 \subsection{Sequence Diagram — Real-Time Update}
 
+The sequence diagram presents the interaction between system components during real-time operation.
+
+The process starts when the client establishes a WebSocket connection and authenticates the session. After the connection is active, the client retrieves the current ride state from the backend as an initial snapshot.
+
+During ride execution, the backend emits events corresponding to state transitions and location updates. These events are transmitted through the WebSocket layer and delivered to all connected clients.
+
+On reception, the mobile application processes the incoming data and updates the interface immediately, ensuring that displayed information reflects the current backend state.
+
+This interaction model illustrates the transition from a request-driven workflow to an event-driven system.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{images/diagrams/sequence_realtime.png}
+\includegraphics[width=0.75\textwidth]{images/diagrams/sequence_realtime.png}
 \caption{Sequence Diagram — Real-Time Interaction}
 \end{figure}
-
-The sequence diagram illustrates the dynamic interaction between system components during real-time operation.
-
-The process begins with the client establishing a WebSocket connection and authenticating the session. Once connected, the client can request the current ride state, which is retrieved from the backend and returned as initial data.
-
-During the ride execution, the backend continuously emits events corresponding to state changes and location updates. These events are transmitted through the WebSocket server and delivered to all connected clients.
-
-Upon reception, the mobile application processes the incoming data and updates the user interface instantly, ensuring that the displayed information remains consistent with the backend state.
-
-This sequence highlights the transition from a request-driven system to an event-driven architecture.
 
 % ------------------------
 \subsection{Integration with Ride Lifecycle}
 
-The real-time communication layer is tightly coupled with the ride lifecycle defined in the previous sprint.
+The real-time communication layer is directly connected to the ride lifecycle defined in the previous sprint.
 
-Each transition within the lifecycle triggers a corresponding event, which is propagated through the WebSocket infrastructure. For example:
+Each lifecycle transition generates an event that is propagated through the WebSocket infrastructure. For instance:
 
 \begin{itemize}
-    \item When the driver starts the ride, a status update is broadcast.
-    \item When the driver reaches the pickup point, an arrival event is emitted.
-    \item When the ride is completed, all participants are notified instantly.
+    \item When the driver starts the ride, a status update is broadcast
+    \item When the driver reaches the pickup point, an arrival event is emitted
+    \item When the ride is completed, all participants receive a final update
 \end{itemize}
 
-This integration ensures that lifecycle transitions are not only enforced at the backend level but are also immediately reflected in the user interface.
+This coupling ensures that lifecycle transitions are immediately reflected at the interface level, not only enforced internally.
 
-As a result, the system maintains a consistent and synchronized representation of ride execution across all participants.
+As a result, all participants observe a consistent representation of ride execution at any moment.
 
 % ------------------------
 \subsection{Notification System}
 
-The notification system complements the real-time architecture by transforming backend events into structured, user-facing interactions.
+The notification system complements the real-time layer by transforming backend events into structured user-facing information.
 
-While WebSocket ensures the delivery of real-time updates, the notification layer provides a persistent and interactive representation of these events.
+While WebSocket enables immediate event delivery, the notification layer provides persistence and contextual representation of these events.
 
 \subsubsection{Role of Notifications}
 
-Notifications are designed to:
+Notifications serve several purposes:
 
 \begin{itemize}
-    \item Inform users of important ride-related events in real time
+    \item Inform users about important ride-related events in real time
     \item Provide immediate feedback on system actions
     \item Guide users toward relevant interactions within the application
-    \item Maintain awareness even when users are not actively monitoring a ride
+    \item Maintain awareness even when the user is not actively viewing the ride
 \end{itemize}
 
+% ------------------------
 \subsubsection{System Flow}
 
-The notification mechanism follows a structured pipeline:
+The notification mechanism follows a structured processing pipeline:
 
 \begin{enumerate}
     \item A system event occurs (e.g., reservation accepted, ride status updated)
@@ -389,11 +383,12 @@ The notification mechanism follows a structured pipeline:
     \item The notification is displayed and the interface is updated
 \end{enumerate}
 
-This dual mechanism ensures both persistence (through database storage) and immediacy (through real-time delivery).
+This dual mechanism ensures both persistence through database storage and immediacy through real-time delivery.
 
+% ------------------------
 \subsubsection{Types of Notifications}
 
-The platform supports multiple categories of notifications:
+The platform supports multiple categories of notifications, each corresponding to a specific type of system event:
 
 \begin{itemize}
     \item Ride lifecycle updates (ride started, driver arrived, ride completed)
@@ -402,11 +397,14 @@ The platform supports multiple categories of notifications:
     \item System alerts (ride cancellation, availability changes)
 \end{itemize}
 
-Each notification is associated with contextual data, allowing precise interaction and navigation.
+These categories ensure that users receive relevant information depending on their role and current context within the ride.
 
+Each notification includes contextual data such as identifiers, timestamps, and associated ride information, enabling precise interaction and navigation within the application.
+
+% ------------------------
 \subsubsection{User Interaction and Navigation}
 
-Notifications are designed as interactive elements rather than passive messages.
+Notifications are designed as interactive elements rather than passive messages, allowing users to respond directly to system events.
 
 Users can:
 
@@ -416,6 +414,8 @@ Users can:
     \item Navigate directly to relevant application screens by interacting with notifications
 \end{itemize}
 
+This interaction model reduces the need for manual navigation and allows users to quickly access the most relevant information.
+
 The navigation behavior depends on the notification context:
 
 \begin{itemize}
@@ -424,45 +424,47 @@ The navigation behavior depends on the notification context:
     \item Boarding or pickup notifications redirect to the active ride interface
 \end{itemize}
 
-This design integrates notifications into the application's navigation flow, enabling seamless transitions between events and actions.
-\begin{figure}[htbp]
+By linking notifications to specific application states, the system ensures that users can move seamlessly from an event to the corresponding action.
+
+To illustrate this interaction, the notification interface is presented below.
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.35\textwidth]{images/ui/notifications_screen.png}
-\caption{Notification Interface — User Interaction and Navigation}
+\includegraphics[width=0.42\textwidth]{images/ui/notifications_screen.png}
+\caption{Notification Interface}
 \end{figure}
-\FloatBarrier
+
+% ------------------------
 \subsubsection{Frontend Integration}
 
-On the client side, notifications are managed through a dedicated state management layer, ensuring consistency across the interface.
+On the client side, notifications are managed through a dedicated state management layer that maintains consistency across the interface.
 
 Key features include:
 
 \begin{itemize}
-    \item Real-time updates via WebSocket events
-    \item Persistent retrieval through API endpoints
+    \item Real-time updates through WebSocket events
+    \item Persistent retrieval using API endpoints
     \item Visual indicators such as unread notification badges
 \end{itemize}
 
 This ensures that the notification state remains synchronized across sessions and devices.
 
+% ------------------------
 \subsubsection{Relation to Intelligent Notifications}
 
-It is important to distinguish between standard system-generated notifications described in this section and the intelligent notifications introduced in Chapter 5.
+It is important to distinguish between the system-generated notifications described in this section and the intelligent notifications introduced in Chapter 5.
 
-While the former are triggered by system events, the latter are generated by decision-making algorithms and represent proactive system behavior.
-
-% ------------------------
+Standard notifications are triggered by system events, whereas intelligent notifications are produced by decision-making algorithms and reflect proactive system behavior.
 \subsection{TripCard Component}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{images/ui/tripcard.png}
+\includegraphics[width=0.35\textwidth]{images/ui/tripcard.png}
 \caption{TripCard Interface}
 \end{figure}
 
-The TripCard component provides a dynamic representation of the active ride.
+The TripCard component provides a real-time representation of the active ride.
 
-It aggregates real-time data into a compact interface, including:
+It aggregates dynamic information into a compact interface, including:
 
 \begin{itemize}
     \item current ride status,
@@ -470,45 +472,46 @@ It aggregates real-time data into a compact interface, including:
     \item estimated arrival time.
 \end{itemize}
 
-The component is continuously updated through WebSocket events, ensuring that the displayed information remains consistent with backend state.
+The component is updated continuously through WebSocket events, ensuring that the displayed data remains aligned with the backend state.
 
 % ------------------------
 \subsection{Navigation Assistance Feature}
 
 In addition to the core ride management functionalities, a navigation assistance feature is provided for drivers.
 
-This feature integrates external navigation services by automatically generating routes based on ride data, including origin and destination.
+This feature integrates external routing services to automatically generate navigation paths based on ride data, including origin and destination.
 
-By eliminating manual configuration, this functionality reduces interaction friction and improves usability during ride execution.
+By removing the need for manual configuration, this functionality reduces interaction overhead and improves usability during ride execution.
 
-It is important to note that this feature operates independently of the core system logic and does not affect the ride lifecycle or business rules.
+It operates independently from the core system logic and does not interfere with the ride lifecycle or business rules.
 
 % ------------------------
 % ------------------------
 \subsection{System Observability and Administrative Interface}
 
-In event-driven architectures, where system behavior emerges from asynchronous interactions between distributed components, observability is not an optional enhancement but a structural necessity. Without explicit traceability mechanisms, debugging race conditions, identifying state inconsistencies, and understanding propagation paths become intractable. The challenges of asynchronous behavior---non-deterministic event ordering, delayed state reflection, and multi-client divergence---demand dedicated monitoring, logging, and administrative oversight to ensure system coherence.
+In event-driven systems, where behavior emerges from asynchronous interactions between distributed components, observability becomes essential for maintaining system reliability~\cite{event_driven_architecture}.
 
-In addition to user-facing functionalities, the system incorporates an administrative observability layer that provides real-time visibility into system behavior and operational state.
+Without explicit traceability mechanisms, diagnosing race conditions, identifying inconsistencies, and analyzing event propagation becomes significantly more complex.
 
-This layer is not designed as a separate control module, but rather as a direct extension of the event-driven architecture described previously. It leverages the same real-time infrastructure to expose system activity, enabling administrators to monitor, analyze, and understand system dynamics as they occur.
+In addition to user-facing functionalities, the platform incorporates an administrative observability layer that provides real-time visibility into system activity and operational state.
+
+This layer is not implemented as a separate module, but rather as an extension of the event-driven architecture described earlier. It leverages the same real-time infrastructure to expose system activity, enabling administrators to monitor and analyze system behavior as it occurs.
 
 \subsubsection{System Event Logging}
 
 At the core of this layer lies a structured event logging mechanism.
 
-Every significant action within the system—such as user authentication, ride creation, reservation updates, and lifecycle transitions—is recorded as a \textit{system event}. These events are generated at the backend level and persisted in a dedicated data model, ensuring traceability and historical consistency.
+Each significant action within the system—such as user authentication, ride creation, reservation updates, and lifecycle transitions—is recorded as a \textit{system event}. These events are generated at the backend and stored in a dedicated data model, ensuring traceability and historical consistency.
 
-This approach guarantees that all system interactions are captured in a standardized format, enabling precise tracking of user activity and system behavior over time.
+This approach ensures that system interactions are captured in a standardized format, allowing precise tracking of both user activity and system behavior over time.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{images/ui/system_events.png}
 \caption{System Events Interface}
 \end{figure}
-\FloatBarrier
 
-The system events interface provides a chronological view of recorded actions, allowing administrators to inspect detailed activity logs. Each entry includes the event type, associated user, and contextual information, enabling clear interpretation of system operations.
+The system events interface provides a chronological view of recorded actions, allowing administrators to inspect detailed activity logs. Each entry includes the event type, associated user, and contextual data, enabling clear interpretation of system operations.
 
 \subsubsection{Real-Time Monitoring and System Health}
 
@@ -525,36 +528,33 @@ This includes components such as:
 \end{itemize}
 
 These indicators are continuously updated and provide immediate insight into system health.
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{images/ui/admin_dashboard.png}
 \caption{Administrative Dashboard — System Health and Overview}
 \end{figure}
-\FloatBarrier
 
-The administrative dashboard aggregates this information into a unified view, combining system health indicators with recent system events. This enables administrators to quickly assess the current operational state while maintaining awareness of recent activity.
+The administrative dashboard consolidates system information into a unified interface, combining real-time health indicators with recent system events. This enables administrators to quickly evaluate the operational state while maintaining visibility over recent activity.
 
 \subsubsection{Relation to Real-Time Architecture}
 
-The observability layer is fully integrated with the WebSocket-based communication model.
+The observability layer is directly integrated with the WebSocket-based communication model.
 
-System events are not only stored for later inspection but are also propagated in real time, allowing the administrative interface to reflect changes as they occur. This ensures that monitoring is both reactive (historical analysis) and immediate (live updates).
+System events are not only stored for later inspection but are also propagated in real time, allowing the administrative interface to reflect changes as they occur. This ensures that monitoring remains both retrospective (through historical data) and immediate (through live updates).
 
-As a result, the administrative interface provides a synchronized and up-to-date representation of system activity, consistent with the state observed by end users.
+As a result, the administrative interface provides a synchronized and continuously updated view of system activity, consistent with what is observed by end users.
 
 \subsubsection{Analytics Overview}
 
-In addition to real-time monitoring, the system provides an analytics interface that aggregates usage data into higher-level metrics.
+In addition to real-time monitoring, the system provides an analytics interface that aggregates usage data into higher-level indicators.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.32\textwidth]{images/ui/analytics.png}
 \caption{Analytics Interface}
 \end{figure}
-\FloatBarrier
 
-This interface presents indicators such as:
+This interface presents metrics such as:
 
 \begin{itemize}
     \item number of active users,
@@ -562,17 +562,19 @@ This interface presents indicators such as:
     \item temporal trends in ride activity.
 \end{itemize}
 
-Unlike the monitoring and event views, which focus on immediate system state, the analytics component provides a summarized and temporal perspective, enabling administrators to identify patterns and evaluate system usage over time.
+Unlike monitoring and event tracking, which focus on immediate system state, the analytics component provides a summarized and temporal perspective, enabling administrators to identify patterns and evaluate system usage over time.
 
 While not part of the real-time execution layer, this component complements the observability framework by providing contextual insights into system behavior.
 
 \subsubsection{System Transition to Real-Time Coordination}
 
-The integration of the real-time communication layer marks a fundamental architectural transition for the platform. Prior to this sprint, the system operated as a conventional request-response application: the client initiated an action, the backend processed it, and a response was returned. While this model is sufficient for transactional operations such as authentication or profile updates, it fails to support the coordination demands of a dynamic ride execution environment.
+The introduction of the real-time communication layer represents a fundamental architectural shift for the platform.
 
-With the introduction of the WebSocket-based event infrastructure, the system transitions from a passive request-response architecture to an active event-driven coordination model. In this model, the backend assumes the role of an event dispatcher, continuously monitoring state changes and propagating updates to all relevant clients. The frontend, in turn, becomes a reactive consumer: it no longer polls for updates but receives them asynchronously and reflects them in the interface immediately.
+Prior to this stage, the system followed a traditional request-response model, where the client initiated an action and the backend returned a result. While suitable for transactional operations such as authentication or profile updates, this model does not support the coordination requirements of dynamic ride execution.
 
-This transition has three major consequences. First, consistency: all participants in a ride observe the same state transitions simultaneously, eliminating the possibility of stale or divergent views. Second, interaction efficiency: users are no longer required to refresh or manually check for updates; the system pushes relevant information at the exact moment it becomes available. Third, coordination: the backend becomes the single source of truth for ride execution, orchestrating the shared experience across multiple clients through a unified event stream.
+With the integration of a WebSocket-based event infrastructure, the platform transitions to an event-driven coordination model~\cite{event_driven_architecture}. In this model, the backend acts as an event dispatcher, continuously observing state changes and propagating updates to relevant clients. The frontend becomes a reactive component that receives updates asynchronously and reflects them immediately in the interface.
+
+This transition introduces several key improvements. First, consistency: all participants observe the same state transitions simultaneously, reducing the risk of inconsistent views. Second, interaction efficiency: users are no longer required to manually refresh or request updates. Third, coordination: the backend maintains full control over ride execution, acting as the single source of truth across all connected clients.
 
 The real-time system was validated through multi-client scenario testing conducted on the integrated platform.
 
@@ -587,14 +589,15 @@ The following conditions were verified:
 \end{itemize}
 
 These tests confirm that the system maintains reliable synchronization, consistent state propagation, and responsive user interaction under dynamic conditions.
+
 \section{Conclusion}
 
 This chapter presented the implementation of a complete ride management system enhanced by a real-time communication architecture.
 
-The integration of backend-controlled business logic, a structured ride lifecycle, and a WebSocket-based event-driven system ensures both consistency and responsiveness across the platform. Each system component, from ride state transitions to user-facing notifications, is tightly synchronized, enabling all participants to maintain a shared and up-to-date view of ongoing rides.
+The integration of backend-controlled logic, a structured ride lifecycle, and a WebSocket-based event-driven model ensures both consistency and responsiveness across the platform. Each component, from ride state transitions to user-facing notifications, is tightly synchronized, allowing all participants to maintain a shared and up-to-date view of ongoing rides.
 
-The introduction of the notification system further reinforces this architecture by transforming system events into actionable user interactions, effectively bridging backend processes and frontend behavior.
+The introduction of the notification system further strengthens this architecture by transforming system events into actionable interactions, effectively linking backend processes with frontend behavior.
 
-Overall, this chapter establishes a robust and reactive system capable of handling dynamic ride execution scenarios while maintaining data integrity and user awareness.
+Overall, the system provides a robust and reactive environment capable of supporting dynamic ride execution scenarios while preserving data integrity and user awareness.
 
-However, while the system efficiently responds to user actions and real-time events, it remains fundamentally reactive. The next chapter builds upon this foundation by introducing an intelligent decision layer, enabling the system to anticipate user needs and optimize ride matching through algorithmic and predictive approaches.
+However, despite its responsiveness, the system remains fundamentally reactive. The next chapter extends this foundation by introducing an intelligent decision layer, enabling the platform to anticipate user behavior and improve ride matching through predictive and algorithmic approaches.

@@ -1,0 +1,59 @@
+\xpg@aux {}{english}
+\contentsline {chapter}{Abstract}{i}{chapter*.1}%
+\contentsline {chapter}{List of Acronyms}{ii}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Ride Management and Real-Time Interaction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}User Interface Overview}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Sprint 2: Ride Management System}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Sprint Objective}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Sprint Backlog}{3}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Use Case Diagram}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Sequence Diagram — Ride Booking}{4}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Class Diagram}{5}{subsection.1.3.5}%
+\contentsline {subsection}{\numberline {1.3.6}Ride Lifecycle Management}{6}{subsection.1.3.6}%
+\contentsline {subsection}{\numberline {1.3.7}User Interface Integration}{7}{subsection.1.3.7}%
+\contentsline {subsection}{\numberline {1.3.8}Sprint Validation}{8}{subsection.1.3.8}%
+\contentsline {section}{\numberline {1.4}Sprint 3: Real-Time Interaction}{9}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Sprint Backlog}{9}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Real-Time Architecture}{9}{subsection.1.4.2}%
+\contentsline {subsubsection}{Connection Lifecycle}{10}{subsubsection*.11}%
+\contentsline {subsubsection}{Event-Driven Communication Model}{10}{subsubsection*.12}%
+\contentsline {subsubsection}{Multi-Client Synchronization}{11}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {1.4.3}Sequence Diagram — Real-Time Update}{11}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Integration with Ride Lifecycle}{12}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Notification System}{13}{subsection.1.4.5}%
+\contentsline {subsubsection}{Role of Notifications}{13}{subsubsection*.15}%
+\contentsline {subsubsection}{System Flow}{13}{subsubsection*.16}%
+\contentsline {subsubsection}{Types of Notifications}{13}{subsubsection*.17}%
+\contentsline {subsubsection}{User Interaction and Navigation}{14}{subsubsection*.18}%
+\contentsline {subsubsection}{Frontend Integration}{15}{subsubsection*.20}%
+\contentsline {subsubsection}{Relation to Intelligent Notifications}{16}{subsubsection*.21}%
+\contentsline {subsection}{\numberline {1.4.6}TripCard Component}{16}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.7}Navigation Assistance Feature}{17}{subsection.1.4.7}%
+\contentsline {subsection}{\numberline {1.4.8}System Observability and Administrative Interface}{17}{subsection.1.4.8}%
+\contentsline {subsubsection}{System Event Logging}{17}{subsubsection*.23}%
+\contentsline {subsubsection}{Real-Time Monitoring and System Health}{18}{subsubsection*.25}%
+\contentsline {subsubsection}{Relation to Real-Time Architecture}{19}{subsubsection*.27}%
+\contentsline {subsubsection}{Analytics Overview}{20}{subsubsection*.28}%
+\contentsline {subsubsection}{System Transition to Real-Time Coordination}{21}{subsubsection*.30}%
+\contentsline {section}{\numberline {1.5}Conclusion}{22}{section.1.5}%
+\contentsline {section}{Appendices}{25}{chapter*.31}%
+\contentsline {section}{\numberline {.1}REST API Specification}{25}{section.Alph0.1}%
+\contentsline {subsection}{\numberline {.1.1}Authentication Endpoints}{25}{subsection.Alph0.1.1}%
+\contentsline {subsection}{\numberline {.1.2}Ride Management Endpoints}{25}{subsection.Alph0.1.2}%
+\contentsline {subsection}{\numberline {.1.3}Reservation Endpoints}{25}{subsection.Alph0.1.3}%
+\contentsline {subsection}{\numberline {.1.4}AI Matching Endpoints}{25}{subsection.Alph0.1.4}%
+\contentsline {subsection}{\numberline {.1.5}Commute Suggestions}{26}{subsection.Alph0.1.5}%
+\contentsline {subsection}{\numberline {.1.6}Admin Endpoints}{26}{subsection.Alph0.1.6}%
+\contentsline {section}{\numberline {.2}Database Schema}{26}{section.Alph0.2}%
+\contentsline {subsection}{\numberline {.2.1}Employee Table}{26}{subsection.Alph0.2.1}%
+\contentsline {subsection}{\numberline {.2.2}Ride Table}{26}{subsection.Alph0.2.2}%
+\contentsline {subsection}{\numberline {.2.3}Reservation Table}{27}{subsection.Alph0.2.3}%
+\contentsline {subsection}{\numberline {.2.4}AIMatch Table}{27}{subsection.Alph0.2.4}%
+\contentsline {section}{\numberline {.3}AI Matching Formula}{27}{section.Alph0.3}%
+\contentsline {section}{\numberline {.4}Machine Learning Features}{28}{section.Alph0.4}%
+\contentsline {section}{\numberline {.5}Ride State Machine}{28}{section.Alph0.5}%
+\contentsline {section}{\numberline {.6}Technologies Used}{29}{section.Alph0.6}%
+\contentsline {subsection}{\numberline {.6.1}Backend}{29}{subsection.Alph0.6.1}%
+\contentsline {subsection}{\numberline {.6.2}Frontend}{29}{subsection.Alph0.6.2}%
+\contentsline {subsection}{\numberline {.6.3}External Services}{29}{subsection.Alph0.6.3}%

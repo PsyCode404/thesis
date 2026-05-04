@@ -1,62 +1,63 @@
 \chapter*{General Introduction}
 \addcontentsline{toc}{chapter}{General Introduction}
+Urban transportation has become increasingly problematic in modern cities, particularly in corporate settings where a large number of employees travel daily to the same workplace \cite{worldbank_transport}. The widespread use of private vehicles has led to congestion, higher commuting expenses, and a noticeable environmental impact due to increased carbon emissions \cite{iea_transport}. Within this context, ride-sharing emerges as a practical approach to reduce the number of vehicles in circulation while improving resource utilization \cite{agatz2012optimization}.
 
-Urban mobility has become a critical challenge in modern cities, particularly within corporate environments where large numbers of employees commute daily to a shared workplace. The increasing reliance on private vehicles has led to several issues, including traffic congestion, high transportation costs, and significant environmental impact due to excessive carbon emissions. In this context, carpooling has emerged as a promising solution to optimize vehicle usage and reduce the number of cars on the road.
+Despite its potential, current carpooling solutions often fall short in real-world usage. Many existing platforms depend on rigid matching strategies that require passengers to be located near a driver’s starting point. This constraint limits the number of possible matches and does not accurately reflect real commuting behavior, where individuals are spread across different areas and follow varying routes. Moreover, these systems rarely provide effective real-time coordination and generally do not leverage user activity data to improve matching outcomes.
 
-However, despite its potential, traditional carpooling systems remain limited in their effectiveness. Most existing solutions rely on rigid matching mechanisms that require passengers to be located near a driver's fixed departure point. This constraint significantly reduces matching opportunities and does not reflect real-world commuting patterns, where employees are distributed across different geographic areas. Furthermore, these systems often lack intelligent coordination tools and do not exploit user behavior to improve the matching process.
+These limitations become even more evident in enterprise environments. Although employees typically share a common destination, their schedules and departure locations differ significantly, making static matching approaches inefficient. Addressing this issue requires systems that can adapt to spatial distribution, support live interaction, and make use of historical data to improve decision-making.
 
-In corporate environments, these limitations are even more pronounced, as commuting patterns are often repetitive but geographically dispersed. Employees may share similar destinations but differ in departure locations and schedules, making rigid matching approaches inefficient. As a result, there is a need for more flexible and intelligent systems capable of adapting to real-world constraints while maintaining usability and efficiency.
+This project was developed as part of a final-year internship conducted within a corporate environment, where the need for a more structured and efficient commuting solution was clearly observed. The objective was not limited to conceptual design but extended to building a fully operational platform capable of functioning in a real organizational setting.
 
-This project was carried out within the framework of an end-of-studies internship in a corporate environment, where the need for an efficient and intelligent commuting solution was clearly identified. The objective was not only to design a theoretical model but also to develop a functional and scalable platform that can be deployed in a real organizational context.
+To overcome the identified challenges, this work introduces a real-time carpooling platform designed specifically for enterprise use. The system relies on a centralized backend responsible for managing business logic and maintaining a consistent system state across all operations. The frontend acts primarily as a responsive interface that reflects backend updates without embedding independent decision logic.
 
-To address the identified limitations, this work proposes the design and implementation of an intelligent carpooling platform tailored for enterprise use. The system introduces a flexible and user-centric approach that combines geospatial analysis, real-time communication, and machine learning techniques to enhance ride-sharing efficiency and user experience.
+One of the core aspects of the platform is its event-driven architecture, which allows continuous synchronization between users. By relying on WebSocket-based communication, the system propagates updates instantly, enabling participants to interact within a shared and dynamically updated environment. This approach eliminates the need for frequent polling while ensuring efficient and low-latency coordination.
 
-By integrating these components, the platform aims to transform traditional carpooling into a dynamic and adaptive system, capable of responding to user needs in real time. This shift from static to intelligent coordination represents a key step toward more efficient and sustainable mobility solutions within organizations.
+In addition, an observability layer is integrated into the platform to monitor system behavior. Through administrative dashboards and system event tracking, this component provides visibility into platform operations, facilitating debugging, performance analysis, and validation in real deployment conditions.
 
-A key innovation of this platform lies in its smart matching system, which is based on route overlap analysis rather than fixed origin proximity. By analyzing a driver's route and identifying potential pickup points along it, the system enables dynamic and flexible passenger pickup, thereby significantly increasing the likelihood of successful matches. This approach is implemented using deterministic geospatial algorithms, ensuring efficiency, scalability, and interpretability.
+From an intelligence perspective, the system combines rule-based mechanisms with machine learning techniques. The matching process is modeled as a route-based optimization problem, where the system evaluates the overlap between driver routes and passenger locations to determine feasible pickup points along the path. This method increases flexibility compared to traditional fixed-point matching while maintaining route consistency, and it is implemented using geospatial analysis techniques.
 
-In addition to this rule-based intelligence, the platform integrates a machine learning subsystem designed to analyze historical commuting data and detect recurring travel patterns. By leveraging classification models, the system predicts the probability of a user's commute at a given time and provides proactive suggestions, allowing users to interact with the platform more effectively.
+To complement this approach, a machine learning module analyzes historical commuting data to identify recurring travel patterns. Based on classification models, the system estimates the likelihood of user commutes at specific times and generates proactive ride suggestions. This predictive layer enhances usability by reducing manual interaction, while remaining independent from the core matching logic to preserve system reliability.
 
-The combination of these two approaches — deterministic geospatial matching and probabilistic prediction — allows the system to balance precision and adaptability. This hybrid design enhances both system performance and user engagement, making the platform more responsive to real-world usage scenarios.
+Together, these components form a hybrid intelligent architecture, where deterministic methods ensure control and correctness, and data-driven models introduce adaptability and personalization.
 
-The proposed solution is implemented as a full-stack application, combining a Flask-based backend, a Flutter mobile frontend, and a PostgreSQL database. It also integrates external geospatial services such as OpenStreetMap and OSRM for route computation and location processing. Real-time features are supported through WebSocket communication, enabling live tracking and dynamic system updates.
+The proposed solution is developed as a full-stack application combining a Flask-based backend, a Flutter mobile interface, and a PostgreSQL database. It also relies on external geospatial services, including OpenStreetMap and OSRM, to handle route computation and location-related processing. Real-time interaction is achieved through WebSocket-based communication, allowing users to receive instant updates and remain continuously synchronized during system usage.
 
-The main objective of this work is to develop a robust, intelligent, and scalable carpooling platform that overcomes the limitations of traditional solutions. More specifically, the project aims to:
-\begin{itemize}
-    \item Improve ride-matching flexibility through route-based dynamic pickup.
-    \item Enhance user experience via real-time communication and notifications.
-    \item Introduce predictive capabilities using machine learning techniques.
-    \item Provide a complete and deployable full-stack system.
-\end{itemize}
-
-To achieve these objectives, an Agile development methodology was adopted, enabling iterative design, implementation, and validation of system components throughout the internship period.
-
-The development process required careful consideration of multiple constraints: scalability, real-time performance, usability, and integration with external services. Particular attention was given to maintainability and extensibility, enabling future improvements such as traffic data integration and more sophisticated learning models.
-
-This work bridges the gap between theoretical models and real-world deployment, delivering a complete operational solution. By combining rule-based algorithms with machine learning techniques, the system achieves both interpretability and adaptability to user behavior.
-
-This report is structured as follows:
+The primary goal of this project is to design and implement a scalable and intelligent carpooling platform that addresses the shortcomings of existing solutions. More specifically, the system is designed to:
 
 \begin{itemize}
-
-    \item \textbf{Chapter 1: Project Initiation} \\
-    This chapter introduces the enterprise context and the commuting problem, analyzes existing solutions and their limitations, and presents the proposed solution. It also outlines the adopted Agile development methodology based on the Scrum framework, providing an overview of the project organization and development approach.
-
-    \item \textbf{Chapter 2: System Architecture and Design} \\
-    This chapter presents the overall system architecture of the platform. It describes the layered structure, the main system components, their interactions, and the key architectural design decisions. The system is also modeled through global use case and class diagrams to provide a clear understanding of its structure before implementation.
-
-    \item \textbf{Chapter 3: User Management and Authentication} \\
-    This chapter focuses on the implementation of user management functionalities, including enterprise authentication, domain validation, and profile management. It also introduces administrative features such as user monitoring and account control, ensuring secure and controlled access to the system.
-
-    \item \textbf{Chapter 4: Ride Management and Real-Time System} \\
-    This chapter presents the implementation of the core ride management functionalities, including ride creation, search, booking, and lifecycle management. It also covers the integration of real-time communication using WebSocket technology for live updates and user interaction.
-
-    \item \textbf{Chapter 5: Intelligent System (Matching and Machine Learning)} \\
-    This chapter describes the intelligent components of the system, including the route-based matching algorithm and the machine learning model for commute prediction. It explains how these components enhance the platform by providing optimized ride suggestions and proactive recommendations.
-
-    \item \textbf{Chapter 6: Testing, Validation and Results} \\
-    This chapter presents the validation of the system through testing and performance evaluation. It highlights the reliability of the platform, assesses the effectiveness of implemented functionalities, and demonstrates compliance with the defined requirements.
-
+\item Enhance ride-matching flexibility by supporting dynamic pickup points along routes.
+\item Enable continuous synchronization between users through an event-driven communication model.
+\item Incorporate predictive features based on machine learning techniques.
+\item Ensure consistency of system behavior through a centralized backend architecture.
+\item Provide monitoring and observability tools to support validation and system analysis.
 \end{itemize}
 
-This work contributes to the field of intelligent transportation systems by proposing a hybrid approach that combines deterministic algorithms and machine learning techniques to improve carpooling efficiency and usability in real-world enterprise environments.
+To achieve these objectives, the development followed an Agile methodology based on the Scrum framework. This approach allowed incremental design, implementation, and evaluation of system components throughout the project lifecycle.
+
+The implementation process involved addressing several technical challenges, including system scalability, real-time responsiveness, data consistency, and seamless integration with external services. Particular emphasis was placed on maintainability and extensibility, ensuring that the platform can evolve to support future enhancements such as large-scale deployment and more advanced predictive models.
+
+This project connects theoretical concepts with practical implementation by delivering a complete and operational system. By integrating real-time coordination, geospatial processing, and predictive analysis, the platform provides a foundation for more adaptive and efficient mobility solutions within enterprise environments.
+
+The remainder of this report is organized as follows:
+
+\begin{itemize}
+\item \textbf{Chapter 1: Project Initiation} \\ 
+Introduces the enterprise context, reviews existing solutions and their limitations, and presents the proposed approach along with the development methodology.
+
+\item \textbf{Chapter 2: System Architecture and Design} \\ 
+Describes the overall architecture, system layers, and key design decisions.
+
+\item \textbf{Chapter 3: User Management and Authentication} \\ 
+Details authentication mechanisms, user management, and administrative controls.
+
+\item \textbf{Chapter 4: Ride Management and Real-Time System} \\ 
+Explains ride management features and the integration of real-time communication.
+
+\item \textbf{Chapter 5: Intelligent System (Matching and Machine Learning)} \\ 
+Presents the route-based matching strategy and the machine learning model for commute prediction.
+
+\item \textbf{Chapter 6: System Evaluation and Validation} \\ 
+Evaluates the system using defined scenarios and analyzes its performance.
+\end{itemize}
+
+This work contributes to the field of intelligent transportation systems by introducing a hybrid approach that combines rule-based geospatial logic with predictive modeling. The results show that integrating deterministic methods with data-driven techniques can lead to practical and efficient mobility solutions suitable for real-world deployment.

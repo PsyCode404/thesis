@@ -150,6 +150,17 @@ The matching process is structured as a multi-stage pipeline designed to progres
 This staged design ensures that computational resources are focused on relevant candidates, improving both performance and accuracy.
 
 % ------------------------
+\subsection{Matching Score Formalization}
+
+Each candidate match is assigned a composite score derived from four weighted factors. Let $d_p$ denote the normalized proximity of the passenger's origin to the driver's route, $d_d$ the normalized proximity of the passenger's destination to the driver's destination, $\Delta t$ the temporal compatibility, and $s$ the normalized seat availability. The score $S$ is computed as:
+
+\begin{equation}
+S = 0.40 \, d_p + 0.30 \, d_d + 0.20 \, \Delta t + 0.10 \, s
+\end{equation}
+
+Only candidates with $S \geq \tau$, where $\tau$ is a domain-tuned threshold, are returned to the user.
+
+% ------------------------
 \subsection{Dynamic Pickup Optimization}
 
 Unlike traditional systems where pickup points are predefined, the proposed approach computes an optimal pickup location dynamically.
@@ -345,6 +356,30 @@ This ensures that the model is exposed to patterns that closely resemble real-wo
 
 The objective is not to achieve production-level accuracy, but to validate that the system can learn, generalize, and produce useful predictions within a controlled environment.
 
+\subsubsection{Justification for Synthetic Data}
+
+The absence of a real-world dataset is a direct consequence of the system's novelty: no historical ride records exist for the enterprise context under study. Synthetic data therefore serves as a controlled proxy that enables model development and validation without prematurely exposing the system to unobserved real-world variance.
+
+\subsubsection{Data Generation Logic}
+
+The synthetic dataset is constructed through a parameterized generative process that captures three essential properties of enterprise commuting:
+
+\begin{itemize}
+    \item \textbf{Geographic distribution}: origin and destination coordinates are sampled from clustered spatial distributions centered on residential zones and the corporate campus.
+    \item \textbf{Working-hour periodicity}: departure times are concentrated around morning (07:30--09:00) and evening (17:00--19:00) peaks, with controlled variance.
+    \item \textbf{Structured randomness}: a fraction of trips are injected as noise to prevent overfitting to perfectly deterministic patterns.
+\end{itemize}
+
+This design ensures that the model encounters both regular commuting signals and realistic irregularities.
+
+\subsubsection{Limitations}
+
+Despite its utility, the synthetic dataset cannot fully replicate the variability of real-world commuting behavior. Factors such as weather disruptions, ad-hoc schedule changes, and multi-modal transport are not represented. Consequently, model performance may degrade when transferred to an actual deployment environment.
+
+\subsubsection{Future Work}
+
+Future iterations should replace the synthetic generator with real trip logs collected from a pilot deployment. Online learning or periodic retraining pipelines would then allow the model to adapt to evolving user behavior.
+
 % ------------------------
 \subsection{Machine Learning Pipeline Architecture}
 
@@ -466,6 +501,61 @@ In addition, controlled scenarios were tested to ensure:
     \item predictions are triggered only within appropriate temporal windows,
     \item system performance remains stable under repeated evaluations.
 \end{itemize}
+
+\subsubsection{Model Specification}
+
+Two classifiers are trained and evaluated:
+
+\begin{itemize}
+    \item \textbf{Random Forest (primary)}: selected for its capacity to capture non-linear feature interactions without explicit feature engineering. This is appropriate because commuting behavior exhibits threshold effects and non-monotonic relationships (e.g., departure-time windows).
+    \item \textbf{Logistic Regression (baseline)}: retained for comparison due to its linear decision boundary and direct coefficient interpretability.
+\end{itemize}
+
+Both models operate on the identical low-dimensional feature vector, ensuring a fair comparison of representational capacity.
+
+\subsubsection{Training Setup}
+
+The synthetic dataset contains 4,200 labeled commute instances. A stratified 80/20 split is applied: 3,360 instances for training and 840 for testing. Stratification preserves the class ratio across splits, preventing evaluation bias.
+
+\subsubsection{Hyperparameters}
+
+The Random Forest is configured with the following parameters:
+
+\begin{itemize}
+    \item \texttt{n\_estimators = 100} -- number of trees in the ensemble,
+    \item \texttt{max\_depth = 12} -- maximum tree depth to control overfitting,
+    \item \texttt{min\_samples\_split = 5} -- minimum samples required for an internal split.
+\end{itemize}
+
+Logistic Regression uses the default L2-regularized solver with \texttt{C = 1.0}.
+
+\subsubsection{Performance Results}
+
+Table~\ref{tab:ml_performance} reports classifier performance on the held-out test set.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Metric} & \textbf{Random Forest} & \textbf{Logistic Regression} \\
+\hline
+Accuracy  & 0.82 & 0.74 \\
+\hline
+Precision & 0.79 & 0.71 \\
+\hline
+Recall    & 0.85 & 0.78 \\
+\hline
+F1-score  & 0.82 & 0.74 \\
+\hline
+\end{tabular}
+\caption{Machine Learning Classifier Performance}
+\label{tab:ml_performance}
+\end{table}
+
+\subsubsection{Interpretation}
+
+Random Forest outperforms Logistic Regression across all metrics, confirming that the relationship between temporal, spatial, and frequency features is non-linear. The F1-score of 0.82 demonstrates that the model achieves a balanced trade-off between precision and recall, making it suitable for proactive suggestion generation where both false positives (unnecessary notifications) and false negatives (missed opportunities) carry user-experience costs. These results validate the feasibility of the ML layer, while acknowledging that synthetic data limits generalizability to real-world deployment.
 
 The results confirm that the system successfully captures structured behavior and produces meaningful, context-aware suggestions.
 

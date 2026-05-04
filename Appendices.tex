@@ -1,0 +1,204 @@
+\appendix
+\section*{Appendices}
+\addcontentsline{toc}{section}{Appendices}
+
+\section{REST API Specification}
+
+This appendix documents the main REST API endpoints implemented in the system.
+
+\subsection{Authentication Endpoints}
+
+\begin{itemize}
+    \item \texttt{POST /api/auth/register} -- Register a new user
+    \item \texttt{POST /api/auth/login} -- Authenticate user and return JWT token
+    \item \texttt{GET /api/auth/me} -- Retrieve current authenticated user
+    \item \texttt{POST /api/auth/change-password} -- Update user password
+\end{itemize}
+
+\subsection{Ride Management Endpoints}
+
+\begin{itemize}
+    \item \texttt{GET /api/rides} -- Search available rides
+    \item \texttt{POST /api/rides} -- Create a new ride
+    \item \texttt{PATCH /api/rides/\{id\}/status} -- Update ride status
+    \item \texttt{DELETE /api/rides/\{id\}} -- Delete a ride
+\end{itemize}
+
+\subsection{Reservation Endpoints}
+
+\begin{itemize}
+    \item \texttt{POST /api/reservations} -- Request a seat
+    \item \texttt{PATCH /api/reservations/\{id\}} -- Accept or reject reservation
+    \item \texttt{POST /api/reservations/\{id\}/confirm-boarding} -- Confirm boarding
+\end{itemize}
+
+\subsection{AI Matching Endpoints}
+
+\begin{itemize}
+    \item \texttt{GET /api/ai/matches} -- Retrieve AI matches
+    \item \texttt{POST /api/ai/matches/\{id\}/request} -- Request AI match
+    \item \texttt{POST /api/ai/matches/\{id\}/accept} -- Accept match
+    \item \texttt{POST /api/ai/matches/\{id\}/reject} -- Reject match
+\end{itemize}
+
+\subsection{Commute Suggestions}
+
+\begin{itemize}
+    \item \texttt{GET /api/commute-suggestions} -- Retrieve ML-based commute suggestions
+\end{itemize}
+
+\subsection{Admin Endpoints}
+
+\begin{itemize}
+    \item \texttt{GET /api/admin/users} -- List all users
+    \item \texttt{PATCH /api/admin/users/\{id\}/freeze} -- Freeze user account
+    \item \texttt{GET /api/admin/analytics/dashboard} -- System statistics
+    \item \texttt{GET /api/admin/monitoring/events} -- System logs
+\end{itemize}
+
+\section{Database Schema}
+
+\subsection{Employee Table}
+
+\begin{verbatim}
+Employee(
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    email TEXT UNIQUE,
+    password_hash TEXT,
+    role TEXT,
+    status TEXT,
+    department TEXT,
+    phone_number TEXT
+)
+\end{verbatim}
+
+\subsection{Ride Table}
+
+\begin{verbatim}
+Ride(
+    id INTEGER PRIMARY KEY,
+    driver_id INTEGER,
+    origin TEXT,
+    destination TEXT,
+    origin_lat FLOAT,
+    origin_lng FLOAT,
+    destination_lat FLOAT,
+    destination_lng FLOAT,
+    departure_time TIMESTAMP,
+    available_seats INTEGER,
+    status TEXT
+)
+\end{verbatim}
+
+\subsection{Reservation Table}
+
+\begin{verbatim}
+Reservation(
+    id INTEGER PRIMARY KEY,
+    employee_id INTEGER,
+    ride_id INTEGER,
+    seats_reserved INTEGER,
+    status TEXT,
+    boarded BOOLEAN
+)
+\end{verbatim}
+
+\subsection{AIMatch Table}
+
+\begin{verbatim}
+AIMatch(
+    id INTEGER PRIMARY KEY,
+    ride_id INTEGER,
+    passenger_request_id INTEGER,
+    pickup_lat FLOAT,
+    pickup_lng FLOAT,
+    match_score FLOAT,
+    status TEXT
+)
+\end{verbatim}
+
+\section{AI Matching Formula}
+
+The match score is computed as a weighted combination of multiple factors:
+
+\[
+Score =
+0.4 \times PickupProximity +
+0.3 \times DestinationSimilarity +
+0.2 \times TimeCompatibility +
+0.1 \times SeatAvailability
+\]
+
+Where:
+
+\begin{itemize}
+    \item \textbf{PickupProximity}: Based on distance to route and detour time
+    \item \textbf{DestinationSimilarity}: Distance between passenger and driver destinations
+    \item \textbf{TimeCompatibility}: Difference in departure times
+    \item \textbf{SeatAvailability}: Remaining seats in ride
+\end{itemize}
+
+\section{Machine Learning Features}
+
+The ML model uses the following features:
+
+\begin{itemize}
+    \item \texttt{trip\_count}
+    \item \texttt{time\_variance}
+    \item \texttt{weekday\_ratio}
+    \item \texttt{origin\_spread}
+    \item \texttt{destination\_spread}
+    \item \texttt{time\_consistency\_score}
+    \item \texttt{pattern\_confidence}
+\end{itemize}
+
+The model predicts the probability of a commute using:
+
+\begin{itemize}
+    \item Random Forest Classifier
+    \item Logistic Regression
+\end{itemize}
+
+\section{Ride State Machine}
+
+The ride lifecycle is represented by the following states:
+
+\begin{itemize}
+    \item \texttt{scheduled}
+    \item \texttt{driver\_en\_route}
+    \item \texttt{arrived}
+    \item \texttt{en\_route\_to\_pickup}
+    \item \texttt{in\_progress}
+    \item \texttt{completed}
+    \item \texttt{cancelled}
+    \item \texttt{missed}
+\end{itemize}
+
+\section{Technologies Used}
+
+\subsection{Backend}
+
+\begin{itemize}
+    \item Flask (Python)
+    \item PostgreSQL
+    \item SQLAlchemy ORM
+    \item Flask-SocketIO
+    \item APScheduler
+    \item scikit-learn
+\end{itemize}
+
+\subsection{Frontend}
+
+\begin{itemize}
+    \item Flutter (Dart)
+    \item Provider (state management)
+    \item OpenStreetMap
+\end{itemize}
+
+\subsection{External Services}
+
+\begin{itemize}
+    \item OSRM (routing)
+    \item Nominatim (geocoding)
+\end{itemize}
