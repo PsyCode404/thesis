@@ -64,7 +64,7 @@ A layered architecture was adopted to separate responsibilities between the user
 
 \subsection{Client-Server Model}
 
-The system follows a client-server model, where the frontend communicates with the backend through RESTful APIs. This approach supports scalability and allows multiple clients to interact with the backend simultaneously.
+The system follows a client-server model, where the frontend communicates with the backend through RESTful APIs~\cite{rest}. This approach supports scalability and allows multiple clients to interact with the backend simultaneously.
 
 \subsection{Technology Selection Rationale}
 
@@ -138,6 +138,7 @@ The data layer is implemented using PostgreSQL. It manages persistent storage of
 The database maintains data consistency and integrity through relational constraints and structured schema design. It also supports efficient querying and data retrieval.
 
 Additionally, PostgreSQL provides advanced capabilities such as indexing and query optimization, which improve system performance when handling large datasets.
+
 \section{Global Use Case Diagram}
 
 The global use case diagram illustrates how different users interact with the system and highlights the main functionalities available to each actor.
@@ -202,6 +203,7 @@ The first component is a deterministic matching system based on geospatial analy
 The second component is a machine learning module designed to analyze historical (or synthetic) data in order to detect commuting patterns and generate predictive suggestions.
 
 Both components are integrated within the backend while remaining logically separated. This design preserves system stability while allowing each component to evolve independently. A detailed description of these intelligent mechanisms is provided in Chapter~5.
+
 \section{Communication and Security}
 
 Communication between system components relies on a combination of RESTful APIs and WebSocket protocols.

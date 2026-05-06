@@ -2,25 +2,26 @@
 
 \section{Introduction}
 
-This chapter presents the final phase of the project, focusing on the global validation and evaluation of the system. Unlike previous sprints, where validation was performed at the feature level, this phase adopts a system-wide perspective to assess the coherence, reliability, and effectiveness of the platform as an integrated solution.
+This chapter presents the final stage of the project, dedicated to the global evaluation and validation of the proposed platform. Unlike previous sprints, where validation focused on individual functionalities, this phase adopts a broader perspective by assessing the behavior of the system as a fully integrated solution.
 
-The objective is to verify that all components — ride management, real-time communication, smart matching, and machine learning — operate correctly both individually and collectively under realistic usage conditions. This evaluation emphasizes system behavior, interaction consistency, and the practical value of intelligent features.
+The objective is to verify that the different components — ride management, real-time communication, intelligent matching, and predictive mechanisms — operate coherently under realistic usage conditions. Particular attention is given to interaction consistency, synchronization reliability, and the practical contribution of intelligent features to the overall user experience.
 
----
+% =========================================================
 
 \section{Sprint 6: Final Validation and System Evaluation}
 
 \subsection{Sprint Objective}
 
-The objective of this sprint is to validate the system as a cohesive and fully integrated platform. This includes verifying end-to-end workflows, assessing real-time synchronization across multiple users, evaluating the effectiveness of intelligent components, and analyzing system robustness under edge conditions.
+The objective of this sprint is to validate the platform as a complete and integrated environment. This includes verifying end-to-end workflows, evaluating synchronization across multiple users, assessing the effectiveness of intelligent mechanisms, and analyzing system robustness under both normal and edge-case conditions.
 
----
+% ------------------------
 
 \subsection{Sprint Backlog}
 
+The backlog of this sprint focuses on system-wide validation rather than isolated feature verification. The evaluation phase combines integration testing, synchronization analysis, intelligent feature assessment, and robustness verification.
+
 \begin{table}[H]
 \centering
-
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{5pt}
 
@@ -47,78 +48,90 @@ As a system, I want to leverage observability tools (logs, events, dashboard) to
 As a system, I want to identify limitations and areas for improvement to guide future enhancements & Medium \\
 \hline
 \end{tabular}
+
 \caption{Sprint 6 Backlog — System Evaluation}
 \end{table}
 
----
+The sprint therefore serves as a final verification phase intended to confirm that the platform behaves consistently when all subsystems interact simultaneously.
+
+% =========================================================
 
 \section{Evaluation Methodology}
 
-The evaluation is conducted using a scenario-based approach that reflects realistic system usage rather than isolated functional testing. Each scenario involves multiple components interacting simultaneously, allowing the observation of system behavior under practical conditions.
+The evaluation follows a scenario-based methodology designed to reproduce realistic system usage rather than isolated functional tests. Each scenario involves several components interacting simultaneously, enabling observation of platform behavior under practical operating conditions.
 
-This methodology focuses on:
+The evaluation primarily focuses on:
 
 \begin{itemize}
-    \item End-to-end execution of ride workflows
-    \item Multi-user interaction and synchronization
-    \item Real-time event propagation
-    \item Intelligent decision-making behavior
+    \item end-to-end ride workflow execution,
+    \item multi-user synchronization and interaction,
+    \item real-time propagation of events,
+    \item intelligent decision-making behavior.
 \end{itemize}
 
-The goal is not only to verify correctness, but also to assess the quality of interaction, system consistency, and the practical usefulness of the implemented features.
+The purpose of this methodology is not limited to verifying functional correctness. It also evaluates interaction consistency, synchronization reliability, responsiveness, and the practical usefulness of intelligent system features.
 
----
+This broader perspective is important because the proposed platform relies heavily on interactions between distributed and asynchronous components, where isolated testing alone would not sufficiently reflect real operational behavior.
+
+% =========================================================
 
 \section{End-to-End System Validation}
 
-A complete ride scenario is executed, starting from ride creation to ride completion. The sequence includes:
+A complete ride execution scenario is performed, covering the full workflow from ride creation to ride completion. The sequence includes:
 
 \begin{itemize}
-    \item Driver creates a ride with defined parameters
-    \item Passenger discovers and requests the ride
-    \item Driver accepts the request
-    \item Ride lifecycle progresses through its defined states
+    \item creation of a ride by the driver with predefined parameters,
+    \item discovery and reservation request by a passenger,
+    \item validation and acceptance of the request,
+    \item progression of the ride through its lifecycle states.
 \end{itemize}
 
-The system successfully enforces all validation rules during this process. Booking constraints are respected, invalid operations are rejected, and the ride lifecycle transitions occur in a controlled and consistent manner.
+Throughout the process, the platform successfully enforces all validation constraints and business rules. Seat availability remains consistent, invalid operations are rejected before persistence, and lifecycle transitions occur in a controlled manner.
 
-This confirms that the backend-driven design effectively maintains system integrity across complex workflows.
+The evaluation also confirms that synchronization between mobile clients and backend services remains coherent during ride execution. State updates are propagated correctly across connected users, ensuring that all participants observe a consistent system state in real time.
 
+These observations demonstrate that the backend-centered architecture effectively preserves system integrity across complex multi-stage workflows while maintaining reliable interaction between distributed components.
 ---
 
 \section{Real-Time System Evaluation}
 
-The real-time communication system is evaluated through simultaneous interaction between multiple clients.
+The real-time communication layer is evaluated through simultaneous interaction between multiple connected clients operating on the same ride session.
 
-When ride states change or driver location updates occur, these changes are propagated to all connected users in under 0.5~s. The system maintains a consistent shared state without requiring manual refresh or polling, a $>$75\% latency reduction compared to polling-based alternatives.
+Whenever ride states change or driver location updates are emitted, the corresponding events are propagated to all subscribed users with an observed latency below 0.5~s. Compared to traditional polling-based synchronization, the event-driven approach reduces perceived update latency by more than 75\%, while also eliminating unnecessary repetitive requests.
 
-Additionally, connection interruptions are handled gracefully. Upon reconnection, clients are resynchronized with the current system state, ensuring continuity of interaction.
+The evaluation further confirms that connected clients maintain a coherent shared state throughout ride execution. Updates are reflected immediately across interfaces without requiring manual refresh operations, ensuring continuous synchronization between participants.
 
-These results validate that the WebSocket-based event-driven architecture provides reliable and efficient real-time coordination.
+Connection interruptions are also handled correctly. When a client reconnects after temporary disconnection, the system restores synchronization using the latest backend state, allowing interaction continuity without observable inconsistencies.
 
----
+These observations validate that the WebSocket-based architecture provides efficient and reliable real-time coordination under realistic multi-user conditions.
+
+% =========================================================
 
 \section{Intelligent System Evaluation}
 
 \subsection{Smart Matching Evaluation}
 
-The smart matching system is evaluated through scenarios where passengers are not located exactly at the driver's origin or destination.
+The smart matching mechanism is evaluated through scenarios in which passengers are located along the driver's route rather than exactly at the origin or destination points.
 
-The results confirm that the system correctly identifies feasible matches by projecting passenger locations onto the driver's route and calculating acceptable detours. Compared to strict origin--destination matching, the trajectory-based approach increases matching opportunities by 27 percentage points while maintaining route coherence.
+The evaluation confirms that the system successfully identifies feasible ride opportunities by projecting passenger locations onto driver trajectories and computing acceptable detour costs. Unlike strict origin--destination matching approaches, the proposed trajectory-based strategy supports intermediate insertion points while preserving route continuity.
 
-This validates the effectiveness of the corridor-based matching strategy in handling real-world spatial constraints.
+Experimental observations indicate that the route-based approach increases matching opportunities by approximately 27 percentage points compared to rigid endpoint matching, while maintaining geographically coherent routes.
 
----
+These results validate the effectiveness of the corridor-based matching strategy in handling realistic spatial constraints and improving ride discovery flexibility.
+
+% ------------------------
 
 \subsection{Machine Learning Evaluation}
 
-The machine learning component is evaluated on both prediction relevance and classification performance.
+The machine learning component is evaluated with respect to both prediction relevance and classification performance.
 
-The results confirm that the system correctly identifies recurring commuting patterns and generates contextual ride suggestions aligned with user habits. The Random Forest classifier achieves an F1-score of 0.82 (precision 0.79, recall 0.85), demonstrating that predictions are both relevant and sufficiently comprehensive.
+The evaluation confirms that the predictive layer successfully identifies recurring commuting behaviors and generates ride suggestions that remain aligned with observed user habits. The Random Forest classifier achieves an F1-score of 0.82, with precision and recall values of 0.79 and 0.85 respectively, indicating balanced predictive performance.
 
-While the model is trained on synthetic data, the generated patterns remain consistent and meaningful, validating the feasibility of predictive assistance within the platform.
+The results also show that the model remains capable of capturing structured behavioral patterns despite relying on synthetic training data. Generated predictions remain temporally and spatially coherent, supporting the feasibility of predictive assistance within the proposed platform.
 
----
+Although the evaluation is conducted in a controlled environment, the observed behavior demonstrates that the predictive layer can effectively complement the rule-based ride management workflow.
+
+% =========================================================
 
 \section{Experimental Evaluation}
 
@@ -128,37 +141,56 @@ The following quantitative metrics are used to assess system performance:
 
 \begin{itemize}
     \item \textbf{Matching Success Rate} -- proportion of passenger requests for which at least one feasible driver match is identified.
-    \item \textbf{Average Pickup Deviation} -- mean geographic distance (km) between the passenger's declared origin and the computed optimal pickup point.
-    \item \textbf{Real-Time Latency} -- elapsed time (seconds) from a state-changing event on the backend to its reception by all connected clients.
-    \item \textbf{Prediction Accuracy} -- overall classification correctness of the commute prediction model.
-    \item \textbf{Precision / Recall / F1-score} -- standard information-retrieval measures for the binary commute-prediction task.
+    
+    \item \textbf{Average Pickup Deviation} -- mean geographic distance (km) between the passenger's declared origin and the computed pickup point.
+    
+    \item \textbf{Real-Time Latency} -- elapsed time (seconds) between a backend state-changing event and its reception by connected clients.
+    
+    \item \textbf{Prediction Accuracy} -- overall correctness of the commute prediction model.
+    
+    \item \textbf{Precision / Recall / F1-score} -- standard evaluation measures for the binary commute-prediction task.
 \end{itemize}
+
+These metrics provide complementary perspectives on system behavior, covering synchronization efficiency, spatial matching quality, and predictive performance.
+
+% ------------------------
 
 \subsection{Baseline System}
 
-To isolate the contribution of the proposed intelligent components, a baseline system is defined for comparison. The baseline implements:
+To isolate the contribution of the intelligent mechanisms, a baseline system is defined for comparison purposes.
+
+The baseline implements:
 
 \begin{itemize}
-    \item exact origin--destination matching (passenger origin must coincide with driver origin),
+    \item strict origin--destination matching, where passenger and driver origins must coincide,
+    
     \item no route-based flexibility or spatial corridor analysis,
-    \item no machine learning layer; all ride discovery is purely manual.
+    
+    \item no predictive layer; ride discovery relies entirely on manual user interaction.
 \end{itemize}
 
-This baseline represents the functionality of conventional carpooling platforms and serves as a reference for measuring improvement.
+This configuration reflects the behavior of conventional ride-sharing systems and serves as a reference point for evaluating the impact of the proposed architecture.
+
+% ------------------------
 
 \subsection{Experimental Setup}
 
-The experiment is conducted on a synthetic dataset simulating enterprise commuting behavior. The dataset comprises multiple users, predefined home-to-work routes, and realistic departure-time distributions clustered around morning and evening peaks.
+The evaluation is conducted using a synthetic dataset representing enterprise commuting behavior. The dataset includes multiple users, predefined home-to-work trajectories, and departure-time distributions concentrated around typical commuting periods.
 
-Both the baseline system and the proposed system are evaluated under identical conditions: the same user set, route geometry, and temporal distributions are fed to each system. This controlled design ensures that observed differences in performance are attributable solely to architectural variations rather than data bias.
+Both the baseline and the proposed platform are evaluated under identical experimental conditions. The same user profiles, route structures, and temporal distributions are supplied to both systems to ensure fair comparison.
+
+This controlled setup guarantees that observed performance differences result from architectural improvements rather than variations in input data.
+
+% ------------------------
 
 \subsection{Results}
 
-Table~\ref{tab:experimental_results} presents the comparative results.
+Table~\ref{tab:experimental_results} summarizes the comparative evaluation results.
 
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
+
 \begin{tabular}{|l|c|c|}
 \hline
 \textbf{Metric} & \textbf{Baseline} & \textbf{Proposed System} \\
@@ -178,59 +210,97 @@ Recall & -- & 0.85 \\
 F1-score & -- & 0.82 \\
 \hline
 \end{tabular}
+
 \caption{Experimental Results -- Baseline vs. Proposed System}
 \label{tab:experimental_results}
-\end{table}
 
+\end{table}
 \subsection{Results Interpretation}
 
-The results demonstrate that the proposed system outperforms the baseline across all evaluated dimensions. Matching success rate increases from 45\% to 72\%, a 60\% relative improvement directly attributable to the route-based matching strategy, which evaluates spatial overlap along the entire trajectory rather than requiring exact origin--destination coincidence. The average pickup deviation of 1.8~km confirms that the optimization layer identifies insertion points that preserve route coherence: the flexibility gain does not come at the expense of driver convenience. Real-time latency drops from $\sim$2.1~s to below 0.5~s, a reduction exceeding 75\%, validating the efficiency of the WebSocket event-delivery mechanism over polling-based alternatives. The machine learning component achieves an F1-score of 0.82 (precision 0.79, recall 0.85), confirming that the classifier successfully captures recurrent commuting patterns and generates actionable suggestions with a controlled false-positive rate. These results validate the hypothesis that integrating route-based matching, real-time synchronization, and predictive intelligence produces a measurable, coherent improvement in system effectiveness.
+The experimental results indicate that the proposed platform performs significantly better than the baseline across all evaluated dimensions.
 
-The proposed system improves matching success rate by 60\% compared to the baseline (45\% to 72\%). Real-time event latency is reduced by over 75\%, from $\sim$2.1~s to under 0.5~s, demonstrating significantly improved system responsiveness. The predictive model achieves 82\% accuracy, enabling reliable commute prediction.
+The matching success rate increases from 45\% to 72\%, representing a substantial improvement in ride discovery capability. This gain is primarily explained by the trajectory-based matching strategy, which evaluates spatial overlap along the complete route rather than relying on strict origin--destination coincidence.
 
-The evaluation highlights a key trade-off between matching flexibility and route deviation. Increasing matching tolerance improves the success rate from 45\% to 72\%, but introduces an average pickup deviation of 1.8~km as passengers are matched along rather than exactly at driver endpoints. However, this deviation remains well within acceptable limits for urban commuting distances (typically 10--30~km), confirming the practical viability of the corridor-based approach.
+At the same time, the average pickup deviation remains limited to 1.8~km, indicating that the additional flexibility introduced by corridor-based matching does not generate excessive detours for drivers. The optimization mechanism therefore succeeds in balancing matching expansion with route coherence.
+
+The evaluation also highlights a major improvement in synchronization responsiveness. Real-time event latency decreases from approximately 2.1~s to below 0.5~s, confirming the efficiency of the WebSocket-based communication layer compared to polling-oriented approaches. This reduction contributes directly to smoother interaction and improved user perception of system responsiveness.
+
+Regarding predictive behavior, the machine learning component achieves an F1-score of 0.82, with precision and recall values of 0.79 and 0.85 respectively. These results suggest that the classifier effectively captures recurring commuting habits while maintaining an acceptable balance between missed opportunities and irrelevant suggestions.
+
+Overall, the evaluation confirms that combining route-based matching, real-time synchronization, and predictive assistance leads to measurable improvements in both operational efficiency and interaction quality.
+
+The results also reveal an important trade-off between flexibility and route deviation. Increasing matching tolerance improves the probability of identifying feasible rides, but introduces moderate pickup displacement as passengers are inserted along trajectories rather than at exact endpoints.
+
+However, the observed deviation remains compatible with typical urban commuting distances, confirming that the proposed strategy remains practical in realistic deployment conditions.
+
+% =========================================================
 
 \subsection{Key Findings}
 
-The experimental evaluation yields the following quantified conclusions:
+The experimental evaluation leads to the following observations:
 
 \begin{itemize}
-    \item \textbf{Matching improvement}: the proposed system identifies 72\% of feasible matches versus 45\% for the baseline, a 27 percentage-point increase.
-    \item \textbf{Route efficiency}: the average pickup deviation remains limited to 1.8~km, confirming that corridor-based matching introduces minimal route disruption.
-    \item \textbf{Real-time responsiveness}: event propagation latency stays below 0.5~s, a $>$75\% reduction compared to the baseline's $\sim$2.1~s.
-    \item \textbf{Prediction quality}: the Random Forest classifier achieves an F1-score of 0.82, with recall (0.85) exceeding precision (0.79), indicating a bias toward surfacing relevant suggestions rather than suppressing them.
-    \item \textbf{System consistency}: all invalid operations are rejected at the backend layer, and concurrent interactions produce no state inconsistencies across 100\% of tested scenarios.
-    \item \textbf{Observability coverage}: system events, logs, and dashboard indicators provide full traceability of ride lifecycle transitions and matching decisions.
+    \item \textbf{Matching effectiveness}: the proposed platform identifies substantially more feasible ride opportunities than the baseline, increasing the success rate from 45\% to 72\%.
+    
+    \item \textbf{Route preservation}: the average pickup deviation remains limited to 1.8~km, indicating that increased flexibility does not significantly disrupt driver routes.
+    
+    \item \textbf{Real-time responsiveness}: event propagation latency remains below 0.5~s, representing a reduction greater than 75\% compared to polling-based synchronization.
+    
+    \item \textbf{Prediction reliability}: the Random Forest model achieves an F1-score of 0.82, demonstrating stable predictive capability for recurring commuting behavior.
+    
+    \item \textbf{System consistency}: invalid operations are systematically rejected at the backend level, and concurrent interactions do not produce observable state inconsistencies.
+    
+    \item \textbf{Observability support}: logs, events, and monitoring indicators provide continuous visibility into ride execution and intelligent decision-making processes.
 \end{itemize}
 
----
+% =========================================================
 
 \section{System Robustness and Observability}
 
-The system is tested against various edge cases, including invalid booking attempts, concurrent requests, and inconsistent inputs.
+The platform is evaluated against multiple edge-case scenarios, including invalid booking attempts, concurrent requests, and inconsistent user actions.
 
-All invalid operations are correctly rejected at the backend level, confirming the effectiveness of validation mechanisms. Concurrent interactions do not lead to inconsistencies, particularly in seat allocation and ride state management.
+The evaluation confirms that invalid operations are consistently rejected by backend validation mechanisms before affecting persistent system state. Concurrent interactions also remain correctly synchronized, particularly with respect to seat allocation and lifecycle management.
 
-Furthermore, the observability layer plays a key role in validation. System events, logs, and dashboard indicators provide visibility into system behavior, enabling verification of internal processes and facilitating debugging when necessary.
+The observability layer further contributes to validation by providing detailed visibility into internal system activity. Logs, system events, and monitoring indicators enable precise tracking of ride execution, synchronization events, and matching decisions.
 
----
+This traceability simplifies debugging and helps verify that distributed interactions remain coherent throughout execution.
+
+% =========================================================
 
 \section{Discussion and Limitations}
 
-While the system demonstrates strong performance and consistency, several limitations are identified.
+Although the evaluation demonstrates strong system coherence and performance, several limitations remain.
 
-The machine learning component relies on synthetic data, which may not fully capture the variability of real-world user behavior. Future work could incorporate real usage data to improve model accuracy and adaptability.
+First, the machine learning component relies on synthetic data, which cannot fully reproduce the variability of real-world commuting behavior. Integrating real usage data in future deployments would improve predictive realism and allow continuous adaptation to evolving user habits.
 
-Additionally, the evaluation focuses on functional and behavioral aspects rather than large-scale performance under heavy load. Scalability considerations, such as distributed deployment and load balancing, remain areas for further exploration. A preliminary analysis suggests that a tenfold increase in concurrent users would affect the system along two axes. First, the matching pipeline's corridor-filtering stage scales with the product of active rides and pending requests; without spatial indexing (e.g., R-tree partitioning), query latency would grow super-linearly, potentially exceeding the current sub-second threshold. Second, the WebSocket layer currently maintains server-side state per connection; at scale, this would require connection distribution across multiple backend instances and a shared pub/sub mechanism (e.g., Redis) to preserve event ordering and cross-client consistency. These observations indicate that the current architecture is well-suited for the enterprise deployment target (tens to low hundreds of concurrent users), but would require horizontal scaling strategies before extending to larger organizations.
+Second, the evaluation primarily focuses on functional correctness and interaction behavior rather than large-scale stress testing. Scalability under high concurrency therefore remains an open consideration.
 
-Finally, while real-time synchronization is effective, network variability may impact performance in less stable environments.
+A preliminary analysis suggests that a significant increase in concurrent users would mainly impact two components. The first concerns the matching pipeline, where corridor-based filtering complexity grows with the number of active rides and pending requests. Without advanced spatial indexing techniques, processing latency could increase beyond the current near real-time behavior.
 
----
+The second concerns the real-time communication layer. Since WebSocket sessions currently maintain server-side connection state, large-scale deployment would require distributed synchronization mechanisms and shared event propagation infrastructure to preserve consistency across multiple backend instances.
+
+These observations indicate that the current architecture is well adapted to enterprise-scale deployment involving tens or low hundreds of simultaneous users, while larger deployments would require additional horizontal scaling strategies.
+
+Finally, although the synchronization layer performs efficiently under controlled conditions, network instability may still affect responsiveness in environments with unreliable connectivity.
+
+% =========================================================
 
 \section{Conclusion}
 
-This chapter demonstrated through quantitative evaluation that the proposed system significantly outperforms conventional carpooling architectures. The experimental results establish three core claims: (1) route-based matching increases the matching success rate from 45\% to 72\%, a 27 percentage-point improvement over fixed-point approaches; (2) WebSocket-driven event propagation reduces real-time latency by more than 75\%, keeping system responsiveness below 0.5~s; and (3) the machine learning classifier achieves an F1-score of 0.82, validating the feasibility of proactive commute prediction in an enterprise context.
+This chapter demonstrated through quantitative and behavioral evaluation that the proposed platform significantly improves upon conventional ride-sharing approaches.
 
-Beyond these individual metrics, the evaluation confirms that the backend-driven architecture maintains full system consistency across concurrent interactions, invalid operations, and edge-case scenarios. The observability layer provides complete traceability of ride lifecycle transitions and matching decisions, enabling both runtime validation and post-hoc analysis.
+The experimental results confirm three principal outcomes:
 
-The identified limitations -- synthetic training data, single-instance deployment constraints, and network variability -- define clear directions for future work rather than undermining the current results. The platform establishes a validated, quantitatively defended foundation for enterprise ride-sharing that can be extended through real-data integration, horizontal scaling, and adaptive retraining as deployment conditions evolve.
+\begin{itemize}
+    \item route-based matching substantially increases the number of feasible ride opportunities,
+    
+    \item WebSocket-driven synchronization considerably reduces interaction latency,
+    
+    \item the predictive layer successfully anticipates recurring commuting behavior through machine learning techniques.
+\end{itemize}
+
+Beyond these isolated metrics, the evaluation also confirms that the backend-centered architecture maintains consistent system behavior under concurrent interactions, invalid operations, and edge-case scenarios.
+
+The observability mechanisms provide complete traceability of ride lifecycle transitions and intelligent decision processes, supporting both runtime validation and post-execution analysis.
+
+Overall, the evaluation validates the effectiveness of combining real-time communication, intelligent spatial matching, and predictive assistance within a unified enterprise ride-sharing platform.

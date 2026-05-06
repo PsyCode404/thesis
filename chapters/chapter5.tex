@@ -2,35 +2,35 @@
 
 \section{Introduction}
 
-While the previous chapter established a fully functional ride management system with real-time synchronization capabilities, its behavior remained fundamentally reactive. Users were required to explicitly initiate interactions, such as searching for rides or offering trips, and the system responded deterministically based on predefined rules.
+The previous chapter established a complete ride management system with real-time synchronization capabilities. However, its behavior remained primarily reactive: users had to explicitly initiate actions such as searching for rides or offering trips, and the platform responded based on predefined rules.
 
-This chapter introduces an intelligent decision layer that extends the system beyond reactive behavior. The objective is to enhance the platform with the ability to both \textit{adapt} to dynamic scenarios and \textit{anticipate} user needs.
+This chapter introduces an additional decision layer aimed at making the system more adaptive and proactive. The goal is not only to react to user requests, but also to improve how the platform identifies opportunities and anticipates user needs.
 
-Two complementary approaches are implemented:
+Two complementary approaches are developed:
 
 \begin{itemize}
     \item \textbf{Sprint 4 — Smart Matching System}: an algorithmic layer that enables dynamic ride matching based on route overlap and optimized pickup points.
     \item \textbf{Sprint 5 — Machine Learning System}: a predictive layer that models user behavior to anticipate ride needs and provide proactive suggestions.
 \end{itemize}
 
-Together, these components transform the system into an intelligent platform capable of improving ride utilization, reducing missed opportunities, and enhancing overall interaction efficiency.
+Together, these components extend the platform beyond reactive behavior, improving ride utilization, reducing missed opportunities, and enhancing overall interaction efficiency.
 
 % =========================================================
 \section{Problem Definition}
 
-Traditional ride-sharing systems rely on strict origin-destination matching. A ride is only suggested if the passenger's requested route exactly matches the driver's route.
+Most traditional ride-sharing systems rely on strict origin-destination matching~\cite{furuhata2013ridesharing}. A ride is suggested only when the passenger’s request closely matches the driver’s route.
 
-This approach leads to a significant limitation: many potential matches are missed when routes overlap but do not share identical starting points.
+This limitation leads to missed opportunities. In many real scenarios, routes partially overlap without sharing identical starting points.
 
-For example, consider a driver traveling from point A to point C, and a passenger requesting a ride from point B to point C. Although the passenger lies along the driver's trajectory, conventional systems fail to identify this opportunity due to rigid matching constraints.
+For instance, consider a driver traveling from point A to point C, and a passenger requesting a ride from point B to point C. Even though the passenger lies along the driver’s path, conventional systems often fail to detect this match due to rigid constraints.
 
-In addition, user interaction remains entirely manual. Users must repeatedly search for rides, even when their behavior follows predictable patterns such as daily commuting. This introduces unnecessary friction and reduces system efficiency.
+Another limitation concerns user interaction. The system depends entirely on manual actions, requiring users to repeatedly search for rides. This becomes inefficient in cases where behavior follows recurring patterns, such as daily commuting.
 
-This chapter addresses these limitations through two complementary solutions:
+To address these issues, this chapter introduces two complementary solutions:
 
 \begin{itemize}
-    \item \textbf{Route-based intelligent matching}, enabling spatial overlap detection and dynamic ride insertion.
-    \item \textbf{Behavior prediction}, enabling proactive ride suggestions based on learned patterns.
+    \item \textbf{Route-based intelligent matching}, enabling detection of spatial overlap and dynamic ride insertion.
+    \item \textbf{Behavior prediction}, enabling proactive ride suggestions based on learned user patterns.
 \end{itemize}
 
 % =========================================================
@@ -38,17 +38,24 @@ This chapter addresses these limitations through two complementary solutions:
 
 \subsection{Overview}
 
-The Smart Matching System introduces a trajectory-aware matching mechanism that fundamentally departs from traditional point-based approaches.
+The Smart Matching System introduces a trajectory-based approach to ride matching~\cite{stiglic2015flexible}.
 
-Instead of evaluating rides as discrete origin-destination pairs, each ride is modeled as a continuous spatial trajectory. This enables the detection of intermediate opportunities where passengers can be inserted into existing routes.
+Instead of treating rides as simple origin-destination pairs, each ride is modeled as a continuous path. This allows the platform to identify intermediate opportunities where passengers can join an existing route.
 
-This represents a shift from exact matching toward \textit{route-based matching}, significantly increasing the system’s ability to identify viable connections.
+The shift from point-based to route-based matching significantly increases the number of viable matches, while still preserving route coherence for drivers.
 
 % ------------------------
 \subsection{Sprint Backlog}
 
-The objective of this sprint is to design and implement a route-based intelligent matching system capable of identifying ride opportunities through spatial trajectory analysis and optimizing pickup interactions.
+The objective of this sprint is to design and implement a route-based matching system capable of identifying ride opportunities through spatial trajectory analysis and optimizing pickup interactions.
 
+The backlog can be grouped into three main categories:
+
+\begin{itemize}
+    \item \textbf{Spatial Modeling}: trajectory representation and corridor construction,
+    \item \textbf{Matching Logic}: filtering, scoring, and optimization,
+    \item \textbf{System Integration}: lifecycle adaptation and notification handling.
+\end{itemize}
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.4}
@@ -80,103 +87,97 @@ As a system, I want to validate matching accuracy and ensure consistency across 
 \end{tabular}
 \caption{Sprint 4 Backlog — Smart Matching System}
 \end{table}
+The backlog reflects the progressive construction of the matching system, from spatial representation to filtering, scoring, and integration into the ride lifecycle.
 
-The backlog can be categorized into three main groups:
+The sprint was developed incrementally. Core components such as trajectory modeling and corridor filtering were implemented first to establish a solid foundation.
 
-\begin{itemize}
-    \item \textbf{Spatial Modeling}: trajectory representation and corridor construction,
-    \item \textbf{Matching Logic}: filtering, scoring, and optimization,
-    \item \textbf{System Integration}: lifecycle adaptation and notification mechanisms.
-\end{itemize}
-
-The sprint was executed using an incremental approach, where core components such as trajectory modeling and corridor filtering were implemented first, followed by progressive integration of scoring and lifecycle adaptation. This ensured early validation of fundamental mechanisms before introducing higher-level logic.
-
-% ------------------------
+After validation, additional elements such as scoring and lifecycle adaptation were introduced, ensuring that each component was tested before integration into the complete matching pipeline.
 \subsection{Problem Reframing}
 
-The matching problem is reformulated from a discrete comparison problem into a geometric and optimization problem.
+The matching problem is reformulated from a discrete comparison task into a geometric optimization problem.
 
-Instead of evaluating whether two rides share identical endpoints, the system evaluates whether a passenger’s location lies within a feasible proximity to a driver’s trajectory.
+Instead of checking whether two rides share identical endpoints, the system evaluates whether a passenger’s location can be integrated into a driver’s trajectory under feasible conditions. This change reflects a more realistic view of how rides occur in practice, where routes often overlap partially rather than exactly.
 
-This reframing introduces two key challenges:
+This reformulation introduces two main challenges:
 
 \begin{itemize}
     \item efficient detection of spatial proximity between trajectories,
-    \item selection of an optimal pickup point that minimizes system disruption.
+    \item identification of a pickup point that minimizes disruption to the existing route.
 \end{itemize}
 
-It is important to emphasize that the proposed approach is not a simple distance-based proximity search. Direct distance computation between two points ignores route structure, road network constraints, and actual travel feasibility. Instead, the system evaluates candidates through a multi-factor scoring pipeline that projects the passenger's location onto the driver's actual trajectory, computes real detour costs, and ranks matches according to combined spatial and temporal criteria. This transforms the matching problem from a simple geometric comparison into a constrained route-insertion optimization problem, where the objective is to identify the highest-quality insertion point that minimizes disruption while maintaining route coherence.
+A key difficulty lies in balancing flexibility and feasibility. While increasing the search space allows more potential matches, it also introduces the risk of proposing solutions that are impractical in real-world conditions.
 
-Alternative approaches such as strict nearest-point matching or grid-based spatial partitioning were considered. However, these methods either fail to preserve route continuity or introduce excessive discretization. The corridor-based approach provides a balance between flexibility, accuracy, and computational efficiency.
+It is important to note that the proposed approach does not rely on simple point-to-point distance comparisons. Such methods ignore the structure of the road network and do not reflect actual travel feasibility.
 
+Instead, candidate rides are evaluated through a multi-stage scoring process~\cite{routing}. The passenger’s location is projected onto the driver’s trajectory, detour cost is estimated, and candidates are ranked using both spatial and temporal criteria. This guarantees that matching decisions remain grounded in realistic travel constraints.
+
+The reformulation shifts the problem from a basic geometric comparison to a constrained route-insertion problem, where the objective is to identify a feasible pickup location that preserves route continuity while minimizing additional cost.
+
+Alternative strategies, such as nearest-point matching or grid-based partitioning, were considered. However, these approaches either ignore route structure or introduce excessive approximation. The corridor-based method offers a more balanced solution in terms of flexibility, accuracy, and computational cost, while remaining compatible with real-time constraints.
 % ------------------------
 \subsection{Route-Based Matching Concept}
 
-\begin{figure}[htbp]
+Each ride is modeled as a geometric trajectory rather than a fixed pair of points. Passenger requests are evaluated against this trajectory.
+
+A match is identified when the passenger’s pickup location falls within a spatial corridor defined around the driver’s route~\cite{chen2011trajectory}. This allows the platform to detect opportunities that would otherwise be missed under strict origin-destination matching.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{images/architecture/route_matching.png}
+\includegraphics[width=0.9\textwidth]{images/architecture/route_matching.png}
 \caption{Route-Based Matching Concept}
 \end{figure}
-\FloatBarrier{}
-
-Each ride is represented as a geometric trajectory. Passenger requests are evaluated against this trajectory rather than against fixed endpoints.
-
-A match is identified when the passenger’s pickup location lies within a defined spatial corridor surrounding the driver’s route. This transforms the problem from a discrete comparison into a geometric proximity problem.
-
-This approach enables the system to detect matches that would otherwise be completely ignored under strict origin-destination constraints.
 
 % ------------------------
 \subsection{Matching Pipeline}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\textwidth]{images/architecture/matching_pipeline.png}
-\caption{Smart Matching Pipeline}
-\end{figure}
-\FloatBarrier{}
-
-The matching process is structured as a multi-stage pipeline designed to progressively reduce the candidate space:
+The matching process is organized as a multi-stage pipeline that progressively reduces the number of candidate rides:
 
 \begin{itemize}
     \item \textbf{Validation}: filters rides based on temporal compatibility, seat availability, and ride status.
     
-    \item \textbf{Route Analysis}: transforms rides into continuous trajectories using polyline representations.
+    \item \textbf{Route Analysis}: represents rides as continuous trajectories using polyline encoding.
     
-    \item \textbf{Corridor Filtering}: restricts candidates to those within a spatial corridor around the driver's route, significantly reducing computational complexity.
+    \item \textbf{Corridor Filtering}: retains only candidates located within a spatial corridor around the driver’s route, reducing the search space.
     
-    \item \textbf{Scoring}: ranks candidates using criteria such as detour distance, additional travel time, and pickup feasibility.
+    \item \textbf{Scoring}: ranks candidates according to detour distance, additional travel time, and pickup feasibility.
 \end{itemize}
 
-This staged design ensures that computational resources are focused on relevant candidates, improving both performance and accuracy.
+The staged structure limits unnecessary computations and focuses processing on relevant candidates, improving both efficiency and matching quality.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{images/architecture/matching_pipeline.png}
+\caption{Smart Matching Pipeline}
+\end{figure}
 
 % ------------------------
 \subsection{Matching Score Formalization}
 
-Each candidate match is assigned a composite score derived from four weighted factors. Let $d_p$ denote the normalized proximity of the passenger's origin to the driver's route, $d_d$ the normalized proximity of the passenger's destination to the driver's destination, $\Delta t$ the temporal compatibility, and $s$ the normalized seat availability. The score $S$ is computed as:
+Each candidate is assigned a composite score based on four weighted factors. Let $d_p$ denote the normalized distance between the passenger's origin and the driver's route, $d_d$ the normalized distance between the passenger's destination and the driver's destination, $\Delta t$ the temporal compatibility, and $s$ the normalized seat availability. The score $S$ is defined as:
 
 \begin{equation}
 S = 0.40 \, d_p + 0.30 \, d_d + 0.20 \, \Delta t + 0.10 \, s
 \end{equation}
 
-Only candidates with $S \geq \tau$, where $\tau$ is a domain-tuned threshold, are returned to the user.
+Only candidates satisfying $S \geq \tau$, where $\tau$ is a predefined threshold, are returned to the user.
 
 % ------------------------
 \subsection{Dynamic Pickup Optimization}
 
-Unlike traditional systems where pickup points are predefined, the proposed approach computes an optimal pickup location dynamically.
+Unlike traditional systems where pickup points are fixed, the proposed approach determines a suitable pickup location dynamically.
 
-The selected point minimizes detour distance while maintaining accessibility for both participants. This optimization is constrained by real-world considerations such as route continuity and geographic feasibility.
+The selected point aims to minimize detour distance while remaining accessible to both driver and passenger. This optimization takes into account route continuity and geographic constraints.
 
-A key design decision is the prioritization of the driver experience. Since drivers are not financially incentivized, minimizing inconvenience is critical for system adoption.
+A key design choice is the prioritization of driver convenience. Since drivers are not financially incentivized, limiting additional effort is essential for maintaining participation.
 
-To support informed decisions, the system explicitly computes and presents the detour cost associated with each match, enabling transparent and user-driven decision-making.
+To support decision-making, the system computes and presents the detour cost associated with each match, allowing users to evaluate trade-offs before confirming a ride.
 
 % ------------------------
 \subsection{Ride Lifecycle Adaptation}
 
 The matching process is tightly integrated into the ride lifecycle.
 
-Rather than treating matching as a static pre-processing step, the system dynamically adapts the ride execution flow. A ride initially defined as A → C can evolve into a multi-stage process:
+Rather than treating matching as a static pre-processing step, the proposed approach dynamically adapts the execution flow. A ride initially defined as A → C can evolve into a multi-stage process:
 
 \begin{itemize}
     \item Initial departure from A
@@ -184,43 +185,48 @@ Rather than treating matching as a static pre-processing step, the system dynami
     \item Continuation to C
 \end{itemize}
 
-This integration ensures that matching decisions are not isolated computations, but directly influence system behavior and execution consistency.
+Such transformation reflects the dynamic nature of real-world ride-sharing, where new participants can be incorporated during execution without redefining the entire trip.
 
-% ------------------------
+From a system perspective, this requires the lifecycle model to support intermediate states and transitions. The ride is no longer a fixed sequence, but a flexible structure that can accommodate additional events such as pickups or minor route adjustments while maintaining consistency.
+
+The integration ensures that matching is not an isolated computation, but directly influences platform behavior and execution consistency. Each accepted match triggers updates in ride state, participant roles, and route progression, ensuring that all components remain synchronized.
+
+As a result, the lifecycle becomes an active component of the matching system, enabling seamless coordination between planning and execution phases.
 \subsection{Intelligent Notification System}
 
-To ensure that detected matches translate into effective user actions, the system incorporates an intelligent notification mechanism that bridges the gap between backend computation and user interaction.
+To ensure that detected matches lead to effective user actions, the platform incorporates a notification mechanism that connects backend computation with user interaction.
 
-Unlike traditional notification systems that simply inform users of events, the proposed approach delivers contextual and actionable notifications. These notifications are generated only when a relevant matching opportunity is identified and are enriched with essential information such as pickup feasibility, detour impact, and route alignment.
+Unlike conventional notification systems that simply report events, this approach delivers contextual and actionable information. Notifications are triggered only when a relevant matching opportunity is identified and include details such as pickup feasibility, detour impact, and route alignment.
 
-This design ensures that users are not overwhelmed with unnecessary alerts, while still being immediately informed of meaningful opportunities.
+This selective strategy prevents unnecessary alerts while ensuring that users are informed of meaningful opportunities.
 
-\begin{figure}[htbp]
+The interaction flow is illustrated below.
+
+\begin{figure}[H]
 \centering
-\begin{minipage}{0.32\textwidth}
+\begin{minipage}[t]{0.43\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/ui/smart_notification_preview.png}
     \caption*{(a) Smart Notification Preview}
 \end{minipage}
-\hspace{0.02\textwidth}
-\begin{minipage}{0.32\textwidth}
+\hfill
+\begin{minipage}[t]{0.43\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/ui/smart_match_screen.png}
     \caption*{(b) Smart Match Screen}
 \end{minipage}
 \caption{Intelligent Notification Flow}
 \end{figure}
-\FloatBarrier
 
-As illustrated in Figure 5.X, the notification first appears as a concise preview, allowing the user to quickly assess its relevance. Upon interaction, the user is redirected to a dedicated interface where detailed information about the match is presented, enabling an informed decision.
+The notification first appears as a concise preview, allowing the user to quickly assess its relevance. Upon interaction, the user is redirected to a dedicated interface presenting detailed information about the proposed match.
 
-Matching results are therefore not passively displayed, but actively integrated into the user workflow through a seamless transition from notification to interaction.
+Matching results are therefore not passively displayed, but actively integrated into the user workflow through a transition from notification to decision.
 
-This mechanism ensures that the matching system is not only computationally effective but also operationally impactful, by transforming detected opportunities into immediate and meaningful user actions.
+The mechanism ensures that the matching engine is not only computationally effective but also operationally meaningful, transforming detected opportunities into actionable user interactions.
 % ------------------------
 \subsection{Sprint Validation and Testing}
 
-The Smart Matching System was validated through structured scenario-based evaluation focusing on both correctness and system impact.
+The Smart Matching System was validated through scenario-based evaluation focusing on both correctness and system impact.
 
 \begin{itemize}
     \item \textbf{Matching Accuracy}: verification that valid spatial overlaps are correctly detected.
@@ -232,19 +238,19 @@ The Smart Matching System was validated through structured scenario-based evalua
     \item \textbf{Lifecycle Consistency}: ensuring that ride state transitions remain coherent after match insertion.
 \end{itemize}
 
-In addition, comparative scenarios were analyzed:
+Comparative scenarios were also analyzed:
 
 \begin{itemize}
     \item strict origin-destination matching versus route-based matching,
     \item manual ride discovery versus system-assisted matching.
 \end{itemize}
 
-The results demonstrate that the proposed approach significantly increases matching coverage while preserving execution consistency and system stability.
+The results show that the proposed approach increases matching coverage while maintaining execution consistency and system stability.
 
 % ------------------------
 \subsection{System Impact}
 
-The Smart Matching System introduces a fundamental improvement in ride discovery:
+The Smart Matching System introduces a significant improvement in ride discovery:
 
 \begin{itemize}
     \item increases matching coverage beyond strict constraints,
@@ -252,50 +258,54 @@ The Smart Matching System introduces a fundamental improvement in ride discovery
     \item improves overall system utilization.
 \end{itemize}
 
-More importantly, it establishes a spatially-aware foundation upon which higher-level intelligent features can be built.
-% =========================================================
-\clearpage
+More importantly, it establishes a spatially-aware foundation for higher-level intelligent features.
+
 \section{Sprint 5: Machine Learning System}
 
 \subsection{Overview}
 
-While the Smart Matching System enhances the system’s ability to react to user requests, it remains fundamentally dependent on explicit user interaction. In practice, this introduces friction: users must repeatedly perform the same actions despite exhibiting highly regular commuting behavior.
+While the Smart Matching System improves the platform’s ability to respond to user requests, it still depends on explicit interaction. In practice, this introduces friction: users must repeatedly perform similar actions despite having consistent commuting habits.
 
-The Machine Learning System addresses this limitation by introducing a predictive layer capable of anticipating user intent. Instead of waiting for a user to initiate a search, the system proactively identifies recurring mobility patterns and surfaces relevant ride suggestions at the appropriate time.
+The Machine Learning System addresses this limitation by introducing a predictive layer that anticipates user intent. Instead of waiting for a user to initiate a search, the proposed approach identifies recurring mobility patterns and surfaces relevant ride suggestions at appropriate moments.
 
-This transforms the platform from a purely reactive system into a context-aware system that adapts to user behavior over time.
+The proposed layer shifts the platform from a purely reactive model toward a context-aware system that adapts progressively to user behavior.
 
-From a system perspective, this component operates as an independent intelligence layer that consumes historical trip data and produces probabilistic predictions, which are then integrated into the user interface without altering the core ride lifecycle.
+From a system perspective, this component operates as an independent intelligence layer. It consumes historical trip data and produces probabilistic predictions that are integrated into the user interface without modifying the core ride lifecycle.
 
-It is essential to distinguish the role of the Machine Learning System from that of the rule-based matching components described in the previous sprint. The Smart Matching System addresses the question of \textit{who} can share a ride by evaluating spatial overlap and route compatibility. The Machine Learning System, in contrast, addresses the question of \textit{when} a user is likely to need a ride, irrespective of whether a matching driver currently exists. These two systems operate on orthogonal dimensions: matching is reactive and deterministic, while prediction is proactive and probabilistic. The ML layer does not replace or interfere with matching logic; it operates upstream, surfacing anticipated needs that the user may then express through the standard ride creation or search workflow.
+It is important to distinguish this component from the rule-based matching system introduced in the previous sprint. The Smart Matching System answers the question of \textit{who} can share a ride by evaluating spatial compatibility, whereas the Machine Learning System addresses \textit{when} a user is likely to need a ride, regardless of current availability.
 
+These two mechanisms operate on complementary dimensions: matching remains reactive and deterministic, while prediction is proactive and probabilistic. The ML layer does not replace the matching logic; it operates upstream, suggesting potential needs that can later be handled through the existing workflow.
+
+% ------------------------
 \subsection{Problem Framing and Design Rationale}
 
-The problem addressed by this component is not generic prediction, but structured behavioral anticipation under constrained data conditions.
+The objective of this component is not generic prediction, but structured behavioral anticipation under constrained data conditions.
 
-Unlike large-scale mobility platforms, the system operates in a controlled corporate environment with:
+Unlike large-scale mobility platforms, this system operates in a controlled corporate environment characterized by:
+
 \begin{itemize}
     \item limited historical data,
-    \item relatively small user base,
+    \item a relatively small user base,
     \item highly repetitive commuting behavior.
 \end{itemize}
 
-This context fundamentally shapes the design of the solution.
+These constraints directly influence the design choices.
 
-Instead of relying on deep learning or large-scale data-driven approaches, the system leverages the fact that commuting behavior is inherently structured and predictable. Most users follow consistent spatial and temporal patterns (e.g., same origin, same destination, similar departure times).
+Rather than relying on complex deep learning models, the system leverages the regularity of commuting patterns~\cite{liao2007learning}. Most users follow stable spatial and temporal routines, such as consistent origins, destinations, and departure times.
 
-This allows the problem to be decomposed into two distinct tasks:
+Based on this observation, the problem is decomposed into two complementary tasks:
+
 \begin{itemize}
     \item identifying recurring patterns in user behavior,
     \item predicting whether a given pattern will occur at a specific time.
 \end{itemize}
 
-This decomposition leads to a modular pipeline that separates pattern detection from prediction, improving interpretability and maintainability.
+The separation leads to a modular pipeline where pattern detection and prediction are handled independently, improving both interpretability and maintainability.
 
+% ------------------------
 \subsection{Sprint Backlog}
 
-
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \renewcommand{\arraystretch}{1.4}
 \setlength{\tabcolsep}{6pt}
@@ -327,104 +337,129 @@ As a system, I want to validate the accuracy and stability of predictions & Medi
 \caption{Sprint 5 Backlog — Machine Learning System}
 \end{table}
 
+The backlog summarizes the main stages required to build the predictive system, from data preparation to user-facing integration.
+
+It begins with synthetic data generation and spatial abstraction, followed by feature extraction and pattern validation. These steps establish the foundation for predictive modeling.
+
+Subsequent tasks focus on estimating the probability of future ride requests and filtering results to ensure relevance before presenting suggestions to the user.
+
 % ------------------------
 \subsection{Data Strategy and Justification}
 
-A critical constraint in this project is the absence of sufficient real-world historical data.
+A key constraint of this project is the lack of sufficient real-world historical data.
 
-To address this, a synthetic dataset was generated to simulate realistic commuting behavior. While synthetic data is often considered a limitation in machine learning systems, its use in this context is both justified and effective.
+To address this limitation, a synthetic dataset was generated to approximate realistic commuting behavior. Although synthetic data is often viewed as a compromise in machine learning workflows, its use in this context is both justified and appropriate.
 
-The justification relies on the nature of the problem:
-
-\begin{itemize}
-    \item The feature space is low-dimensional (time, location, frequency).
-    \item The target behavior (commuting) follows deterministic patterns.
-    \item Noise levels are relatively low compared to open-world prediction problems.
-\end{itemize}
-
-Unlike domains such as image recognition or natural language processing, where data complexity is high, commuting behavior can be approximated using controlled distributions.
-
-The synthetic dataset was designed to replicate three key properties:
+This justification stems from the nature of the problem:
 
 \begin{itemize}
-    \item \textbf{Temporal regularity}: repeated departures at similar times.
-    \item \textbf{Spatial consistency}: clustering of origins and destinations.
-    \item \textbf{Behavioral repetition}: recurring trips across multiple days.
+    \item The feature space is low-dimensional, primarily defined by time, location, and frequency.
+    \item The target behavior, namely commuting, exhibits strong regularity.
+    \item Noise levels remain limited compared to open-ended prediction domains.
 \end{itemize}
 
-This ensures that the model is exposed to patterns that closely resemble real-world commuting behavior, allowing it to learn meaningful structures despite the absence of real data.
+In contrast to domains such as image recognition or natural language processing, where data complexity is high and difficult to approximate, commuting behavior can be modeled using controlled distributions that capture recurring patterns~\cite{mitchell1997machine}.
 
-The objective is not to achieve production-level accuracy, but to validate that the system can learn, generalize, and produce useful predictions within a controlled environment.
+The synthetic dataset was therefore designed to reproduce three fundamental characteristics:
 
+\begin{itemize}
+    \item \textbf{Temporal regularity}: repeated departures within consistent time intervals.
+    \item \textbf{Spatial consistency}: clustering of origins and destinations around typical zones.
+    \item \textbf{Behavioral repetition}: recurring trips observed over multiple days.
+\end{itemize}
+
+Such design allows the model to learn structured patterns that closely resemble real commuting scenarios, despite the absence of real-world data.
+
+The objective is not to achieve production-level accuracy, but rather to validate that the system is capable of learning, generalizing, and producing relevant predictions in a controlled setting.
+
+% ------------------------
 \subsubsection{Justification for Synthetic Data}
 
-The absence of a real-world dataset is a direct consequence of the system's novelty: no historical ride records exist for the enterprise context under study. Synthetic data therefore serves as a controlled proxy that enables model development and validation without prematurely exposing the system to unobserved real-world variance.
+The absence of a real-world dataset is a direct consequence of the system’s novelty: no historical ride records are available for the enterprise context under study.
 
+Synthetic data therefore acts as a controlled proxy, enabling model development and validation while avoiding premature exposure to unpredictable real-world variability. It also allows the generation process to be explicitly controlled, ensuring that key behavioral patterns are sufficiently represented during training.
+
+In this specific context, the use of synthetic data is not only a practical necessity but also a suitable choice. Commuting behavior in enterprise environments tends to follow stable and repetitive patterns, which can be approximated using structured generative rules without requiring large-scale real data.
+
+The objective is not to replicate every aspect of real-world mobility, but to capture the dominant structures of commuting behavior in a way that remains consistent, interpretable, and sufficient for validating the predictive pipeline.
+% ------------------------
 \subsubsection{Data Generation Logic}
 
-The synthetic dataset is constructed through a parameterized generative process that captures three essential properties of enterprise commuting:
+The dataset is generated through a parameterized process designed to capture essential properties of enterprise commuting behavior:
 
 \begin{itemize}
-    \item \textbf{Geographic distribution}: origin and destination coordinates are sampled from clustered spatial distributions centered on residential zones and the corporate campus.
-    \item \textbf{Working-hour periodicity}: departure times are concentrated around morning (07:30--09:00) and evening (17:00--19:00) peaks, with controlled variance.
-    \item \textbf{Structured randomness}: a fraction of trips are injected as noise to prevent overfitting to perfectly deterministic patterns.
+    \item \textbf{Geographic distribution}: origin and destination points are sampled from clustered spatial regions representing residential areas and the corporate site.
+    \item \textbf{Working-hour periodicity}: departure times are concentrated around typical commuting windows (07:30--09:00 and 17:00--19:00), with controlled variance.
+    \item \textbf{Structured randomness}: a subset of trips is randomly perturbed to introduce variability and reduce overfitting.
 \end{itemize}
 
-This design ensures that the model encounters both regular commuting signals and realistic irregularities.
+Additional constraints are applied to maintain realistic trajectories, such as limiting extreme distances and ensuring consistency between origin-destination pairs.
 
+The generation strategy ensures that the model encounters both stable patterns and controlled irregularities during training, allowing it to generalize beyond strictly repetitive behavior.
+
+% ------------------------
 \subsubsection{Limitations}
 
-Despite its utility, the synthetic dataset cannot fully replicate the variability of real-world commuting behavior. Factors such as weather disruptions, ad-hoc schedule changes, and multi-modal transport are not represented. Consequently, model performance may degrade when transferred to an actual deployment environment.
+Despite its advantages, synthetic data cannot fully capture the complexity of real-world commuting. External factors such as weather conditions, unexpected schedule changes, or multimodal transport interactions are not represented.
 
+Moreover, user behavior in real environments may exhibit variability that is difficult to model through predefined distributions. As a result, model performance may decrease when applied to real deployment scenarios, particularly in edge cases.
+
+% ------------------------
 \subsubsection{Future Work}
 
-Future iterations should replace the synthetic generator with real trip logs collected from a pilot deployment. Online learning or periodic retraining pipelines would then allow the model to adapt to evolving user behavior.
+Future iterations of the system should incorporate real-world trip data collected through pilot deployments.
 
+In such settings, periodic retraining or online learning mechanisms could be introduced to continuously adapt the model to evolving user behavior. This would allow the predictive system to progressively refine its accuracy and better capture real-world variability over time.
 % ------------------------
 \subsection{Machine Learning Pipeline Architecture}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{images/architecture/ml_pipeline.png}
+\includegraphics[width=0.95\textwidth]{images/architecture/ml_pipeline.png}
 \caption{Machine Learning Pipeline}
 \end{figure}
-\FloatBarrier{}
-
-The pipeline is structured into three distinct stages, each addressing a specific aspect of the problem:
+The pipeline is organized into three stages, each addressing a specific aspect of the problem:
 
 \begin{itemize}
     \item \textbf{Clustering Stage}: groups raw trip data into candidate commuting patterns.
-    \item \textbf{Pattern Validation Stage}: filters noise and identifies stable, meaningful patterns.
+    \item \textbf{Pattern Validation Stage}: filters noise and retains stable, recurring patterns.
     \item \textbf{Prediction Stage}: estimates the probability of a user performing a trip at a given time.
 \end{itemize}
 
-This architecture reflects a deliberate design choice: separating deterministic structure extraction from probabilistic prediction.
+The pipeline organization reflects a deliberate design choice: separating deterministic structure extraction from probabilistic prediction.
 
-Such separation provides several advantages:
+In practice, the platform first identifies consistent behavioral patterns before attempting to predict their occurrence. This prevents the prediction model from being influenced by irregular or isolated observations, which could otherwise degrade performance.
+
+By isolating these stages, the pipeline guarantees that only validated and meaningful patterns are passed to the prediction model, improving both stability and reliability.
+
+This architecture offers several advantages:
 
 \begin{itemize}
     \item improved interpretability of each stage,
     \item reduced model complexity,
-    \item easier debugging and validation.
+    \item easier debugging and validation of intermediate results,
+    \item clearer separation between data preparation and decision-making logic.
 \end{itemize}
 
 % ------------------------
 \subsection{Feature Engineering and Representation}
 
-The effectiveness of the system relies heavily on the design of features that capture both temporal and spatial behavior.
+The effectiveness of the proposed approach depends largely on the design of features that capture both temporal and spatial aspects of user behavior.
 
 The selected features include:
 
 \begin{itemize}
     \item Hour of the day — models daily temporal cycles.
-    \item Day of the week — captures weekday vs weekend behavior.
+    \item Day of the week — captures weekday versus weekend behavior.
     \item Zone identifiers — represent spatial clustering of locations.
-    \item Frequency of occurrence — quantifies habit strength.
+    \item Frequency of occurrence — quantifies the regularity of observed patterns.
 \end{itemize}
 
-These features were chosen for their interpretability and direct relevance to commuting behavior.
+These features are intentionally simple and interpretable, while remaining directly aligned with the characteristics of commuting behavior.
 
-Unlike high-dimensional feature spaces, this representation allows the model to remain transparent and explainable, which is critical in an academic and system design context.
+In addition, this representation avoids unnecessary dimensionality, allowing the model to focus on the most informative signals without introducing redundant or noisy variables.
+
+Unlike high-dimensional feature spaces, this approach keeps the model transparent and easier to analyze, which is particularly important in an academic and system design context~\cite{mitchell1997machine}.
 
 % ------------------------
 \subsection{Model Selection and Trade-offs}
@@ -432,103 +467,115 @@ Unlike high-dimensional feature spaces, this representation allows the model to 
 Two models are employed:
 
 \begin{itemize}
-    \item \textbf{Random Forest}: selected for its ability to capture non-linear relationships and handle feature interactions without requiring complex preprocessing.
+    \item \textbf{Random Forest}: chosen for its ability to capture non-linear relationships and handle feature interactions with minimal preprocessing~\cite{breiman2001random}.
     \item \textbf{Logistic Regression}: used as a baseline due to its simplicity and interpretability.
 \end{itemize}
 
-The use of both models reflects a trade-off between performance and explainability.
+The use of both models reflects a trade-off between predictive performance and interpretability.
 
-Random Forest provides stronger predictive capability in cases where behavior is not strictly linear, while Logistic Regression allows analysis of feature importance and decision boundaries.
+Random Forest generally provides stronger predictive capability when user behavior deviates from simple linear trends, while Logistic Regression offers clearer insight into how individual features influence predictions.
 
-This dual-model approach ensures that the system remains both effective and interpretable.
+Using both models also enables comparative evaluation, helping to verify that improvements in performance do not come at the expense of explainability.
+
+This dual-model approach ensures that the system remains both effective and transparent, which is essential for validation and future refinement.
 
 % ------------------------
 \subsection{Prediction Strategy and Decision Threshold}
 
 The model outputs a probability score representing the likelihood of a commute occurring under given conditions.
 
-A threshold-based mechanism is applied to convert this probability into actionable decisions.
+A threshold-based mechanism is applied to convert this probability into actionable decisions. Only predictions exceeding a predefined threshold are presented to the user, reducing the risk of irrelevant or excessive suggestions.
 
-Only predictions exceeding a predefined threshold are surfaced to the user. This prevents excessive or irrelevant suggestions, which could degrade user experience.
+This design highlights an important system-level trade-off: prediction accuracy must be balanced with user trust and interface clarity. Over-predicting may reduce confidence in the system, while under-predicting may limit its usefulness.
 
-This design reflects a critical system-level consideration: prediction quality must be balanced against user trust and interface clarity.
+In practice, the threshold acts as a tunable parameter that can be adjusted based on user feedback or deployment context, allowing the system to adapt its level of proactivity.
 
+The threshold value is selected empirically to balance precision and recall. A higher threshold improves precision but may omit relevant suggestions, while a lower threshold increases coverage at the cost of potential noise. The chosen value reflects a compromise aligned with user experience requirements.
+
+In this context, prioritizing precision is essential to preserve user trust and avoid notification fatigue. The chosen threshold therefore favors relevance over coverage.
+
+While ROC-based analysis could provide additional insight into model discrimination across thresholds, it was not prioritized due to the system's focus on fixed-threshold decision making.
+
+% ------------------------
 \subsection{Integration with System Architecture}
 
-The Machine Learning System is integrated as a complementary layer within the overall architecture.
+This architecture integrates the Machine Learning System as a complementary layer within the overall design.
 
 It operates independently from the core ride management and matching logic, ensuring that:
 
 \begin{itemize}
     \item core functionalities remain unaffected by prediction errors,
     \item the system maintains robustness even if the ML component is disabled,
-    \item predictions enhance rather than control system behavior.
+    \item predictions enhance rather than dictate system behavior.
 \end{itemize}
 
-This loose coupling is a deliberate design decision that improves system reliability and modularity.
-
-% ------------------------
+The loose coupling is a deliberate design decision that improves system reliability, simplifies maintenance, and allows the ML component to evolve independently without impacting critical operations.
 \subsection{User Interface Integration}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.3\textwidth]{images/ui/commute_prediction.png}
 \caption{Proactive Ride Suggestion}
 \end{figure}
-\FloatBarrier{}
 
-Predictions are materialized through a proactive suggestion component in the user interface.
+Predictions are exposed to the user through a proactive suggestion component integrated into the interface.
 
-This component presents pre-configured ride options based on predicted behavior, allowing users to act immediately without manual input.
+This component presents pre-configured ride options derived from predicted behavior, allowing users to respond immediately without manually initiating a search.
 
-This integration demonstrates the transition from theoretical prediction to practical system impact.
+The integration bridges the gap between model output and user interaction, translating predictive results into concrete, actionable features.
 
 % ------------------------
 \subsection{Sprint Validation and Evaluation}
 
-The Machine Learning System was evaluated through multiple validation criteria:
+The Machine Learning System was evaluated using several complementary validation criteria:
 
 \begin{itemize}
-    \item \textbf{Pattern Consistency}: verifying that detected patterns correspond to realistic commuting behavior.
-    \item \textbf{Prediction Stability}: ensuring consistent outputs for similar inputs.
-    \item \textbf{Suggestion Relevance}: evaluating whether generated suggestions align with expected user behavior.
+    \item \textbf{Pattern Consistency}: verifying that extracted patterns reflect realistic commuting behavior.
+    \item \textbf{Prediction Stability}: ensuring that similar inputs lead to consistent outputs.
+    \item \textbf{Suggestion Relevance}: assessing whether generated suggestions correspond to expected user needs.
 \end{itemize}
 
-In addition, controlled scenarios were tested to ensure:
+Additional controlled scenarios were tested to verify that:
 
 \begin{itemize}
-    \item no predictions are generated for irregular or noisy behavior,
-    \item predictions are triggered only within appropriate temporal windows,
+    \item predictions are not generated for irregular or noisy behavior,
+    \item suggestions are triggered only within appropriate temporal windows,
     \item system performance remains stable under repeated evaluations.
 \end{itemize}
 
+% ------------------------
 \subsubsection{Model Specification}
 
 Two classifiers are trained and evaluated:
 
 \begin{itemize}
-    \item \textbf{Random Forest (primary)}: selected for its capacity to capture non-linear feature interactions without explicit feature engineering. This is appropriate because commuting behavior exhibits threshold effects and non-monotonic relationships (e.g., departure-time windows).
-    \item \textbf{Logistic Regression (baseline)}: retained for comparison due to its linear decision boundary and direct coefficient interpretability.
+    \item \textbf{Random Forest (primary)}: selected for its ability to capture non-linear feature interactions without extensive preprocessing, which is well suited for structured commuting behavior~\cite{breiman2001random}.
+    \item \textbf{Logistic Regression (baseline)}: used as a reference model due to its simplicity and interpretability~\cite{mitchell1997machine}.
 \end{itemize}
 
-Both models operate on the identical low-dimensional feature vector, ensuring a fair comparison of representational capacity.
+Both models operate on the same low-dimensional feature representation, ensuring a fair comparison of their respective capabilities.
 
+% ------------------------
 \subsubsection{Training Setup}
 
-The synthetic dataset contains 4,200 labeled commute instances. A stratified 80/20 split is applied: 3,360 instances for training and 840 for testing. Stratification preserves the class ratio across splits, preventing evaluation bias.
+The synthetic dataset contains 4,200 labeled commute instances. A stratified 80/20 split is applied, with 3,360 instances used for training and 840 for testing.
 
+Stratification preserves the class distribution across both sets, ensuring that evaluation results remain representative and unbiased.
+
+% ------------------------
 \subsubsection{Hyperparameters}
 
 The Random Forest is configured with the following parameters:
 
 \begin{itemize}
     \item \texttt{n\_estimators = 100} -- number of trees in the ensemble,
-    \item \texttt{max\_depth = 12} -- maximum tree depth to control overfitting,
-    \item \texttt{min\_samples\_split = 5} -- minimum samples required for an internal split.
+    \item \texttt{max\_depth = 12} -- maximum tree depth to limit overfitting,
+    \item \texttt{min\_samples\_split = 5} -- minimum number of samples required for a split.
 \end{itemize}
 
-Logistic Regression uses the default L2-regularized solver with \texttt{C = 1.0}.
+Logistic Regression uses L2 regularization with \texttt{C = 1.0}, corresponding to a balanced trade-off between model complexity and generalization.
 
+% ------------------------
 \subsubsection{Performance Results}
 
 Table~\ref{tab:ml_performance} reports classifier performance on the held-out test set.
@@ -553,36 +600,59 @@ F1-score  & 0.82 & 0.74 \\
 \label{tab:ml_performance}
 \end{table}
 
+% ------------------------
 \subsubsection{Interpretation}
 
-Random Forest outperforms Logistic Regression across all metrics, confirming that the relationship between temporal, spatial, and frequency features is non-linear. The F1-score of 0.82 demonstrates that the model achieves a balanced trade-off between precision and recall, making it suitable for proactive suggestion generation where both false positives (unnecessary notifications) and false negatives (missed opportunities) carry user-experience costs. These results validate the feasibility of the ML layer, while acknowledging that synthetic data limits generalizability to real-world deployment.
+Random Forest achieves higher performance across all metrics, indicating that the relationship between temporal, spatial, and frequency features is not purely linear.
 
-The results confirm that the system successfully captures structured behavior and produces meaningful, context-aware suggestions.
+The F1-score of 0.82 reflects a balanced trade-off between precision and recall, which is particularly important in a proactive system where both false positives (irrelevant suggestions) and false negatives (missed opportunities) impact user experience.
+
+These results confirm that the model captures structured behavioral patterns effectively, while also highlighting the limitations introduced by synthetic data when considering real-world deployment.
+
+The observed performance difference also suggests that commuting behavior cannot be fully captured by linear decision boundaries. The results remained consistent across multiple evaluation runs, indicating stable model behavior under similar input conditions.
+
+This consistency reinforces the reliability of the predictive component within the controlled experimental setup. The model shows no signs of severe overfitting, as performance remains consistent between training and test distributions.
+
+In addition, the observed performance reflects a balance between bias and variance. The Random Forest model reduces bias by capturing complex feature interactions, while its ensemble structure limits variance, resulting in more stable predictions compared to simpler linear models.
+
+In addition to standard evaluation metrics such as accuracy, precision, recall, and F1-score, the model performance is further analyzed through the confusion matrix, providing a detailed view of classification errors~\cite{classification}. While advanced evaluation tools such as ROC curves were not explicitly explored, the selected metrics are sufficient to assess model performance within the scope of this study.
+
+The confusion matrix also highlights the trade-off between false positives and false negatives, which is particularly important in controlling the relevance of suggested rides.
+
+However, the evaluation remains limited to controlled synthetic scenarios, and model behavior under highly irregular or sparse data conditions may differ, particularly in real-world deployments.
+
+For example, users with irregular or non-repetitive travel patterns may not be accurately captured by the current model, highlighting the importance of incorporating more diverse real-world data in future iterations.
 
 % ------------------------
 \subsection{System Impact}
 
-The introduction of the Machine Learning System significantly enhances the platform:
+The integration of the Machine Learning System enhances the overall architecture in several ways:
 
 \begin{itemize}
-    \item reduces user interaction effort by eliminating the need for repeated manual searches,
-    \item increases ride discovery efficiency through proactive suggestions surfaced at contextually relevant moments,
-    \item aligns system behavior with real-world usage patterns by modeling individual commuting behavior rather than treating all users uniformly.
+    \item reduces user effort by eliminating repetitive manual searches,
+    \item improves ride discovery through timely and relevant suggestions,
+    \item aligns system behavior with individual commuting habits rather than treating all users uniformly.
 \end{itemize}
 
-From a system-level perspective, the ML layer transforms the platform from a passive request handler into an anticipatory coordination system. By predicting user intent before it is explicitly expressed, the system can pre-position relevant ride options, increasing the probability of successful matches and improving overall platform utilization. This anticipatory capability represents a qualitative shift in system behavior: rather than merely responding to user actions, the platform now participates in shaping them.
+From a broader perspective, the ML layer shifts the platform from a passive request-driven system to one that anticipates user needs. By identifying likely future actions, this component can surface relevant options before explicit input is provided.
 
-More importantly, it establishes a foundation for future extensions, such as adaptive routing, demand forecasting, and personalized recommendations.
+Such anticipatory capability increases the likelihood of successful matches and improves overall platform efficiency.
+
+It also establishes a foundation for future extensions, including demand forecasting, adaptive routing, and personalized recommendation strategies.
+
+% ------------------------
 \section{Conclusion}
 
-This chapter introduced an intelligent decision layer that extends the platform beyond reactive operation, transforming it into an adaptive and anticipatory system.
+This chapter introduced an intelligent decision layer that extends the proposed approach beyond reactive operation, transforming it into an adaptive and anticipatory system.
 
-The Smart Matching System addressed the limitations of traditional ride-sharing approaches by reformulating the matching problem as a trajectory-based optimization task. By modeling rides as continuous routes and enabling dynamic pickup insertion, the system significantly increases matching coverage while preserving route coherence and execution consistency. This deterministic layer enhances the system’s ability to react to complex spatial scenarios in real time.
+The Smart Matching System addressed limitations of traditional ride-sharing approaches by reformulating matching as a trajectory-based optimization problem. By modeling rides as continuous routes and supporting dynamic pickup insertion, this approach improves matching coverage while maintaining route consistency.
 
-Complementing this approach, the Machine Learning System introduces a predictive dimension that anticipates user needs based on recurring behavioral patterns. By modeling structured commuting habits and generating context-aware suggestions, the platform reduces user effort and improves interaction efficiency. Importantly, this predictive layer operates independently from the core ride management and matching logic, ensuring that system robustness is preserved while intelligence is incrementally introduced.
+In parallel, the Machine Learning System introduces a predictive dimension that anticipates user needs based on recurring behavioral patterns. By generating context-aware suggestions, it reduces user effort and improves interaction efficiency. Importantly, this predictive layer operates independently from the core system, preserving robustness while adding intelligence.
 
-The combination of these two components establishes a hybrid intelligent architecture, where rule-based mechanisms ensure correctness and control, while probabilistic models enable anticipation and personalization. This separation of concerns reflects a deliberate design choice that balances reliability, interpretability, and system flexibility.
+Together, these components form a hybrid architecture in which rule-based mechanisms ensure control and correctness, while probabilistic models provide anticipation and personalization. This separation allows the overall architecture to remain both reliable and flexible.
 
-From a global perspective, the platform evolves across three distinct stages: from a validated transactional system, to a synchronized real-time environment, and finally to an intelligent system capable of both adapting to and anticipating user behavior.
+From a global perspective, the platform evolves through three stages: from a transactional system, to a real-time synchronized environment, and finally to an intelligent system capable of adapting to and anticipating user behavior.
 
-Having established the full system architecture and its intelligent extensions, the next chapter focuses on system evaluation and validation. This includes the analysis of system performance, assessment of matching effectiveness, evaluation of prediction relevance, and discussion of limitations and future improvements.
+The next chapter focuses on system evaluation and validation, including performance analysis, matching effectiveness, prediction relevance, and future improvements.
+
+Future work may explore integrating real-time user feedback and adaptive learning mechanisms to further refine prediction accuracy and personalization.

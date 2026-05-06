@@ -129,6 +129,7 @@ The analysis highlights several limitations when traditional systems are applied
 \end{itemize}
 
 These limitations reduce the effectiveness of traditional carpooling systems in structured organizational environments.
+
 \section{Proposed Solution}
 
 To address the previously identified challenges, this work introduces an intelligent carpooling platform tailored for enterprise environments.
@@ -157,7 +158,7 @@ Compared to existing platforms, the proposed system offers the following advanta
 
 \section{Project Contributions}
 
-This work contributes to the field of intelligent transportation systems through:
+This work contributes to the field of intelligent transportation systems~\cite{its} through:
 
 \begin{itemize}
     \item A route-based matching approach that increases flexibility compared to fixed-point systems
@@ -166,7 +167,11 @@ This work contributes to the field of intelligent transportation systems through
     \item Integration of real-time communication mechanisms to improve interaction
 \end{itemize}
 
-These contributions differentiate the proposed system from traditional carpooling solutions.
+In addition to these technical aspects, the proposed approach demonstrates how intelligent transportation concepts can be adapted to a controlled enterprise environment while remaining operationally practical and architecturally coherent.
+
+The platform combines real-time synchronization, geospatial analysis, and predictive assistance mechanisms within a unified system architecture. This integration enables multiple intelligent components to cooperate without introducing excessive complexity or compromising system consistency.
+
+These contributions differentiate the proposed system from traditional carpooling solutions, which generally rely on rigid matching logic and limited interaction capabilities.
 
 \section{Requirements Specification}
 
@@ -183,6 +188,10 @@ The system provides the following functionalities:
     \item Real-time notifications and communication
 \end{itemize}
 
+Beyond standard ride management operations, the system also supports synchronized multi-user interaction and intelligent assistance features. These mechanisms allow users to interact with the platform dynamically while maintaining consistent system state across different clients.
+
+The combination of real-time communication and intelligent decision support transforms the platform from a static booking application into an adaptive transportation environment.
+
 \subsection{Non-Functional Requirements}
 
 The system must satisfy the following quality attributes:
@@ -195,48 +204,125 @@ The system must satisfy the following quality attributes:
     \item \textbf{Reliability:} Stable and consistent system behavior
 \end{itemize}
 
+Particular attention is given to responsiveness and consistency, especially for real-time synchronization and intelligent matching operations where delayed or inconsistent updates could negatively affect user interaction quality.
+
+The system architecture is therefore designed to maintain reliable communication, controlled lifecycle transitions, and stable behavior under continuous interaction conditions.
+
 \section{Technologies Used}
 
 The system is built on a technology stack selected according to performance, scalability, and integration requirements.
+
+The selected technologies collectively support backend orchestration, mobile interaction, geospatial processing, machine learning integration, and real-time synchronization. This combination ensures that the platform remains modular while supporting intelligent and interactive features.
 
 \subsection{Backend Technology}
 
 The backend is implemented using \textbf{Flask}, a lightweight Python web framework~\cite{flask}.
 
-Flask was chosen for its simplicity and flexibility, enabling fine-grained control over system architecture and facilitating the integration of custom logic required for the intelligent matching mechanism. Furthermore, Python provides strong support for data processing and machine learning.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/logos/flask.pdf}
+    \caption{Flask Framework Logo}
+    \label{fig:flask}
+\end{figure}
+
+Flask was chosen for its simplicity and flexibility, enabling fine-grained control over system architecture and facilitating the integration of custom logic required for the intelligent matching mechanism.
+
+Its lightweight structure also simplifies the integration of machine learning components, geospatial services, and WebSocket-based communication layers within a unified backend environment.
+
+Furthermore, Python provides strong support for data processing and machine learning workflows, making it well suited for implementing predictive features and intelligent system behavior.
 
 \subsection{Frontend Technology}
 
 The frontend is developed using \textbf{Flutter}~\cite{flutter}.
 
-Flutter allows the development of a single codebase for multiple platforms while maintaining performance and consistency. Its reactive architecture enables the creation of responsive interfaces suitable for real-time interaction.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/logos/flutter.pdf}
+    \caption{Flutter Framework Logo}
+    \label{fig:flutter}
+\end{figure}
+
+Flutter allows the development of a single codebase for multiple platforms while maintaining performance and consistency.
+
+Its reactive architecture enables the creation of responsive interfaces suitable for real-time interaction and dynamic state updates.
+
+This approach simplifies interface maintenance while ensuring visual consistency and smooth integration with the backend communication layer.
 
 \subsection{Database Management System}
 
 The system uses \textbf{PostgreSQL}~\cite{postgresql} as its database management system.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/logos/postgresql.pdf}
+    \caption{PostgreSQL Logo}
+    \label{fig:postgresql}
+\end{figure}
+
 PostgreSQL was selected for its robustness, scalability, and advanced querying capabilities, ensuring reliable data storage and integrity.
+
+The database layer also supports structured management of ride information, user activity, and historical commuting data required by the intelligent prediction components.
+
+\subsection{Machine Learning Framework}
+
+The machine learning component utilizes \textbf{Scikit-learn}~\cite{sklearn}, a Python library for machine learning model training and evaluation.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/logos/scikit-learn.png}
+    \caption{Scikit-learn Logo}
+    \label{fig:scikit-learn}
+\end{figure}
+
+Scikit-learn provides comprehensive tools for data preprocessing, model selection, and performance evaluation.
+
+The library is used for training, evaluation, and validation of predictive models within the commute prediction system, enabling reliable analysis of recurring commuting patterns.
+
+Its integration within the backend environment also simplifies experimentation with multiple classification models while maintaining interpretable and reproducible workflows.
 
 \subsection{Geospatial Services}
 
-Geospatial processing relies on \textbf{OpenStreetMap (OSM)}~\cite{osm} and \textbf{OSRM}~\cite{osrm}.
+Geospatial processing relies on \textbf{OpenStreetMap (OSM)}~\cite{osm} and \textbf{OSRM}~\cite{osrm}, supported by spatial data analysis techniques~\cite{geospatial}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.18\textwidth]{images/logos/Openstreetmap_logo.pdf}
+    \caption{OpenStreetMap Logo}
+    \label{fig:osm}
+\end{figure}
 
 These tools provide accurate route computation and efficient handling of geographic data, which are essential for implementing route-based matching.
+
+They also enable trajectory analysis, corridor construction, and detour estimation, all of which are central to the intelligent matching strategy proposed in this work.
 
 \subsection{Real-Time Communication}
 
 Real-time interaction is handled using \textbf{WebSocket} technology~\cite{websocket}.
 
-WebSockets enable continuous bidirectional communication between the client and the server, allowing instant updates and synchronization. Unlike traditional request-response models, this approach maintains an open connection for real-time data exchange.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.22\textwidth]{images/logos/websocket.pdf}
+    \caption{WebSocket Protocol Logo}
+    \label{fig:websocket}
+\end{figure}
 
-Within this system, WebSockets are used to deliver notifications, update ride status, and synchronize interactions between users, ensuring immediate feedback during system operations.
+WebSockets enable continuous bidirectional communication between the client and the server, allowing instant updates and synchronization.
+
+Unlike traditional request-response models, this approach maintains an open connection for real-time data exchange.
+
+Within this system, WebSockets are used to deliver notifications, update ride status, synchronize driver location tracking, and maintain consistent shared state across connected users.
+
+This communication model significantly improves responsiveness and reduces interaction latency during collaborative ride operations.
 
 \subsection{Technology Selection Justification}
 
-The selected technologies ensure a balance between performance, scalability, and flexibility. They support real-time communication, geospatial processing, and intelligent features, forming a solid foundation for the proposed system.
-\section{Development Methodology}
+The selected technologies ensure a balance between performance, scalability, and flexibility.
 
-The project followed an Agile development methodology based on the Scrum framework. Scrum structures work into time-boxed iterations called sprints, typically lasting two to four weeks, delivering potentially shippable product increments.
+Together, they support real-time communication, geospatial processing, machine learning integration, and intelligent coordination mechanisms while preserving architectural modularity.
+
+This combination forms a solid technical foundation capable of supporting both current system requirements and future intelligent extensions.
+
+The project followed an Agile development methodology based on the Scrum framework~\cite{scrum}. Scrum structures work into time-boxed iterations called sprints, typically lasting two to four weeks, delivering potentially shippable product increments.
 
 This methodology was selected due to its suitability for the project context:
 \begin{itemize}
@@ -252,7 +338,7 @@ The main concepts of the Scrum methodology are illustrated in Figure~\ref{fig:sc
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{images/methodology/scrum.jpg}
-    \caption{Scrum Development Process}
+    \caption{Scrum Framework Overview. Source:~\cite{scrum_overview}}
     \label{fig:scrum}
 \end{figure}
 
@@ -268,18 +354,28 @@ The Scrum framework defines three core roles, adapted to this professional inter
     \item \textbf{Development Team:} A collaborative development team composed of the intern working in coordination with technical supervisors and company mentors. This structure ensures continuous validation, code review, and knowledge transfer within a real engineering environment, while maintaining cross-functional responsibility for design, implementation, and quality assurance of each system increment.
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/methodology/scrum_roles.jpg}
+    \caption{Scrum Roles Overview. Source:~\cite{scrum_roles_img}}
+    \label{fig:scrum_roles}
+\end{figure}
+
 \section{Product Backlog}
 
-The Product Backlog represents the comprehensive set of features and user stories defining the complete system vision. It captures requirements from both end-users (collaborators) and administrative actors. Table~\ref{tab:backlog} presents the prioritized user stories for this project.
+The Product Backlog defines the main functionalities and user stories required by the platform. Table~\ref{tab:backlog} summarizes the prioritized backlog for the project.
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.1}
 \small
-\begin{tabular}{|c|p{9cm}|c|}
+\setlength{\tabcolsep}{4pt}
+
+\begin{tabular}{|c|p{8.8cm}|c|}
 \hline
 \textbf{ID} & \textbf{User Story} & \textbf{Priority} \\
 \hline
+
 \multicolumn{3}{|c|}{\textbf{Core Features---Collaborator}} \\
 \hline
 US01 & As a collaborator, I want to register and authenticate securely to access the system & High \\
@@ -294,18 +390,21 @@ US05 & As a collaborator, I want to book a ride and receive confirmation & High 
 \hline
 US06 & As a collaborator, I want to manage my bookings and ride history & High \\
 \hline
+
 \multicolumn{3}{|c|}{\textbf{Real-Time Features---Collaborator}} \\
 \hline
 US07 & As a collaborator, I want to receive real-time notifications about ride status & High \\
 \hline
 US08 & As a collaborator, I want to see live updates when bookings are confirmed or cancelled & Medium \\
 \hline
+
 \multicolumn{3}{|c|}{\textbf{Intelligent Features---Collaborator}} \\
 \hline
 US09 & As a collaborator, I want to be matched with optimal ride partners based on route overlap & High \\
 \hline
 US10 & As a collaborator, I want to receive ML-based commute suggestions based on my patterns & Medium \\
 \hline
+
 \multicolumn{3}{|c|}{\textbf{Administrative Features---Admin}} \\
 \hline
 US11 & As an admin, I want to monitor system activity and user engagement & Medium \\
@@ -316,15 +415,17 @@ US13 & As an admin, I want to manage users and freeze accounts when necessary & 
 \hline
 US14 & As an admin, I want to view system health and performance metrics & Low \\
 \hline
+
 \end{tabular}
+
 \caption{Product Backlog -- User Stories by Actor and Feature Category}
 \label{tab:backlog}
 \end{table}
 
-This Product Backlog represents the global system vision encompassing all required functionality. The detailed technical breakdown and sprint allocation will be presented in Chapter~3, where each user story is mapped to specific development iterations with corresponding use case diagrams, sequence diagrams, and implementation details.
+This Product Backlog represents the overall system vision and the set of functionalities expected from the platform. The detailed sprint allocation and technical implementation are presented in Chapter~3.
 \section{Backlog Structuring and Prioritization}
 
-The Product Backlog was structured into six phases ensuring systematic progression from infrastructure to intelligent capabilities:
+The Product Backlog was organized into six progressive phases to ensure a structured evolution of the platform, moving from foundational infrastructure toward advanced intelligent capabilities.
 
 \begin{itemize}
     \item \textbf{Phase 1 -- Foundation (US01--US02):} Authentication and user management
@@ -335,7 +436,13 @@ The Product Backlog was structured into six phases ensuring systematic progressi
     \item \textbf{Phase 6 -- Admin (US11--US14):} Monitoring and analytics
 \end{itemize}
 
-This sequencing respects architectural dependencies: real-time features require ride infrastructure; intelligent matching depends on operational data; machine learning requires accumulated patterns. Each sprint delivers a validated increment upon which subsequent work builds.
+This progression follows the logical dependencies between system components. Foundational services such as authentication and ride management are implemented first because they constitute the basis upon which all later functionalities rely.
+
+Real-time synchronization features are introduced only after stable ride workflows are established, ensuring that event propagation mechanisms operate on a consistent backend structure. Similarly, the intelligent matching layer depends on operational ride data and validated route management before spatial optimization can be integrated.
+
+The machine learning phase is positioned later in the process because predictive behavior requires accumulated usage patterns and stable data representations. Finally, administrative and observability features are added once the core platform behavior becomes sufficiently mature to support monitoring and analytics.
+
+Each sprint therefore delivers a coherent and validated increment, allowing the platform to evolve progressively while preserving system stability and architectural consistency.
 
 \section{Sprint Planning}
 

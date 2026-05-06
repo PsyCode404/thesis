@@ -89,15 +89,15 @@ The administrator is associated with control operations over user accounts, such
 
 \section{Authentication Mechanism}
 
-Authentication is implemented using \textbf{Single Sign-On (SSO)} through Microsoft Office 365. This approach removes the need for manual registration and relies on the organization's existing identity infrastructure.
+Authentication is integrated with Microsoft 365 enterprise accounts to provide Single Sign-On (SSO) capabilities. After successful authentication, the backend generates JSON Web Tokens (JWT)~\cite{jwt} used to secure subsequent API communication between the mobile application and backend services.
 
 Access is strictly limited to users with a valid professional email address within the \textbf{@gexpertise.fr} domain. This restriction guarantees that only authorized employees can access the platform.
 
 From an architectural perspective, authentication is divided into two stages:
 
 \begin{itemize}
-    \item \textbf{External Authentication:} Managed by Microsoft Office 365, responsible for verifying user identity.
-    \item \textbf{Internal Validation:} Performed by the backend, responsible for enforcing domain restrictions and managing user records.
+    \item \textbf{External Authentication:} Managed by Microsoft 365, responsible for verifying user identity through enterprise credentials.
+    \item \textbf{Internal Token Management:} Performed by the backend, responsible for JWT generation, validation, and enforcing domain restrictions.
 \end{itemize}
 
 This two-step approach combines trusted external identity verification with application-level control, strengthening overall security.
